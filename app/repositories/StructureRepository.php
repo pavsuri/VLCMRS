@@ -32,7 +32,12 @@ class StructureRepository extends AbstractBaseRepository
                             ->join('field_attributes', 'structure.field_id', '=', 'field_attributes.id')
                             ->join('field_types', 'field_attributes.field_type_id', '=', 'field_types.id')
                             ->where('form_id', '=', $formId)
-                            ->select('structure.*', 'field_attributes.name as fieldName', 'field_attributes.value as fieldValue', 'field_attributes.label', 'field_types.name as fieldType')
+                            ->select('structure.*',
+                                    'forms.name as formName',
+                                    'field_attributes.name as fieldName', 
+                                    'field_attributes.value as fieldValue', 
+                                    'field_attributes.label', 
+                                    'field_types.name as fieldType')
                             ->get()
         );
   }

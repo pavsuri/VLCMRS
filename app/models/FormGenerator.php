@@ -1,0 +1,41 @@
+<?php
+namespace models;
+
+class FormGenerator extends \Eloquent
+{
+    protected $table = 'forms';
+    
+    private $name;
+    private $type_id;
+    
+    public function setName($name)
+    {
+        $this->setParams('name', $name);
+    }
+    
+    public function setTypeId($type_id)
+    {
+        $this->setParams('type_id', $type_id);
+    }
+    
+    public function getName()
+    {
+        $this->getParams('name');
+    }
+    
+    public function getTypeId()
+    {
+        $this->getParams('type_id');
+    }
+    
+    private function setParams($attributeKey, $attributeValue)
+    {
+        $this->attributes[$attributeKey] = $attributeValue; 
+    }
+    
+    private function getParams($attributeKey)
+    {
+        $this->attributes[$attributeKey]; 
+    }
+    
+}

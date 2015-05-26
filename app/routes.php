@@ -41,12 +41,26 @@ Route::post('/saveAttributes', [
 ]);
 
 
-
 //Create Form with Fields
+/*
+ * @TODo: frontend
+ */
 Route::get('/createForm/{formId}', [
     'as' => 'forms.addFieldsToForm',
     'uses' => 'FormBuilderController@createForm'
 ]);
 
+//Get Attributes of single field
+Route::get('/getFieldAttributes/{fieldId}', [
+    'uses' => 'AttributeBuilderController@getAttributesByField'
+]);
 
+//Save Form Attributes
+Route::get('/saveFormAttributes/{formId}/{fieldId}/{parentId}', [
+    'uses' => 'FormBuilderController@saveFormAttributes'
+]);
 
+//Get Form with Attributes
+Route::get('/getFormAttributes/{formId}', [
+    'uses' => 'FormBuilderController@getFormAttributes'
+]);

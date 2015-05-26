@@ -43,7 +43,7 @@ class AttributeGenerator extends \Eloquent
     }
     
     
-     public function setValue($value)
+    public function setValue($value)
     {
         $this->setParams('value', $value);
     }

@@ -39,6 +39,16 @@ class AttributeBuilderController extends \BaseController
         return View::make('attributes.index', array('fields' => $fieldsData, 'msg' => 'Saved Successfully'));
     }
 
+    /**
+     * Get all Attributes by Field Id
+     */
+    public function getAttributesByField($fieldId = 0)
+    {
+        if(strlen($fieldId) > 0) {
+            $fieldAttributes = $this->attributeBuilderService->getAttributesByField($fieldId);
+        }
+        return $fieldAttributes;
+    }
 	/**
 	 * Display the specified resource.
 	 *

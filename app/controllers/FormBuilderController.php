@@ -1,6 +1,8 @@
 <?php
 use services\FormBuilderService;
 use services\FieldTypesService;
+use services\AttributeBuilderService;
+use services\StructureService;
 
 class FormBuilderController extends \BaseController 
 {
@@ -9,12 +11,21 @@ class FormBuilderController extends \BaseController
     
     private  $fieldTypesService;
     
+    private  $attributeBuilderService;
+    
+    private  $structureService;
+    
+    
     public function __construct(FormBuilderService $formBuilderService,
-                                FieldTypesService $fieldTypesService
+                                FieldTypesService $fieldTypesService,
+                                AttributeBuilderService $attributeBuilderService,
+                                StructureService $structureService
                                 )
      {
          $this->formBuilderService = $formBuilderService;
          $this->fieldTypesService = $fieldTypesService;
+         $this->attributeBuilderService = $attributeBuilderService;
+         $this->structureService = $structureService;
      }
      
     /**
@@ -30,7 +41,7 @@ class FormBuilderController extends \BaseController
 
 
 	/**
-	 * Show the form for creating a new resource.
+	 * Default page. Shows all forms
 	 *
 	 * @return Response
 	 */
@@ -40,7 +51,7 @@ class FormBuilderController extends \BaseController
 	}
     
     /**
-	 * Show the form for creating a new resource.
+	 * Create form name page.
 	 *
 	 * @return Response
 	 */
@@ -53,7 +64,7 @@ class FormBuilderController extends \BaseController
 
 
 	/**
-	 * Store a newly created resource in storage.
+	 * Save form to form table.
 	 *
 	 * @return Response
 	 */
@@ -66,58 +77,21 @@ class FormBuilderController extends \BaseController
         $data = $this->formBuilderService->getAllForms();
         return View::make('forms.allForms', array('forms' => $data, 'message' => $message));
     }
+
+    /**
+     * Save Form Field Attributes
+     */
+    public function saveFormAttributes($formId, $fieldId, $parentId = 0) 
+    {
+        return $this->structureService->saveFormAttributes($formId, $fieldId, $parentId);
+    }
     
     /**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-        $formData = FormBuilder::find($id);
+     * Get Form with Attributes
+     */
+    public function getFormAttributes($formId)
+    {
+        $formData = $this->structureService->getFormAttributes($formId);
         echo "<pre>"; print_r($formData);
-	}
-
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		$forms = FormBuilder::find($id);
-        $forms->name       = Input::get('formName');
-        $forms->type_id      = Input::get('typeId');
-        $forms->save();
-
-	}
-
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
-
-
+    }
 }

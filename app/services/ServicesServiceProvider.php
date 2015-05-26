@@ -20,5 +20,9 @@ class ServicesServiceProvider extends ServiceProvider
       $this->app->bind(
         'services\AttributeBuilderService'
       );
+      
+      $this->app->bind(
+        'services\StructureService'
+      );
     }
 }

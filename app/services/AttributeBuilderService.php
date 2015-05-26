@@ -2,14 +2,19 @@
 namespace services;
 
 use models\AttributeGenerator;
+use repositories\AttributeBuilderRepository;
 
 class AttributeBuilderService
 {
     private $attributeGenerator;
     
-    public function __construct(AttributeGenerator $attributeGenerator)
+    private  $attributeBuilderRepository;
+
+
+    public function __construct(AttributeGenerator $attributeGenerator, AttributeBuilderRepository $attributeBuilderRepository)
     {
         $this->attributeGenerator = $attributeGenerator;
+        $this->attributeBuilderRepository = $attributeBuilderRepository;
     }
     
     public function saveAttributes($fieldType, $name, $label, $value)
@@ -21,5 +26,10 @@ class AttributeBuilderService
         $field->setValue($value);
         $field->identifier = rand();
         $field->save();
+    }
+    
+    public function getAttributesByField($fieldId = 0)
+    {
+       return $this->attributeBuilderRepository->getAttributesByField($fieldId);
     }
 }

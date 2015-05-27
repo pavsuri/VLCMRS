@@ -3,6 +3,8 @@ namespace services;
 
 use models\Structure;
 use repositories\StructureRepository;
+use services\FormBuilderService;
+use helpers\HtmlGenerator;
 
 class StructureService
 {
@@ -10,10 +12,15 @@ class StructureService
     
     private $structureRepository;
     
-    public function __construct(Structure $strcture, StructureRepository $structureRepository)
+    private $htmlGenerator;
+    
+    private $formBuilderService;
+    
+    public function __construct(Structure $strcture, StructureRepository $structureRepository, FormBuilderService $formBuilderService)
     {
         $this->structure = $strcture;
         $this->structureRepository = $structureRepository;
+        $this->formBuilderService = $formBuilderService;
     }
 
     //Save Form Attributes
@@ -29,7 +36,12 @@ class StructureService
     //Get form Name by Id
     public function getFormAttributes($formId)
     {
-        $formData = $this->structureRepository->getFormAttributes($formId);
-        return $formData;
+        $formData = $this->formBuilderService->getFormById($formId);
+        $fieldsData = $this->structureRepository->getFormAttributes($formId);
+        echo HtmlGenerator::htmlForm($formData->name, $formData->type_id);
+        foreach ($fieldsData as $field) {
+            echo  HtmlGenerator::htmlInput($field->fieldType, $field->fieldName, $field->fieldLabel, $field->fieldValue);
+        }
+        echo "</form>";
     }
 }

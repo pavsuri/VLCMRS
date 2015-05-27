@@ -57,10 +57,10 @@ Route::get('/getFieldAttributes/{fieldId}', [
 
 //Save Form Attributes
 Route::get('/saveFormAttributes/{formId}/{fieldId}/{parentId}', [
-    'uses' => 'FormBuilderController@saveFormAttributes'
+    'uses' => 'StructureController@saveFormAttributes'
 ]);
 
 //Get Form with Attributes
-Route::get('/getFormAttributes/{formId}', [
-    'uses' => 'FormBuilderController@getFormAttributes'
+Route::get('/getForm/{formId}', [
+    'uses' => 'FormBuilderController@getForm'
 ]);

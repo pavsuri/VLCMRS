@@ -8,6 +8,8 @@ class FormGenerator extends \Eloquent
     private $name;
     private $type_id;
     
+    protected $fillable = array('name', 'type_id');
+    
     public function setName($name)
     {
         $this->setParams('name', $name);
@@ -38,4 +40,10 @@ class FormGenerator extends \Eloquent
         $this->attributes[$attributeKey]; 
     }
     
+    /*
+     * Relations
+     */
+    public function structures() {
+        return $this->has_many('Structure'); // this matches the Eloquent model
+    }
 }

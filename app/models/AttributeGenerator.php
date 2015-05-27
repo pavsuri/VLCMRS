@@ -11,6 +11,8 @@ class AttributeGenerator extends \Eloquent
     private $label;
     private $value;
     
+    protected $fillable = array('field_type_id', 'name', 'label', 'value');
+    
     public function setFieldTypeId($field_type_id)
     {
         $this->setParams('field_type_id', $field_type_id);
@@ -22,7 +24,7 @@ class AttributeGenerator extends \Eloquent
     }
     
    
-     public function setName($name)
+    public function setName($name)
     {
         $this->setParams('name', $name);
     }
@@ -64,4 +66,16 @@ class AttributeGenerator extends \Eloquent
         $this->attributes[$attributeKey]; 
     }
     
+    /**
+     * Relations
+     */
+    public function fieldtypes()
+    {
+        return $this->belongs_to('FieldTypes');
+    }
+    
+    public function structures()
+    {
+        return $this->has_many('Structure');
+    }
 }

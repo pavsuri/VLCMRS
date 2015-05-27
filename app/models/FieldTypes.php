@@ -5,6 +5,8 @@ class FieldTypes extends \Eloquent
 {
     protected $table = 'field_types';
     
+    protected $fillable = array('name');
+    
     private $name;
     
     public function setName($name)
@@ -26,6 +28,13 @@ class FieldTypes extends \Eloquent
     private function getParams($attributeKey)
     {
         $this->attributes[$attributeKey]; 
+    }
+    
+    /*
+     * Relations
+     */
+    public function attributegenerators() {
+        return $this->has_many('AttributeGenerator'); // this matches the Eloquent model
     }
     
 }

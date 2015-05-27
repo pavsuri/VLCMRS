@@ -1,23 +1,23 @@
 <?php
-namespace classes;
+namespace helpers;
 
 class HtmlGenerator
 {
-    public function htmlInput($fieldType, $fieldName, $fieldLabel, $fieldValue = '')
+    public static function  htmlInput($fieldType, $fieldName, $fieldLabel, $fieldValue = '')
     {
         switch ($fieldType) {
             case "textbox":
                 $output = $fieldLabel. ": <input type='".$fieldType."' name='".$fieldName."' value='".$fieldValue."' />";
                 break;
             case "textarea":
-                $output = $fieldLabel. ": <".$fieldType."  name='".$fieldName."'>".$fieldValue."</textarea>";
+                $output =  $fieldLabel. ": <".$fieldType."  name='".$fieldName."'>".$fieldValue."</textarea>";
                 break;
         }
         return $output;
     }
     
-    public function htmlForm($formName, $typeId)
+    public static function htmlForm($formName, $typeId)
     {
-        return "<form name='".$formName."' >";
+        echo  "<form name='".$formName."' >";
     }
 }

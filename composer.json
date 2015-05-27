@@ -17,7 +17,7 @@
                         "app/services",
                         "app/repositories",
                         "app/Util",
-                        "app/classes"
+                        "app/helpers"
 		]
 	},
 	"scripts": {

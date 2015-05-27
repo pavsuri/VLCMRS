@@ -6,6 +6,8 @@ class Structure extends \Eloquent
     public $timestamps = false; 
     protected $table = 'structure';
     
+    protected $fillable = array('form_id', 'parent_id', 'field_id');
+    
     private $formId;
     private $parentId;
     private $fieldId;
@@ -48,6 +50,20 @@ class Structure extends \Eloquent
     private function getParams($attributeKey)
     {
         $this->attributes[$attributeKey]; 
+    }
+    
+    /**
+     * Relations..
+     */
+    
+    public function attributegenerator()
+    {
+        return $this->belongs_to('AttributeGenerator');
+    }
+    
+    public function formgenerator()
+    {
+        return $this->belongs_to('FormGenerator');
     }
     
 }

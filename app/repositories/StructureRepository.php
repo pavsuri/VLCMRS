@@ -34,10 +34,11 @@ class StructureRepository extends AbstractBaseRepository
                             ->where('form_id', '=', $formId)
                             ->select('structure.*',
                                     'forms.name as formName',
+                                    'field_types.name as fieldType',
                                     'field_attributes.name as fieldName', 
                                     'field_attributes.value as fieldValue', 
-                                    'field_attributes.label', 
-                                    'field_types.name as fieldType')
+                                    'field_attributes.label as fieldLabel'
+                                    )
                             ->get()
         );
   }

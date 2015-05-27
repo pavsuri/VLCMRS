@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 25, 2015 at 03:04 PM
+-- Generation Time: May 27, 2015 at 06:20 AM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.11
 
@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS `field_attributes` (
   `identifier` int(10) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `identifier` (`identifier`),
+  UNIQUE KEY `name` (`name`),
   KEY `field_type_id` (`field_type_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
@@ -47,7 +48,6 @@ INSERT INTO `field_attributes` (`id`, `field_type_id`, `name`, `label`, `value`,
 (4, 1, 'firstname', 'FirstName', 'Please enter your name', 27983),
 (5, 1, 'lastname', 'LastName', 'lastname', 19676),
 (6, 1, 'education', 'Graduation', 'please enter your education details', 12528),
-(7, 1, 'education', 'Graduation', 'please enter your education details', 9833),
 (8, 1, 'company', 'Company', 'company', 26191),
 (9, 1, 'gfg', 'dfgdf', 'gdf', 2286);
 
@@ -84,8 +84,9 @@ CREATE TABLE IF NOT EXISTS `forms` (
   `type_id` int(11) NOT NULL,
   `created_at` date NOT NULL,
   `updated_at` date NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
 
 --
 -- Dumping data for table `forms`
@@ -94,7 +95,13 @@ CREATE TABLE IF NOT EXISTS `forms` (
 INSERT INTO `forms` (`id`, `name`, `type_id`, `created_at`, `updated_at`) VALUES
 (2, 'gdfgdf', 54423535, '2015-05-20', '0000-00-00'),
 (16, 'sai', 123, '2015-05-25', '2015-05-25'),
-(17, 'form1', 123, '2015-05-25', '2015-05-25');
+(17, 'form1', 123, '2015-05-25', '2015-05-25'),
+(18, 'form 3', 3, '2015-05-25', '2015-05-25'),
+(20, 'form5', 5, '2015-05-25', '2015-05-25'),
+(21, 'dfgdgd', 4, '2015-05-25', '2015-05-25'),
+(22, 'NewForm', 1234, '2015-05-27', '2015-05-27'),
+(24, 'NewForm2', 1234, '2015-05-27', '2015-05-27'),
+(25, 'NewForm3', 1234, '2015-05-27', '2015-05-27');
 
 -- --------------------------------------------------------
 
@@ -124,7 +131,20 @@ CREATE TABLE IF NOT EXISTS `structure` (
   KEY `form_id` (`form_id`),
   KEY `field_id` (`field_id`),
   KEY `parent_id` (`parent_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+
+--
+-- Dumping data for table `structure`
+--
+
+INSERT INTO `structure` (`id`, `form_id`, `parent_id`, `field_id`) VALUES
+(1, 16, 0, 4),
+(2, 16, 0, 5),
+(3, 16, 0, 6),
+(5, 16, 0, 8),
+(11, 16, 0, 9),
+(12, 16, 0, 3),
+(13, 17, 0, 9);
 
 --
 -- Constraints for dumped tables

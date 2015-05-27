@@ -16,7 +16,8 @@
 			"app/tests/TestCase.php",
                         "app/services",
                         "app/repositories",
-                        "app/Util"
+                        "app/Util",
+                        "app/classes"
 		]
 	},
 	"scripts": {

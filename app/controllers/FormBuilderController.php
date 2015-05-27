@@ -3,6 +3,7 @@ use services\FormBuilderService;
 use services\FieldTypesService;
 use services\AttributeBuilderService;
 use services\StructureService;
+use classes\HtmlGenerator;
 
 class FormBuilderController extends \BaseController 
 {
@@ -15,17 +16,21 @@ class FormBuilderController extends \BaseController
     
     private  $structureService;
     
+    private $htmlGenerator;
+    
     
     public function __construct(FormBuilderService $formBuilderService,
                                 FieldTypesService $fieldTypesService,
                                 AttributeBuilderService $attributeBuilderService,
-                                StructureService $structureService
+                                StructureService $structureService,
+                                HtmlGenerator $htmlGenerator
                                 )
      {
          $this->formBuilderService = $formBuilderService;
          $this->fieldTypesService = $fieldTypesService;
          $this->attributeBuilderService = $attributeBuilderService;
          $this->structureService = $structureService;
+         $this->htmlGenerator = $htmlGenerator;
      }
      
     /**
@@ -74,8 +79,9 @@ class FormBuilderController extends \BaseController
         $typeId = Input::get('type_id');
         $this->formBuilderService->addForm($name, $typeId);
         $message = "Successfully saved in our database";
-        $data = $this->formBuilderService->getAllForms();
-        return View::make('forms.allForms', array('forms' => $data, 'message' => $message));
+        return json_encode($message);
+        //$data = $this->formBuilderService->getAllForms();
+        //return View::make('forms.allForms', array('forms' => $data, 'message' => $message));
     }
 
     /**
@@ -91,7 +97,15 @@ class FormBuilderController extends \BaseController
      */
     public function getFormAttributes($formId)
     {
-        $formData = $this->structureService->getFormAttributes($formId);
-        echo "<pre>"; print_r($formData);
+        $formData = $this->formBuilderService->getFormById($formId);
+        $htmlForm[] = $this->htmlGenerator->htmlForm($formData->name, $formData->type_id);
+        $fieldsData = $this->structureService->getFormAttributes($formId);
+        foreach( $fieldsData as $field ) {
+           $htmlForm[] =  $this->htmlGenerator->htmlInput($field->fieldType, $field->fieldName, $field->fieldLabel, $field->fieldValue);
+        }
+        $htmlForm[] = "</form>";
+        for ($i=0; $i<count($htmlForm); $i++) {
+            echo $htmlForm[$i] ."<br>";
+        }
     }
 }

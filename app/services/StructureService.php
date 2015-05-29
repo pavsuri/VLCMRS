@@ -12,8 +12,6 @@ class StructureService
     
     private $structureRepository;
     
-    private $htmlGenerator;
-    
     private $formBuilderService;
     
     public function __construct(Structure $strcture, StructureRepository $structureRepository, FormBuilderService $formBuilderService)
@@ -52,7 +50,8 @@ class StructureService
      * @param Integer $parentId
      * @return array
      */
-    private function buildTree(array $elements, $parentId = 0) {
+    private function buildTree(array $elements, $parentId = 0) 
+    {
         $branch = array();  
         foreach ($elements as $element) {
             if ($element->parent_id == $parentId) {

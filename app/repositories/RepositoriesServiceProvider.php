@@ -16,7 +16,11 @@ class RepositoriesServiceProvider extends ServiceProvider {
     $this->app->bind(
       'repositories\StructureRepository'
     );
-
+    
+    // FieldGroups Repository
+    $this->app->bind(
+      'repositories\FieldGroupsRepository'
+    );
   }
 
 }

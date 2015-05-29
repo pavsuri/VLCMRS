@@ -28,17 +28,17 @@ class StructureRepository extends AbstractBaseRepository
   public function getFormAttributes($formId)
   {
         return $this->build(
-                        $this->model->join('forms', 'structure.form_id', '=', 'forms.id')
-                            ->join('field_attributes', 'structure.field_id', '=', 'field_attributes.id')
+                        $this->model->join('field_attributes', 'structure.field_id', '=', 'field_attributes.id')
                             ->join('field_types', 'field_attributes.field_type_id', '=', 'field_types.id')
                             ->where('form_id', '=', $formId)
-                            ->select('structure.*',
-                                    'forms.name as formName',
+                            ->select('structure.id', 'structure.parent_id', 'structure.field_id',
                                     'field_types.name as fieldType',
                                     'field_attributes.name as fieldName', 
                                     'field_attributes.value as fieldValue', 
                                     'field_attributes.label as fieldLabel'
                                     )
+                            ->orderBy('structure.parent_id', 'asc')
+                            ->orderBy('structure.id', 'asc')
                             ->get()
         );
   }

@@ -14,6 +14,8 @@ class FieldTypesSeeder extends Migration
                                 array('name' => 'selectbox'),   
                                 array('name' => 'checkbox'),
                                 array('name' => 'container'), 
+                                array('name' => 'radio'),
+                                array('name' => 'submit'),
                         ));
         }
 

@@ -7,13 +7,29 @@ use models\AttributeGenerator;
 class AttributeBuilderRepository extends AbstractBaseRepository
 {
     
+  /**
+   * Eloquent model
+   *
+   * @var mixed
+   */
   protected $model;
 
+  /*
+   * Constructor.
+   *  
+   * Field Attribute Model $model
+   */
   public function __construct(AttributeGenerator $model)
   {
     $this->model = $model;
   }
 
+  /**
+   * Get Attributes by Field Type
+   * 
+   * @param Integer $fieldId
+   * @return Array
+   */
   public function getAttributesByField($fieldId)
   {
       if ($fieldId == 'all') {

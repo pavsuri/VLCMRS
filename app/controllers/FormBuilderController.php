@@ -7,9 +7,32 @@ use services\StructureService;
 
 class FormBuilderController extends \BaseController 
 {
+    /**
+     * Form builder Service 
+     * 
+     * $formBuilderService services\FormBuilderService
+     */
     private $formBuilderService;
+    
+    /**
+     * Field Type Service
+     * 
+     * $fieldTypesService services\FieldTypesService 
+     */
     private $fieldTypesService;
+    
+    /**
+     * Field Attruibute library
+     * 
+     * $attributeBuilderService services\AttributeBuilderService
+     */
     private $attributeBuilderService;
+    
+    /**
+     * Structure Service
+     * 
+     * $structureService services\StructureService
+     */
     private $structureService;
     
 

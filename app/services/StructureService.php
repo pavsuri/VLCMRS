@@ -8,12 +8,28 @@ use helpers\HtmlGenerator;
 
 class StructureService
 {
+    /**
+     *Structure Model $structure
+     */
     private $structure;
     
+    /**
+     *Structure Repository StructureRepository
+     */
     private $structureRepository;
     
+    /**
+     *Form uilder Service FormBuilderService
+     */
     private $formBuilderService;
     
+    /**
+     * Constructor.
+     * 
+     * @param Structure $strcture
+     * @param StructureRepository $structureRepository
+     * @param FormBuilderService $formBuilderService
+     */
     public function __construct(Structure $strcture, StructureRepository $structureRepository, FormBuilderService $formBuilderService)
     {
         $this->structure = $strcture;
@@ -21,7 +37,14 @@ class StructureService
         $this->formBuilderService = $formBuilderService;
     }
 
-    //Save Form Attributes
+    /**
+     * Save Form with Attributes.
+     * 
+     * @param Integer $formId
+     * @param Integer $fieldId
+     * @param Integer $parentId
+     * @return Boolean
+     */
     public function saveFormAttributes($formId, $fieldId, $parentId = 0)
     {
         $form = $this->structure;
@@ -31,14 +54,18 @@ class StructureService
         $form->save();
     }
     
-    //Get form Name by Id
+    /**
+     * Get Form data by Form Id
+     * 
+     * @param Integer $formId
+     * @return Object
+     */
     public function getFormAttributes($formId)
     {
         $formData = $this->formBuilderService->getFormById($formId);
         $fieldsData = $this->structureRepository->getFormAttributes($formId);
         echo HtmlGenerator::htmlForm($formData->name, $formData->type_id);
         $fieldsHierarchicalData = $this->buildTree($fieldsData);
-        echo "<pre>"; print_r($fieldsHierarchicalData);
         $this->hemlGenerator($fieldsHierarchicalData);
         echo "</form>"; 
     }
@@ -66,12 +93,20 @@ class StructureService
     }
     
     /**
-     * Generate Html..
+     * Generate Html.
+     * 
+     * @param Array $fieldsHierarchicalData
+     * @return HTML Output
      */
     private function hemlGenerator($fieldsHierarchicalData)
     {
         foreach ($fieldsHierarchicalData as $field) {
-            echo HtmlGenerator::htmlInput($field->fieldType, $field->fieldName, $field->fieldLabel, $field->fieldValue);echo "<br>";
+            if (($field->fieldType == 'selectbox') || ($field->fieldType == 'checkbox') || ($field->fieldType == 'radio')) {
+                $optionsData = $this->structureRepository->getGroupOptions($field->field_id);
+            } else {
+                $optionsData = array();
+            }
+            echo HtmlGenerator::htmlInput($field->fieldType, $field->fieldName, $field->fieldLabel, $field->fieldValue, $optionsData);echo "<br>";
             if(isset($field->children)) {
                 echo  $this->hemlGenerator($field->children);
             }

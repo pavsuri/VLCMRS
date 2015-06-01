@@ -61,11 +61,16 @@ class AttributeBuilderService
         $field->save();
         $insertedId = $field->id;
         if (count($optionLabels) > 0) {
-            for($i= 0; $i<count($optionLabels) ; $i++) {
-                $attributeId = $this->fieldGroups->setFieldId($insertedId);
-                $optionLabel = $this->fieldGroups->setName($optionLabels[$i]);
-                $optionValue = $this->fieldGroups->setValue($optionValues[$i]);
+            for($i = 0; $i<count($optionLabels) ; $i++) {
+                $this->fieldGroups->setFieldId($insertedId);
+                $this->fieldGroups->setName($optionLabels[$i]);
+                $this->fieldGroups->setValue($optionValues[$i]);
                 $this->fieldGroups->save();
+                //Clear object
+                foreach ($this->fieldGroups as $key => $value) {
+                    $this->fieldGroups->$key = null; 
+                    $this->fieldGroups->id= null;
+                }
             }
         }
         

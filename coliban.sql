@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.12
+-- version 4.0.4.1
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 27, 2015 at 06:20 AM
--- Server version: 5.6.16
--- PHP Version: 5.5.11
+-- Generation Time: Jun 01, 2015 at 02:47 PM
+-- Server version: 5.5.32
+-- PHP Version: 5.4.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `coliban`
 --
+CREATE DATABASE IF NOT EXISTS `coliban` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `coliban`;
 
 -- --------------------------------------------------------
 
@@ -27,29 +29,19 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `field_attributes` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `field_type_id` int(10) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `label` varchar(50) NOT NULL,
-  `value` varchar(50) NOT NULL,
-  `identifier` int(10) NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `field_type_id` int(10) unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `label` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `value` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `identifier` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `identifier` (`identifier`),
-  UNIQUE KEY `name` (`name`),
-  KEY `field_type_id` (`field_type_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+  KEY `field_attributes_field_type_id_foreign` (`field_type_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `field_attributes`
 --
-
-INSERT INTO `field_attributes` (`id`, `field_type_id`, `name`, `label`, `value`, `identifier`) VALUES
-(3, 2, 'description', 'Description', 'Please enter your comments', 2222),
-(4, 1, 'firstname', 'FirstName', 'Please enter your name', 27983),
-(5, 1, 'lastname', 'LastName', 'lastname', 19676),
-(6, 1, 'education', 'Graduation', 'please enter your education details', 12528),
-(8, 1, 'company', 'Company', 'company', 26191),
-(9, 1, 'gfg', 'dfgdf', 'gdf', 2286);
 
 -- --------------------------------------------------------
 
@@ -58,11 +50,11 @@ INSERT INTO `field_attributes` (`id`, `field_type_id`, `name`, `label`, `value`,
 --
 
 CREATE TABLE IF NOT EXISTS `field_types` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  `status` int(5) NOT NULL DEFAULT '1',
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `field_types`
@@ -70,7 +62,12 @@ CREATE TABLE IF NOT EXISTS `field_types` (
 
 INSERT INTO `field_types` (`id`, `name`, `status`) VALUES
 (1, 'textbox', 1),
-(2, 'textarea', 1);
+(2, 'textarea', 1),
+(3, 'selectbox', 1),
+(4, 'checkbox', 1),
+(5, 'container', 1),
+(6, 'option', 1),
+(7, 'submit', 1);
 
 -- --------------------------------------------------------
 
@@ -79,42 +76,34 @@ INSERT INTO `field_types` (`id`, `name`, `status`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `forms` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `type_id` int(11) NOT NULL,
-  `created_at` date NOT NULL,
-  `updated_at` date NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
+  UNIQUE KEY `forms_name_unique` (`name`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `forms`
 --
 
-INSERT INTO `forms` (`id`, `name`, `type_id`, `created_at`, `updated_at`) VALUES
-(2, 'gdfgdf', 54423535, '2015-05-20', '0000-00-00'),
-(16, 'sai', 123, '2015-05-25', '2015-05-25'),
-(17, 'form1', 123, '2015-05-25', '2015-05-25'),
-(18, 'form 3', 3, '2015-05-25', '2015-05-25'),
-(20, 'form5', 5, '2015-05-25', '2015-05-25'),
-(21, 'dfgdgd', 4, '2015-05-25', '2015-05-25'),
-(22, 'NewForm', 1234, '2015-05-27', '2015-05-27'),
-(24, 'NewForm2', 1234, '2015-05-27', '2015-05-27'),
-(25, 'NewForm3', 1234, '2015-05-27', '2015-05-27');
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `form_values`
+-- Table structure for table `migrations`
 --
 
-CREATE TABLE IF NOT EXISTS `form_values` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `form_id` int(10) NOT NULL,
-  `form_name` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+CREATE TABLE IF NOT EXISTS `migrations` (
+  `migration` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `migrations`
+--
+
 
 -- --------------------------------------------------------
 
@@ -123,29 +112,18 @@ CREATE TABLE IF NOT EXISTS `form_values` (
 --
 
 CREATE TABLE IF NOT EXISTS `structure` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `form_id` int(10) NOT NULL,
-  `parent_id` int(10) NOT NULL,
-  `field_id` int(10) NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `form_id` int(10) unsigned NOT NULL,
+  `parent_id` int(10) unsigned NOT NULL,
+  `field_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `form_id` (`form_id`),
-  KEY `field_id` (`field_id`),
-  KEY `parent_id` (`parent_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+  KEY `structure_form_id_foreign` (`form_id`),
+  KEY `structure_field_id_foreign` (`field_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=20 ;
 
 --
 -- Dumping data for table `structure`
 --
-
-INSERT INTO `structure` (`id`, `form_id`, `parent_id`, `field_id`) VALUES
-(1, 16, 0, 4),
-(2, 16, 0, 5),
-(3, 16, 0, 6),
-(5, 16, 0, 8),
-(11, 16, 0, 9),
-(12, 16, 0, 3),
-(13, 17, 0, 9);
-
 --
 -- Constraints for dumped tables
 --
@@ -154,14 +132,14 @@ INSERT INTO `structure` (`id`, `form_id`, `parent_id`, `field_id`) VALUES
 -- Constraints for table `field_attributes`
 --
 ALTER TABLE `field_attributes`
-  ADD CONSTRAINT `field_attributes_ibfk_1` FOREIGN KEY (`field_type_id`) REFERENCES `field_types` (`id`);
+  ADD CONSTRAINT `field_attributes_field_type_id_foreign` FOREIGN KEY (`field_type_id`) REFERENCES `field_types` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `structure`
 --
 ALTER TABLE `structure`
-  ADD CONSTRAINT `structure_ibfk_1` FOREIGN KEY (`form_id`) REFERENCES `forms` (`id`),
-  ADD CONSTRAINT `structure_ibfk_2` FOREIGN KEY (`field_id`) REFERENCES `field_attributes` (`id`);
+  ADD CONSTRAINT `structure_field_id_foreign` FOREIGN KEY (`field_id`) REFERENCES `field_attributes` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `structure_form_id_foreign` FOREIGN KEY (`form_id`) REFERENCES `forms` (`id`) ON DELETE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

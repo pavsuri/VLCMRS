@@ -16,31 +16,28 @@ class HtmlGenerator
                 $output =  $fieldLabel. ": <select  name='".$fieldName."' value = '".$fieldValue."'>";
                 $output .= "<option value='' >Select Country</option>";
                 foreach($optionsData as $option) {
-                    $output .= "<option value='".$option->value."' >".$option->name."</option>";
+                    $output .= "<option value='".$option->fieldValue."' >".$option->fieldName."</option>";
                 }
                 $output .= "</select>";
                 break;
             case "checkbox":
-                $output = "";
+                $output = $fieldLabel;
                 foreach($optionsData as $option) {
-                    $output .= $fieldLabel. "<input type='checkbox' name=".$fieldName." value=".$option->value.">".$option->name;
+                    $output .= "<input type='checkbox' name=".$fieldName." value=".$option->fieldValue.">".$option->fieldName;
                 }
                 break;
             case "radio":
-                $output = "";
+                $output = $fieldLabel;
                 foreach($optionsData as $option) {
-                    $output .= $fieldLabel. "<input type='radio' name=".$fieldName." value=".$option->value.">".$option->name;
+                    $output .= "<input type='radio' name=".$fieldName." value=".$option->fieldValue.">".$option->fieldName;
                 }
                 break;
-            case "radio":
-            $output = "";
-            foreach($optionsData as $option) {
-                $output .= $fieldLabel. "<input type='radio' name=".$fieldName." value=".$option->value.">".$option->name;
-            }
-            break;
             case "submit":
-            $output = "<input type='".$fieldType."' name='".$fieldName."' value='".$fieldValue."' />";
-            break;
+                $output = "<input type='".$fieldType."' name='".$fieldName."' value='".$fieldValue."' />";
+                break;
+            case "container":
+                $output = "<h1>".$fieldName."</h1>";
+                break;
         }
         return $output;
     }

@@ -1,5 +1,5 @@
 <?php
-
+namespace Database;
 use Illuminate\Database\Migrations\Migration;
 
 class FieldTypesSeeder extends Migration 
@@ -15,7 +15,7 @@ class FieldTypesSeeder extends Migration
                                 array('name' => 'checkbox'),
                                 array('name' => 'container'), 
                                 array('name' => 'radio'),
-                                array('name' => 'submit'),
+                                array('name' => 'submit')
                         ));
         }
 

@@ -52,6 +52,7 @@ class StructureService
         $form->setFieldId($fieldId);
         $form->setParentId($parentId);
         $form->save();
+        echo "Successfully saved in our database. Your Inserted id is ". $form->id;
     }
     
     /**
@@ -99,17 +100,25 @@ class StructureService
      * @return HTML Output
      */
     private function hemlGenerator($fieldsHierarchicalData)
-    {
-        foreach ($fieldsHierarchicalData as $field) {
-            if (($field->fieldType == 'selectbox') || ($field->fieldType == 'checkbox') || ($field->fieldType == 'radio')) {
-                $optionsData = $this->structureRepository->getGroupOptions($field->field_id);
+    { 
+        $field = $fieldsHierarchicalData;
+        $optionsData =  array();
+        for($i=0; $i<count($field); $i++) {
+            if (isset($field[$i]->children)) {
+                if (($field[$i]->fieldType == 'selectbox') || ($field[$i]->fieldType == 'checkbox') || ($field[$i]->fieldType == 'radio')) {
+                    $optionsData = $field[$i]->children;
+                    echo HtmlGenerator::htmlInput($field[$i]->fieldType, $field[$i]->fieldName, $field[$i]->fieldLabel, $field[$i]->fieldValue, $optionsData);
+                } else {
+                    echo HtmlGenerator::htmlInput($field[$i]->fieldType, $field[$i]->fieldName, $field[$i]->fieldLabel, $field[$i]->fieldValue, $optionsData);
+                    $containerData = $field[$i]->children;
+                    if (isset($containerData)) { 
+                       $this->hemlGenerator($containerData);
+                    }
+                }
             } else {
-                $optionsData = array();
+                echo HtmlGenerator::htmlInput($field[$i]->fieldType, $field[$i]->fieldName, $field[$i]->fieldLabel, $field[$i]->fieldValue, $optionsData);
             }
-            echo HtmlGenerator::htmlInput($field->fieldType, $field->fieldName, $field->fieldLabel, $field->fieldValue, $optionsData);echo "<br>";
-            if(isset($field->children)) {
-                echo  $this->hemlGenerator($field->children);
-            }
+            echo "<br>";
         }
     }
 

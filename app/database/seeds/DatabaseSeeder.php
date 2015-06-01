@@ -1,4 +1,6 @@
 <?php
+use Illuminate\Database\Migrations\Migration;
+use Database;
 
 class DatabaseSeeder extends Seeder {
 
@@ -10,8 +12,9 @@ class DatabaseSeeder extends Seeder {
 	public function run()
 	{
 		Eloquent::unguard();
-
-		 $this->call('FieldTypesSeeder');
+                $class =  new FieldTypesSeeder();
+                
+		 $this->class->call('FieldTypesSeeder');
 	}
 
 }

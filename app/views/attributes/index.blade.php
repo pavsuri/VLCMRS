@@ -5,7 +5,7 @@
     'role' => 'form',
     'name' => 'create_attributes'
   ]) }}  
-    <div>Field:<select name="field_type" id="field_type" onChange="javascript:addOptions();" >
+    <div>Field:<select name="field_type" id="field_type" ><!-- onChange="javascript:addOptions();" > -->
         <option value="select">Select</option>
         <?php foreach ($fields as $field) { ?>
         <option value="{{{$field->id}}}">{{{$field->name}}}</option>

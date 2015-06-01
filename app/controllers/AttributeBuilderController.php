@@ -50,9 +50,7 @@ class AttributeBuilderController extends \BaseController
         $name = Input::get('field_name');
         $label = Input::get('field_label');
         $value = Input::get('field_value');
-        $optionLabels = Input::get('optionLabels');
-        $optionValues = Input::get('optionValues');
-        $this->attributeBuilderService->saveAttributes($fieldType, $name, $label, $value, $optionLabels, $optionValues);
+        $this->attributeBuilderService->saveAttributes($fieldType, $name, $label, $value);
         $fieldsData = $this->fieldTypesService->getAllFields();
         return View::make('attributes.index', array('fields' => $fieldsData, 'msg' => 'Saved Successfully'));
     }

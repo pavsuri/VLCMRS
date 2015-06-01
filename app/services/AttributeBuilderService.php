@@ -3,7 +3,6 @@ namespace services;
 
 use models\AttributeGenerator;
 use repositories\AttributeBuilderRepository;
-use models\FieldGroups;
 
 class AttributeBuilderService
 {
@@ -16,28 +15,19 @@ class AttributeBuilderService
      * AttributeBuilderRepository
      */
     private  $attributeBuilderRepository;
-    
-    /**
-     *Field Groups Model
-     * 
-     */
-    private $fieldGroups;
-
 
     /**
      * Constructor
      * 
      * @param AttributeGenerator $attributeGenerator
      * @param AttributeBuilderRepository $attributeBuilderRepository
-     * @param FieldGroups $fieldGroups
      */
     public function __construct(AttributeGenerator $attributeGenerator, 
-                                AttributeBuilderRepository $attributeBuilderRepository,
-                                FieldGroups $fieldGroups)
+                                AttributeBuilderRepository $attributeBuilderRepository
+                                )
     {
         $this->attributeGenerator = $attributeGenerator;
         $this->attributeBuilderRepository = $attributeBuilderRepository;
-        $this->fieldGroups = $fieldGroups;
     }
     
     /**
@@ -50,7 +40,7 @@ class AttributeBuilderService
      * @param Array $optionLabels
      * @param Array $optionValues
      */
-    public function saveAttributes($fieldType, $name, $label, $value, $optionLabels = array(), $optionValues= array())
+    public function saveAttributes($fieldType, $name, $label, $value)
     {
         $field = $this->attributeGenerator;
         $field->setName($name);
@@ -59,21 +49,6 @@ class AttributeBuilderService
         $field->setValue($value);
         $field->identifier = rand();
         $field->save();
-        $insertedId = $field->id;
-        if (count($optionLabels) > 0) {
-            for($i = 0; $i<count($optionLabels) ; $i++) {
-                $this->fieldGroups->setFieldId($insertedId);
-                $this->fieldGroups->setName($optionLabels[$i]);
-                $this->fieldGroups->setValue($optionValues[$i]);
-                $this->fieldGroups->save();
-                //Clear object
-                foreach ($this->fieldGroups as $key => $value) {
-                    $this->fieldGroups->$key = null; 
-                    $this->fieldGroups->id= null;
-                }
-            }
-        }
-        
     }
     
     /**

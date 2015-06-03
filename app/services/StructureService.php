@@ -45,14 +45,18 @@ class StructureService
      * @param Integer $parentId
      * @return Boolean
      */
-    public function saveFormAttributes($formId, $fieldId, $parentId = 0)
+    public function saveFormAttributes($formId, $fieldIds, $parentIds = array())
     {
         $form = $this->structure;
-        $form->setFormId($formId);
-        $form->setFieldId($fieldId);
-        $form->setParentId($parentId);
-        $form->save();
-        echo "Successfully saved in our database. Your Inserted id is ". $form->id;
+        for ($i=0; $i<count($fieldIds); $i++) {
+            if (!isset($parentIds[$i])) {
+                $parentIds[$i] = 0;
+            }
+            $form->setFormId($formId);
+            $form->setFieldId($fieldIds[$i]);
+            $form->setParentId($parentIds[$i]);
+            $form->save();
+        }
     }
     
     /**

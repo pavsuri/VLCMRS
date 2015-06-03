@@ -84,28 +84,33 @@
                         </a>
                     </div>
                 </div>
+                 {{ Form::open([
+    'route' => 'forms.addfieldstoform',
+    'method' => 'post',
+    'class' => 'form-horizontal',
+    'role' => 'form'
+  ]) }} 
+  <input type="hidden" name="formId" value="{{{$data['formId']}}}" >
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
                     <div class="cms-add-field-block">
                         <div class="cms-add-fields">
-                            <input type="text"  value="Emp ID">
+                             <input type="text" value="13" name="fields[]" id="8414">
                             <a href="javascript:void(0)">
                                 <img src="images/cross.png" alt="cross"/>
                             </a>
                             <div class="clearfix"></div>	
                         </div>
                         <div class="cms-add-fields">
-                            <input type="text"  value="Name">
+                            <input type="text" value="14" name="fields[]" id="21183">
                             <a href="javascript:void(0)">
                                 <img src="images/cross.png" alt="cross"/>
                             </a>
                             <div class="clearfix"></div>	
                         </div>
-                        <div class="cms-add-fields">
-                            <input type="text" class="dashed">
-                            <div class="clearfix"></div>	
-                        </div>
+                        <input type="submit" name="submit" value="submit">
                     </div>
                 </div>
+   {{ Form::close() }}
             </div>
             <!-- END of .row -->
             <div class="row">

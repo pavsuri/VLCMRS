@@ -56,7 +56,7 @@ Route::get('/getFieldAttributes/{fieldId}', [
 ]);
 
 //Save Form Attributes
-Route::get('/saveFormAttributes/{formId}/{fieldId}/{parentId}', [
+Route::any('/saveFormAttributes', [
      'as' => 'forms.addfieldstoform',
     'uses' => 'StructureController@saveFormAttributes'
 ]);

@@ -26,8 +26,17 @@ class StructureController extends \BaseController
       * @param Integer $parentId
       * @return Object
       */
-    public function saveFormAttributes($formId, $fieldId, $parentId = 0) 
+   /* public function saveFormAttributes($formId, $fieldId, $parentId = 0) 
     {
         return $this->structureService->saveFormAttributes($formId, $fieldId, $parentId);
     }
+     */
+    public function saveFormAttributes()
+    {
+        $formId = Input::get('formId');
+        $fieldIds = Input::get('fields');
+        $parentIds = Input::get('parentId');
+        return $this->structureService->saveFormAttributes($formId, $fieldIds, $parentIds);
+    }
+
 }

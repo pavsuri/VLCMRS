@@ -45,6 +45,7 @@ class FormBuilderService
         $form->setName($formName);
         $form->setTypeId($typeId);
         $form->save();
+        return $form->id;
     }
     
     /**

@@ -4,6 +4,7 @@ use services\FormBuilderService;
 use services\FieldTypesService;
 use services\AttributeBuilderService;
 use services\StructureService;
+use services\FormTypesService;
 
 class FormBuilderController extends \BaseController 
 {
@@ -35,17 +36,36 @@ class FormBuilderController extends \BaseController
      */
     private $structureService;
     
+    /**
+     * FormTypesService 
+     * 
+     * FormTypesService services\FormTypesService
+     */
+    private $formTypesService;
+    
+    /**
+     * Constructor 
+     * 
+     * @param FormBuilderService $formBuilderService
+     * @param FieldTypesService $fieldTypesService
+     * @param AttributeBuilderService $attributeBuilderService
+     * @param StructureService $structureService
+     * @param FormTypesService $formTypesService
+     */
+    
 
     public function __construct(FormBuilderService $formBuilderService, 
                                 FieldTypesService $fieldTypesService, 
                                 AttributeBuilderService $attributeBuilderService, 
-                                StructureService $structureService
+                                StructureService $structureService,
+                                services\FormTypesService $formTypesService
                                 ) 
     {
         $this->formBuilderService = $formBuilderService;
         $this->fieldTypesService = $fieldTypesService;
         $this->attributeBuilderService = $attributeBuilderService;
         $this->structureService = $structureService;
+        $this->formTypesService = $formTypesService;
     }
 
     /**
@@ -66,7 +86,8 @@ class FormBuilderController extends \BaseController
      */
     public function addForm() 
     {
-        return View::make('forms.index');
+        $data = $this->formTypesService->getFormTypes();
+        return View::make('forms.index', array('formTypes' => $data));
     }
 
     /**
@@ -90,11 +111,10 @@ class FormBuilderController extends \BaseController
     {
         $name = Input::get('name');
         $typeId = Input::get('type_id');
-        $this->formBuilderService->addForm($name, $typeId);
-        $message = "Successfully saved in our database";
-        return json_encode($message);
-        //$data = $this->formBuilderService->getAllForms();
-        //return View::make('forms.allForms', array('forms' => $data, 'message' => $message));
+        $formId = $this->formBuilderService->addForm($name, $typeId);
+        $fieldsLibrary = $this->attributeBuilderService->getAttributesByField();
+        $data = array('formName'=>$name, 'formType' => $typeId, 'formId' => $formId, 'fieldsLibrary' => $fieldsLibrary);
+        return View::make('forms.addFieldsToForm', array('data' => $data));
     }
 
     /**

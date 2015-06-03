@@ -46,4 +46,7 @@ class FormGenerator extends \Eloquent
     public function structures() {
         return $this->has_many('Structure'); // this matches the Eloquent model
     }
+    public function formtypes() {
+        return $this->belongs_to('FormTypes'); // this matches the Eloquent model
+    }
 }

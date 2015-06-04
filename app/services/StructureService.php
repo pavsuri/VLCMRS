@@ -137,12 +137,9 @@ class StructureService
      */
     public function mapFieldsToForm($formId, $fields)
     { 
-        echo "<pre>"; print_r($fields);
-        
         for($i=0; $i<count($fields);$i++) {
             $attribute = $this->attributeBuilderRepository->findAttributeDetails($fields[$i]);
-            //echo "<pre>"; print_r($attribute);exit;
-            if (($attribute->fieldType != 'selectbox') || ($attribute->fieldType != 'checkbox') || ($attribute->fieldType != 'radio')) {
+            if (($attribute->fieldType == 'selectbox') || ($attribute->fieldType == 'checkbox') || ($attribute->fieldType == 'radio')) {
                 $parentId = $attribute->fieldId;
                 $currentParentId = 0;
             } else if ($attribute->fieldType == 'option') {
@@ -150,12 +147,11 @@ class StructureService
             } else {
                 $currentParentId = 0;
             }
-            $form = $this->structure;
+            $form = new Structure();
             $form->setFormId($formId);
             $form->setFieldId($attribute->fieldId);
             $form->setParentId($currentParentId);
             $form->save();
-            echo "<pre>"; print_r($form);
         }
         
     }

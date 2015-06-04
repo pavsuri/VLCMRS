@@ -37,6 +37,7 @@ class StructureController extends BaseController
         $formId = Input::get('form_id_map');
         $fields = Input::get('allFields');
         $fields = array_keys($fields);
-        return $this->structureService->mapFieldsToForm($formId, $fields);
+        $this->structureService->mapFieldsToForm($formId, $fields);
+        return View::make('attributes.index', array('fields' => $fieldsData, 'msg' => 'Saved Successfully'));
     }
 }

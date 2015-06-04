@@ -140,7 +140,6 @@ class StructureService
         //echo "<pre>"; print_r($fields);exit;
         for($i=0; $i<count($fields);$i++) {
             $attribute = $this->attributeBuilderRepository->findAttributeDetails($fields[$i]);
-            echo "<pre>"; print_r($attribute);exit;
         }
         
     }

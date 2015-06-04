@@ -1,15 +1,29 @@
 <?php
+/**
+ * User
+ */
+Route::group(['namespace' => 'User'], function()
+{
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the Closure to execute when that URI is requested.
-|
-*/
+  Route::get('/signin', [
+    'as' => 'signin',
+    'uses' => 'SignInController@index'
+  ]);
+
+  Route::post('/signin', [
+    'before' => 'csrf',
+    'as' => 'signin.perform',
+    'uses' => 'SignInController@perform'
+  ]);
+
+  Route::get('/signout', [
+    'as' => 'signout',
+    'uses' => 'SignOutController@index'
+  ]);
+
+
+});
+
 
 //Display all Forms
 Route::get('/', [

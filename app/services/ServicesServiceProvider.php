@@ -9,24 +9,27 @@ class ServicesServiceProvider extends ServiceProvider
     
     public function register()
     {
-        $this->app->bind(
-                'services\FormTypesService'
-        );
+      /**
+       * SignIn User
+       */
+      $this->app->bind(
+        'services\UserService'
+      );
 
-        $this->app->bind(
-                'services\FormBuilderService'
-        );
-
-        $this->app->bind(
-                'services\FieldTypesService'
-        );
-
-        $this->app->bind(
-                'services\AttributeBuilderService'
-        );
-
-        $this->app->bind(
-                'services\StructureService'
-        );
+      $this->app->bind(
+        'services\FormBuilderService'
+      );
+      
+      $this->app->bind(
+        'services\FieldTypesService'
+      );
+      
+      $this->app->bind(
+        'services\AttributeBuilderService'
+      );
+      
+      $this->app->bind(
+        'services\StructureService'
+      );
     }
 }

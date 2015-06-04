@@ -61,4 +61,16 @@ class AttributeBuilderService
     {
        return $this->attributeBuilderRepository->getAttributesByField($fieldId);
     }
+    
+    /**
+     * Search Fields from Field Library - Field Attributes
+     * 
+     * @param String $attributeKeyword
+     * @param Integer $fieldTypeId
+     * @return Array 
+     */
+    public function searchFieldLibrary($attributeKeyword = '', $fieldTypeId = '')
+    {
+        return $this->attributeBuilderRepository->searchFieldLibrary($attributeKeyword, $fieldTypeId);
+    }
 }

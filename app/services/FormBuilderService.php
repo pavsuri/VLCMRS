@@ -49,6 +49,17 @@ class FormBuilderService
     }
     
     /**
+     * Update Form
+     */
+    public function updateForm($formId, $formName, $typeId)
+    {
+        $form = $this->formGenerator;
+        $form = $form->find($formId);
+        $form->setName($formName);
+        $form->setTypeId($typeId);
+        $form->update();
+    }
+    /**
      * Get Form data without attributes.
      * 
      * @param Integer $formId

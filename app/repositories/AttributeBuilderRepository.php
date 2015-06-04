@@ -43,4 +43,34 @@ class AttributeBuilderRepository extends AbstractBaseRepository
         }
     
   }
+  
+  /**
+   * Search Fields by Keyword or Field type
+   * 
+   * @param type $attributeKeyword
+   * @param type $fieldTypeId
+   * @return Array
+   */
+  public function searchFieldLibrary($attributeKeyword, $fieldTypeId)
+  {
+      if (($attributeKeyword != '') && ($fieldTypeId != '')) {
+            $results = $this->build(
+                            $this->model->where('field_type_id', '=', $fieldTypeId)
+                                    ->Where('name', 'like', $attributeKeyword . '%')->get()
+            );
+        } else if (($attributeKeyword == '') && ($fieldTypeId != '')) {
+            $results =  $this->build(
+                            $this->model->where('field_type_id', '=', $fieldTypeId)->get()
+            );
+        } else if (($attributeKeyword != '') && ($fieldTypeId == '')) {
+            $results =  $this->build(
+                            $this->model->where('name', 'like', $attributeKeyword . '%')->get()
+            );
+        } else {
+            $results =  $this->build(
+                            $this->model->orderBy('name', 'asc')->get()
+            );
+        }
+        return $results;
+  }
 }

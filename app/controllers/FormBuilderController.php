@@ -113,8 +113,21 @@ class FormBuilderController extends \BaseController
         $typeId = Input::get('type_id');
         $formId = $this->formBuilderService->addForm($name, $typeId);
         $fieldsLibrary = $this->attributeBuilderService->getAttributesByField();
-        $data = array('formName'=>$name, 'formType' => $typeId, 'formId' => $formId, 'fieldsLibrary' => $fieldsLibrary);
-        return View::make('forms.addFieldsToForm', array('data' => $data));
+        $formTypes = $this->formTypesService->getFormTypes();
+        $fieldTyps = $this->fieldTypesService->getAllFields();
+        $data = array('formName'=>$name, 'formType' => $typeId, 'formId' => $formId, 'fieldsLibrary' => $fieldsLibrary, 'fieldTypes' => $fieldTyps);
+        return View::make('forms.addFieldsToForm', array('data' => $data, 'formTypes' => $formTypes));
+    }
+    
+    /**
+     * Edit Form
+     */
+    public function updateForm()
+    {
+        $formId = Input::get('formId');
+        $name = Input::get('formName');
+        $typeId = Input::get('formType');
+        return $this->formBuilderService->updateForm($formId, $name, $typeId);
     }
 
     /**

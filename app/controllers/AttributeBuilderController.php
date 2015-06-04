@@ -67,4 +67,14 @@ class AttributeBuilderController extends \BaseController
         }
         return $fieldAttributes;
     }
+    
+    /**
+     * Search Attributes from Library
+     */
+    public function searchFieldLibrary()
+    {
+        $attributeKeyword = Input::get('attributeKeyword');
+        $fieldTypeId = Input::get('fieldTypeId');
+        return $this->attributeBuilderService->searchFieldLibrary($attributeKeyword, $fieldTypeId);
+    }
 }

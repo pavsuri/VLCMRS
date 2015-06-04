@@ -39,6 +39,11 @@ Route::any('/saveForm', [
     'uses' => 'FormBuilderController@saveForm'
 ]);
 
+//Save Form
+Route::any('/updateForm', [
+    'as' => 'forms.updateform',
+    'uses' => 'FormBuilderController@updateForm'
+]);
 
 //Set Attributes to Fields
 Route::get('/setAttributes', [
@@ -51,6 +56,11 @@ Route::post('/saveAttributes', [
     'uses' => 'AttributeBuilderController@saveAttributes'
 ]);
 
+
+//Search Field Library
+Route::post('/searchFieldLibrary', [
+    'uses' => 'AttributeBuilderController@searchFieldLibrary'
+]);
 
 //Create Form with Fields
 /*

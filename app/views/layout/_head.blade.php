@@ -15,4 +15,5 @@
 {{ HTML::script('js/bootstrap.min.js'); }}
 {{ HTML::script('js/jquery-ui.js'); }}
 {{ HTML::script('js/bootstrap-select.js'); }}
+{{ HTML::script('js/forms.js'); }}
 </head>

@@ -4,7 +4,6 @@
  */
 Route::group(['namespace' => 'User'], function()
 {
-
   Route::get('/signin', [
     'as' => 'signin',
     'uses' => 'SignInController@index'
@@ -16,11 +15,9 @@ Route::group(['namespace' => 'User'], function()
     'uses' => 'SignInController@perform'
   ]);
 
-  Route::get('/signout', [
-    'as' => 'signout',
-    'uses' => 'SignOutController@index'
+  Route::get('/adduser', [
+    'uses' => 'SignInController@addUser'
   ]);
-
 
 });
 

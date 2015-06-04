@@ -19,18 +19,29 @@ class SignInController extends \BaseController
         return \View::make('user.signin');
     }
 
+    //User Login action
     public function perform() 
     {
         $email = Input::get('email');
         $password = Input::get('password');
         if ($this->user->signIn($email, $password)) {
-            // redirect to the intended destination
-            return Redirect::intended($intended);
+            $user = $this->user->getUser();
+            Session::put('userName', $user->name);
+            return Redirect::to('addForm');
         } else {
-            echo "false"; exit;
+            Session::flash('failedMsg', 'Username/Password mismatch');
+            return Redirect::to('signin')->withInput();
         }
-        //Session::flash('failed', true);
-        //return Redirect::to('signin')->withInput();
+       
+    }
+    
+    //Add new User
+    public function addUser()
+    {
+        $email = Input::get('email');
+        $password = Input::get('password');
+        $name = Input::get('name');
+        $this->user->addUser($email, $password, $name);       
     }
 
 }

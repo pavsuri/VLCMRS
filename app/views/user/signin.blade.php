@@ -21,14 +21,20 @@
     'method' => 'post',
     'class' => 'form-horizontal',
     'role' => 'form'
-  ]) }}
+  ]) }} 
+
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 							<div class="cms-login-page">	
                                                             {{ HTML::image("images/rounduser.png", "RoundUser") }}
 								<h1>Compliance Management System</h1>
                                                                  {{ HTML::image("images/smallcircle.png", "smallcircle", ['class' => 'smallcircle']) }}
 								<div class="cms-login-credentials">
-									<div class="admin-credentials">
+									<div class="admin-credentials">  
+                                                                            <p>
+                                                                                @if (Session::has('failedMsg'))
+                                                                            <div class="alert alert-info">{{{ Session::get('failedMsg') }}}</div>
+                                                                            @endif
+                                                                        </p>
                                                                             {{ HTML::image("images/username.png", "username") }}
 										<input type="text" placeholder="User Name" id="signin-email" name="email" autofocus tabindex="1"/>
 										<div class="clearfix"></div>

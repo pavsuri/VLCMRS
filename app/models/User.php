@@ -59,4 +59,39 @@ class User extends \Eloquent implements UserInterface, RemindableInterface {
     {
         return $this->email;
     }
+    
+    public function setEmail($email)
+    {
+        $this->setParams('email', $email);
+    }
+    
+    public function setPassword($password)
+    {
+        $this->setParams('password', $password);
+    }
+    
+    public function setName($name)
+    {
+        $this->setParams('name', $name);
+    }
+    
+    public function getName()
+    {
+        $this->getParams('name');
+    }
+    
+    public function getEmail()
+    {
+        $this->getParams('email');
+    }
+    
+    private function setParams($attributeKey, $attributeValue)
+    {
+        $this->attributes[$attributeKey] = $attributeValue; 
+    }
+    
+    private function getParams($attributeKey)
+    {
+        $this->attributes[$attributeKey]; 
+    }
 }

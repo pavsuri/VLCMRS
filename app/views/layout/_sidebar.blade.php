@@ -1,7 +1,7 @@
 <div class="left-section">
     <div class="cms-profile-data">
         <a href="javascript:void(0)" class="cms-profile-pic"><img src="images/user.png" alt="user-pic"/>
-            <p><span>Welcome,</span><br><span class="cms-profile-name">Shahen Algoo</span></p>
+            <p><span>Welcome</span><br><span class="cms-profile-name">{{{Session::get('userName')}}}</span></p>
         </a>
     </div>
     <div class="drop-down-menu">
@@ -14,9 +14,9 @@
                 </a>
             </li>
             <li>
-                <a href="javascript:void(0)">
+                <a href="/addForm">
                     <span class="menu-icon create-form">
-                        <span class="menu-text">Create Form</span>
+                       <span class="menu-text">Create Form</span>
                     </span>
                 </a>
             </li>

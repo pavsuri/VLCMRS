@@ -5,6 +5,7 @@ use models\Structure;
 use repositories\StructureRepository;
 use services\FormBuilderService;
 use helpers\HtmlGenerator;
+use repositories\AttributeBuilderRepository;
 
 class StructureService
 {
@@ -24,17 +25,23 @@ class StructureService
     private $formBuilderService;
     
     /**
+     * Field AttributeBuilderRepository
+     */
+    private $attributeBuilderRepository;
+    
+    /**
      * Constructor.
      * 
      * @param Structure $strcture
      * @param StructureRepository $structureRepository
      * @param FormBuilderService $formBuilderService
      */
-    public function __construct(Structure $strcture, StructureRepository $structureRepository, FormBuilderService $formBuilderService)
+    public function __construct(Structure $strcture, StructureRepository $structureRepository, FormBuilderService $formBuilderService, AttributeBuilderRepository $attributeBuilderRepository)
     {
         $this->structure = $strcture;
         $this->structureRepository = $structureRepository;
         $this->formBuilderService = $formBuilderService;
+        $this->attributeBuilderRepository = $attributeBuilderRepository;
     }
 
     /**
@@ -122,4 +129,19 @@ class StructureService
         }
     }
 
+    /**
+     * Map Fields to Form
+     * 
+     * @param Integer $formId 
+     * @param Array $fields
+     */
+    public function mapFieldsToForm($formId, $fields)
+    {
+        //echo "<pre>"; print_r($fields);exit;
+        for($i=0; $i<count($fields);$i++) {
+            $attribute = $this->attributeBuilderRepository->findAttributeDetails($fields[$i]);
+            echo "<pre>"; print_r($attribute);exit;
+        }
+        
+    }
 }

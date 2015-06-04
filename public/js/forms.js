@@ -10,6 +10,12 @@ $(document).ready(function () {
         event.preventDefault();
         searchFields();
     });
+    
+    //Move fields from Library to Form
+    $('#moveField').on('click', function (event) {
+        event.preventDefault();
+        alert();
+    });
 });
 
 function updateForm()
@@ -54,7 +60,7 @@ function searchFields() {
             }
         },
         error: function () {
-            alert('Form Name already exist!');
+            alert('No records found');
         }
     });
 }
@@ -63,7 +69,65 @@ function fieldLibraryTemplate(fields)
 {
     var response = '';
     for (i=0; i<fields.length; i++) {
-        response += fields[i].name +"<br>";
+        response += '<div class="cms-add-fields" id="div-left-'+fields[i].id+'">\n\
+                    <input type="text" value="'+fields[i].name+'" >\n\
+                    <a onclick="moveField('+fields[i].id+')" value=><img src="images/add.png" alt="add"/></a>\n\
+                    <div class="clearfix"></div>\n\
+                    </div>';
     }
     $('#fieldLibrary').html(response);
+}
+
+function moveField(fieldId)
+{
+    $.ajax({
+        url: "/moveField/"+fieldId,
+        type: "get",
+        success: function (data) {
+            $("#div-left-"+fieldId).remove();
+            formFieldsTemplate(data);
+        },
+        error: function () {
+            alert('Form Name already exist!');
+        }
+    });
+}
+
+function formFieldsTemplate(field)
+{
+    var response= '';
+    response += '<div class="cms-add-fields" id="div-right-'+field.id+'">\n\
+                    <input type="text" value="'+field.name+'" name="allFields['+field.id+']">\n\
+                    <a onclick="removeField('+field.id+')" value=><img src="images/cross.png" alt="Remove"/></a>\n\
+                    <div class="clearfix"></div>\n\
+                    </div>';
+    $('#form-fields').append(response);
+}
+
+
+function removeField(fieldId)
+{
+    $.ajax({
+        url: "/moveField/"+fieldId,
+        type: "get",
+        success: function (data) {
+            $("#div-right-"+fieldId).remove();
+            addFieldtoFieldLibrary(data);
+        },
+        error: function () {
+            alert('Form Name already exist!');
+        }
+    });
+}
+
+
+function addFieldtoFieldLibrary(field)
+{
+    var response= '';
+    response += '<div class="cms-add-fields" id="div-left-'+field.id+'">\n\
+                    <input type="text" value="'+field.name+'">\n\
+                    <a onclick="moveField('+field.id+')" value=><img src="images/add.png" alt="add"/></a>\n\
+                    <div class="clearfix"></div>\n\
+                    </div>';
+    $('#fieldLibrary').append(response);
 }

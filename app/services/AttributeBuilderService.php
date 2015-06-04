@@ -73,4 +73,12 @@ class AttributeBuilderService
     {
         return $this->attributeBuilderRepository->searchFieldLibrary($attributeKeyword, $fieldTypeId);
     }
+    
+    /**
+     * Get field data by Field id
+     */
+    public function getField($fieldId)
+    {
+        return $this->attributeGenerator->find($fieldId);
+    }
 }

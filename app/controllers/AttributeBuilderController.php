@@ -77,4 +77,15 @@ class AttributeBuilderController extends \BaseController
         $fieldTypeId = Input::get('fieldTypeId');
         return $this->attributeBuilderService->searchFieldLibrary($attributeKeyword, $fieldTypeId);
     }
+   
+    /**
+     * Move fields from left to Form
+     * 
+     * @param Integer $fieldId
+     * @return Object
+     */
+    public function moveField($fieldId)
+    {
+        return $this->attributeBuilderService->getField($fieldId);
+    }
 }

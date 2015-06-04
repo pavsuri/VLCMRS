@@ -62,6 +62,12 @@ Route::post('/searchFieldLibrary', [
     'uses' => 'AttributeBuilderController@searchFieldLibrary'
 ]);
 
+//Move fields from Library to Form
+Route::get('/moveField/{fieldId}', [
+    'uses' => 'AttributeBuilderController@moveField'
+]);
+
+
 //Create Form with Fields
 /*
  * @TODo: frontend
@@ -85,4 +91,11 @@ Route::get('/saveFormAttributes/{formId}/{fieldId}/{parentId}', [
 //Get Form with Attributes
 Route::get('/getForm/{formId}', [
     'uses' => 'FormBuilderController@getForm'
+]);
+
+
+//Map fields to Form
+Route::post('/mapFormAttributes', [
+     'as' => 'forms.mapFieldstoForm',
+    'uses' => 'StructureController@mapFieldsToForm'
 ]);

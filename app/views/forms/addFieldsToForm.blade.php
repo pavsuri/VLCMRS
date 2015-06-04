@@ -70,9 +70,9 @@
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
             <div class="cms-add-field-block" id="fieldLibrary">
                 @foreach($data['fieldsLibrary'] as $fieldAttribute)
-                <div class="cms-add-fields">
+                <div class="cms-add-fields" id="div-left-{{{$fieldAttribute->id}}}">
                     <input type="text" value="{{{$fieldAttribute->value}}}" name="{{{$fieldAttribute->name}}}" id="{{{$fieldAttribute->identifier}}}">
-                    <a href="javascript:void(0)">
+                    <a  onclick="moveField({{{$fieldAttribute->id}}})">
                         <img src="images/add.png" alt="add"/>
                     </a>
                     <div class="clearfix"></div>	
@@ -85,35 +85,26 @@
                 </a>
             </div>
         </div>
-
+         {{ Form::open([
+    'route' => 'forms.mapFieldstoForm',
+    'method' => 'post',
+    'class' => 'form-horizontal',
+    'id' => 'field-form-map',
+    'role' => 'form'
+  ]) }}
+  <input type="hidden" name="form_id_map" id="form_id_map" value="{{{$data['formId']}}}">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
-            <div class="cms-add-field-block">
-                <div class="cms-add-fields">
-                    <input type="text"  value="Emp ID">
-                    <a href="javascript:void(0)">
-                        <img src="images/cross.png" alt="cross"/>
-                    </a>
-                    <div class="clearfix"></div>	
-                </div>
-                <div class="cms-add-fields">
-                    <input type="text"  value="Name">
-                    <a href="javascript:void(0)">
-                        <img src="images/cross.png" alt="cross"/>
-                    </a>
-                    <div class="clearfix"></div>	
-                </div>
-                <div class="cms-add-fields">
-                    <input type="text" class="dashed">
-                    <div class="clearfix"></div>	
-                </div>
-            </div>
+            <!-- Form Fields -->
+            <div class="cms-add-field-block" id="form-fields"></div>
+            <input type="submit" class="btn btn-primary btm-btn" Value="Next">
         </div>
+  {{ Form::close() }}
     </div>
     <!-- END of .row -->
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center btns">
-            <button type="button" class="btn btn-primary btm-btn">Back</button>
-            <button type="button" class="btn btn-primary btm-btn">Next</button>
+           <!-- <button type="button" class="btn btn-primary btm-btn">Back</button> 
+            <button type="button" class="btn btn-primary btm-btn">Next</button> -->
         </div>
     </div>
 </div>
@@ -127,7 +118,7 @@
                 <h4 class="modal-title">Create Field</h4>
             </div>
             <div class="modal-body">
-                {{ Form::open([
+ {{ Form::open([
     'method' => 'post',
     'class' => 'form-horizontal',
     'role' => 'form'
@@ -145,9 +136,7 @@
                         <select name="type_id" id="type_id" class="selectpicker"  data-style="btn-inverse">
                             <option value="" >Select Form Type</option>
                             @foreach($formTypes as $formType)
-                            <option value="{{{$formType->id}}}"  <?php if ($data['formType'] == $formType->id) {
-    echo "selected=selected";
-} ?>>{{{$formType->form_type}}}</option>
+                            <option value="{{{$formType->id}}}" <?php if ($data['formType'] == $formType->id) {   echo "selected=selected";} ?>>{{{$formType->form_type}}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -162,5 +151,8 @@
         </div>
     </div>
 </div>
+<script type="javascript">
+
+</script>
 @endsection
 

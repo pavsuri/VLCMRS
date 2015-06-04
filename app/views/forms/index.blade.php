@@ -46,7 +46,7 @@
                 <div class="form-group">
                     <div class="form-field">
                         <label for="form-name" class="control-label">Form Name</label>
-                        <input type="text"  id="form-name" name="name" class="form-control" value="System Maintenance"  >
+                        <input type="text"  id="form-name" name="name" class="form-control" placeholder="System Maintenance"  >
                     </div>
                 </div>
                 <div class="form-group">

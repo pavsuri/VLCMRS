@@ -80,6 +80,7 @@ class AttributeBuilderRepository extends AbstractBaseRepository
                         $this->model->join('field_types', 'field_attributes.field_type_id', '=', 'field_types.id')
                             ->where('field_attributes.id', '=', $fieldId)
                             ->select('field_types.name as fieldType',
+                                    'field_attributes.id as fieldId',
                                     'field_attributes.name as fieldName', 
                                     'field_attributes.value as fieldValue', 
                                     'field_attributes.label as fieldLabel'

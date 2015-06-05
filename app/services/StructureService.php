@@ -43,24 +43,6 @@ class StructureService
         $this->formBuilderService = $formBuilderService;
         $this->attributeBuilderRepository = $attributeBuilderRepository;
     }
-
-    /**
-     * Save Form with Attributes.
-     * 
-     * @param Integer $formId
-     * @param Integer $fieldId
-     * @param Integer $parentId
-     * @return Boolean
-     */
-    public function saveFormAttributes($formId, $fieldId, $parentId = 0)
-    {
-        $form = $this->structure;
-        $form->setFormId($formId);
-        $form->setFieldId($fieldId);
-        $form->setParentId($parentId);
-        $form->save();
-        echo "Successfully saved in our database. Your Inserted id is ". $form->id;
-    }
     
     /**
      * Get Form data by Form Id
@@ -72,10 +54,8 @@ class StructureService
     {
         $formData = $this->formBuilderService->getFormById($formId);
         $fieldsData = $this->structureRepository->getFormAttributes($formId);
-        echo HtmlGenerator::htmlForm($formData->name, $formData->type_id);
         $fieldsHierarchicalData = $this->buildTree($fieldsData);
-        $this->hemlGenerator($fieldsHierarchicalData);
-        echo "</form>"; 
+        return $this->hemlGenerator($formData, $fieldsHierarchicalData);
     }
     
     /**
@@ -106,27 +86,29 @@ class StructureService
      * @param Array $fieldsHierarchicalData
      * @return HTML Output
      */
-    private function hemlGenerator($fieldsHierarchicalData)
+    private function hemlGenerator($formData, $fieldsHierarchicalData)
     { 
         $field = $fieldsHierarchicalData;
         $optionsData =  array();
+        $formHtmlDesign = HtmlGenerator::htmlForm($formData->name, $formData->type_id);
         for($i=0; $i<count($field); $i++) {
             if (isset($field[$i]->children)) {
                 if (($field[$i]->fieldType == 'selectbox') || ($field[$i]->fieldType == 'checkbox') || ($field[$i]->fieldType == 'radio')) {
                     $optionsData = $field[$i]->children;
-                    echo HtmlGenerator::htmlInput($field[$i]->fieldType, $field[$i]->fieldName, $field[$i]->fieldLabel, $field[$i]->fieldValue, $optionsData);
+                    $formHtmlDesign .= HtmlGenerator::htmlInput($field[$i]->fieldType, $field[$i]->fieldName, $field[$i]->fieldLabel, $field[$i]->fieldValue, $optionsData);
                 } else {
-                    echo HtmlGenerator::htmlInput($field[$i]->fieldType, $field[$i]->fieldName, $field[$i]->fieldLabel, $field[$i]->fieldValue, $optionsData);
+                    $formHtmlDesign .= HtmlGenerator::htmlInput($field[$i]->fieldType, $field[$i]->fieldName, $field[$i]->fieldLabel, $field[$i]->fieldValue, $optionsData);
                     $containerData = $field[$i]->children;
                     if (isset($containerData)) { 
                        $this->hemlGenerator($containerData);
                     }
                 }
             } else {
-                echo HtmlGenerator::htmlInput($field[$i]->fieldType, $field[$i]->fieldName, $field[$i]->fieldLabel, $field[$i]->fieldValue, $optionsData);
+                $formHtmlDesign .= HtmlGenerator::htmlInput($field[$i]->fieldType, $field[$i]->fieldName, $field[$i]->fieldLabel, $field[$i]->fieldValue, $optionsData);
             }
-            echo "<br>";
         }
+        $formHtmlDesign .= "</form>"; 
+        return $formHtmlDesign;
     }
 
     /**

@@ -112,7 +112,6 @@ class FormBuilderController extends \BaseController
         $name = Input::get('name');
         $typeId = Input::get('type_id');
         $formId = $this->formBuilderService->addForm($name, $typeId);
-        echo "<pre>"; print_r($formId);
         $fieldsLibrary = $this->attributeBuilderService->getAttributesByField();
         $formTypes = $this->formTypesService->getFormTypes();
         $fieldTyps = $this->fieldTypesService->getAllFields();
@@ -140,7 +139,7 @@ class FormBuilderController extends \BaseController
     public function getForm($formId) 
     {
         $fieldsData = $this->structureService->getFormAttributes($formId);
-        return $fieldsData;
+        return View::make('forms.preview',array('formData'=>$fieldsData));
     }
     
     /**
@@ -150,5 +149,22 @@ class FormBuilderController extends \BaseController
     {
         $fieldsData = $this->structureService->getFormAttributes($formId);
         return $fieldsData;
+    }
+    
+    /**
+     * DashBorad
+     */
+    public function dashboard()
+    {
+        $formTypesCount = $this->formBuilderService->getFormsByType();
+        return View::make('dashboard', array('forms' => $formTypesCount));
+    }
+    
+    /**
+     * List of Forms
+     */
+    public function formList($formTypeId)
+    {
+        
     }
 }

@@ -2,6 +2,7 @@
 namespace services;
 
 use models\FormGenerator;
+use repositories\FormRepository;
 
 class FormBuilderService
 {
@@ -11,13 +12,19 @@ class FormBuilderService
     private $formGenerator;
     
     /**
+     * Form Repository
+     */
+    private $formReposiroty;
+    
+    /**
      * Constructor.
      * 
      * @param FormGenerator $formGenerator
      */
-    public function __construct(FormGenerator $formGenerator)
+    public function __construct(FormGenerator $formGenerator, FormRepository $formReposiroty)
     {
         $this->formGenerator = $formGenerator;
+        $this->formReposiroty = $formReposiroty;
     }
     
     /**
@@ -75,5 +82,10 @@ class FormBuilderService
     {
         $formData = $this->formGenerator->find($formId);
         return $formData;
+    }
+    
+    public function getFormsByType()
+    {
+        return $formData = $this->formReposiroty->getFormsByType();
     }
 }

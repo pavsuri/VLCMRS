@@ -7,6 +7,10 @@ class RepositoriesServiceProvider extends ServiceProvider {
   public function register()
   {
 
+    // Form Repository
+    $this->app->bind(
+      'repositories\FormRepository'
+    );
     // AttributeBuilder Repository
     $this->app->bind(
       'repositories\AttributeBuilderRepository'

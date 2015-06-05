@@ -41,6 +41,12 @@
 
 
     <div class="row">
+        {{ Form::open([
+    'route' => 'forms.mapFieldstoForm',
+    'method' => 'post',
+    'id' => 'field-form-map',
+    'role' => 'form'
+  ]) }}
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
             <div class="cms-search-field" >
                 <input type="text" name="search_attribute" id="search_attribute" placeholder="Search"/>
@@ -71,17 +77,11 @@
                 </a>
             </div>
         </div>
-        {{ Form::open([
-    'route' => 'forms.mapFieldstoForm',
-    'method' => 'post',
-    'class' => 'form-horizontal',
-    'id' => 'field-form-map',
-    'role' => 'form'
-  ]) }}
+        
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
             <div class="cms-sys-maintenance">
                 <div>
-                    <img src="images/smallcircle.png" alt="smallcircle" class="smallcircle"/>
+                    <!--<img src="images/smallcircle.png" alt="smallcircle" class="smallcircle"/>-->
                     <p id="formName">{{{$data['formName']}}}</p>
                     <a href="#Form-Edit" data-toggle="modal"><img src="images/edit.png" alt="edit"/></a>
                 </div>
@@ -91,17 +91,15 @@
             <!-- Form Fields -->
             <div class="cms-add-field-block" id="form-fields"></div>
         </div> 
-        <input type="submit" class="btn btn-primary btm-btn" Value="Next">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center btns">
+            <button type="button" class="btn btn-primary btm-btn">Back</button>
+            <input type="submit" class="btn btn-primary btm-btn" Value="Next">
+        </div>
+
         {{ Form::close() }}
     </div>
 
-    <!-- END of .row -->
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center btns">
-            <button type="button" class="btn btn-primary btm-btn">Back</button>
-            <button type="button" class="btn btn-primary btm-btn">Next</button>
-        </div>
-    </div>
+
 
     <!-- END of .row -->
 </div>

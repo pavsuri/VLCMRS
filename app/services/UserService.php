@@ -44,7 +44,7 @@ class UserService
     public function signout() {
         $this->auth->logout();
         Session::flush();
-        return Redirect::to('login');
+        return Redirect::to('/');
     }
 
 }

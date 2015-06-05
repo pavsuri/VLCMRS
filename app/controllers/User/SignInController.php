@@ -30,7 +30,7 @@ class SignInController extends \BaseController
             return Redirect::to('addForm');
         } else {
             Session::flash('failedMsg', 'Username/Password mismatch');
-            return Redirect::to('signin')->withInput();
+            return Redirect::to('login')->withInput();
         }
        
     }

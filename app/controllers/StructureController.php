@@ -1,6 +1,7 @@
 <?php
 
 use services\StructureService;
+use services\FormBuilderService;
 
 class StructureController extends BaseController 
 {
@@ -43,6 +44,7 @@ class StructureController extends BaseController
         $fields = Input::get('allFields');
         $fields = array_keys($fields);
         $this->structureService->mapFieldsToForm($formId, $fields);
-        return View::make('forms.preview');
+        $formData = $this->structureService->getFormAttributes($formId);
+        return View::make('forms.preview',array('formData'=>$formData));
     }
 }

@@ -7,36 +7,39 @@ class HtmlGenerator
     {
         switch ($fieldType) {
             case "textbox":
-                $output = $fieldLabel. ": <input type='".$fieldType."' name='".$fieldName."' value='".$fieldValue."' />";
+                $textbox = "<input type='".$fieldType."' name='".$fieldName."' value='".$fieldValue."' class='form-control'/>";
+                $output = self::divStructure($fieldLabel, $textbox);
                 break;
             case "textarea":
-                $output =  $fieldLabel. ": <".$fieldType."  name='".$fieldName."'>".$fieldValue."</textarea>";
+                $textarea =  " <".$fieldType."  name='".$fieldName."'>".$fieldValue."</textarea>";
+                $output = self::divStructure($fieldLabel, $textarea);
                 break;
             case "selectbox":
-                $output =  $fieldLabel. ": <select  name='".$fieldName."' value = '".$fieldValue."'>";
-                $output .= "<option value='' >Select Country</option>";
+                $select =  "<select  name='".$fieldName."' value = '".$fieldValue."'  class='selectpicker' data-style='btn-inverse' >";
+                $select .= "<option value='' >Select Country</option>";
                 foreach($optionsData as $option) {
-                    $output .= "<option value='".$option->fieldValue."' >".$option->fieldName."</option>";
+                    $select .= "<option value='".$option->fieldValue."' >".$option->fieldName."</option>";
                 }
-                $output .= "</select>";
+                $select .= "</select>";
+                $output = self::divStructure($fieldLabel, $select);
                 break;
             case "checkbox":
-                $output = $fieldLabel;
+                $checkbox = "";
                 foreach($optionsData as $option) {
-                    $output .= "<input type='checkbox' name=".$fieldName." value=".$option->fieldValue.">".$option->fieldName;
+                    $checkbox .= "<input type='checkbox' name=".$fieldName." value=".$option->fieldValue.">".$option->fieldName;
+										
                 }
+                $output = self::getCheckboxHtml($fieldLabel, $checkbox);
                 break;
             case "radio":
-                $output = $fieldLabel;
+                $radio = "";
                 foreach($optionsData as $option) {
-                    $output .= "<input type='radio' name=".$fieldName." value=".$option->fieldValue.">".$option->fieldName;
+                    $radio .= "<input type='radio' name=".$fieldName." value=".$option->fieldValue.">".$option->fieldName;
                 }
+                $output = self::divStructure($fieldLabel, $radio);
                 break;
             case "submit":
                 $output = "<input type='".$fieldType."' name='".$fieldName."' value='".$fieldValue."' />";
-                break;
-            case "container":
-                $output = "<h1>".$fieldName."</h1>";
                 break;
         }
         return $output;
@@ -45,5 +48,32 @@ class HtmlGenerator
     public static function htmlForm($formName, $typeId)
     {
         echo  "<form name='".$formName."' >";
+    }
+    
+    public static function divStructure($fieldLabel, $fieldHtml)
+    {
+        $structure = '<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                <div class="form-group">
+                    <div class="input-field">
+                        <label for="name" class="control-label">'.$fieldLabel.'</label>
+                        '.$fieldHtml.'
+                    </div>
+                </div>
+            </div>';
+        return $structure;
+    }
+    
+    public static function getCheckboxHtml($fieldLabel, $fieldHtml)
+    {
+        $structure = '<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                        <div class="data">
+                            <span>' . $fieldLabel . '</span> 
+                                <div class="check-box">
+                                ' . $fieldHtml . '
+                                    <label for="oc"></label>
+                                </div>
+                          </div>
+                </div>';
+        return $structure;
     }
 }

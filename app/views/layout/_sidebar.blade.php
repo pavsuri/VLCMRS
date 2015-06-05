@@ -7,15 +7,15 @@
     <div class="drop-down-menu">
         <ul class="drop-down-menu-links">
             <li>
-                <a href="javascript:void(0)" class="active-link">
+                <a href="/dashboard" <?php if(Route::current()->getName() == 'dashboard') { echo 'class="active-link"'; } ?>>
                     <span class="menu-icon dashboard">
                         <span class="menu-text">Dashboard</span>
                     </span>
                 </a>
             </li>
             <li>
-                <a href="/addForm">
-                    <span class="menu-icon create-form">
+                <a href="/addForm" <?php if(Route::current()->getName() == 'forms.index') { echo 'class="active-link"'; } ?> >
+                    <span class="menu-icon create-form"  >
                        <span class="menu-text">Create Form</span>
                     </span>
                 </a>
@@ -28,7 +28,7 @@
                 </a>
             </li>
             <li>
-                <a href="javascript:void(0)">
+                <a href="javascript:void(0)" <?php if(Route::current()->getName() == 'forms.saveform') { echo 'class="active-link"'; } ?> >
                     <span class="menu-icon map-field">
                         <span class="menu-text">Map Fields</span>
                     </span>

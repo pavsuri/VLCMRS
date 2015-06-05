@@ -17,7 +17,7 @@
 							<div class="cms-right-top-icons">
 								<div class="notification">12</div>
 								<img src="images/notifications.png" alt="notifications"/>
-								<a href="javascript:void(0)">
+								<a href="/signout">
 									<img src="images/logout.png" alt="logout"/>
 								</a>
 							</div>

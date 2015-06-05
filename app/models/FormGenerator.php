@@ -1,6 +1,8 @@
 <?php
 namespace models;
 
+use Illuminate\Support\Facades\Validator;
+
 class FormGenerator extends \Eloquent
 {
     protected $table = 'forms';
@@ -49,4 +51,5 @@ class FormGenerator extends \Eloquent
     public function formtypes() {
         return $this->belongs_to('FormTypes'); // this matches the Eloquent model
     }
+
 }

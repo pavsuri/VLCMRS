@@ -112,6 +112,7 @@ class FormBuilderController extends \BaseController
         $name = Input::get('name');
         $typeId = Input::get('type_id');
         $formId = $this->formBuilderService->addForm($name, $typeId);
+        echo "<pre>"; print_r($formId);
         $fieldsLibrary = $this->attributeBuilderService->getAttributesByField();
         $formTypes = $this->formTypesService->getFormTypes();
         $fieldTyps = $this->fieldTypesService->getAllFields();
@@ -137,6 +138,15 @@ class FormBuilderController extends \BaseController
      * @return Html form 
      */
     public function getForm($formId) 
+    {
+        $fieldsData = $this->structureService->getFormAttributes($formId);
+        return $fieldsData;
+    }
+    
+    /**
+     * Form Preview
+     */
+    public function preview($formId) 
     {
         $fieldsData = $this->structureService->getFormAttributes($formId);
         return $fieldsData;

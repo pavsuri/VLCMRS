@@ -43,5 +43,10 @@ class SignInController extends \BaseController
         $name = Input::get('name');
         $this->user->addUser($email, $password, $name);       
     }
+    
+    public function signout()
+    {
+        return $this->user->signout();
+    }
 
 }

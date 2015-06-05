@@ -49,6 +49,7 @@ class AttributeBuilderService
         $field->setValue($value);
         $field->identifier = rand();
         $field->save();
+        return $field->id;
     }
     
     /**

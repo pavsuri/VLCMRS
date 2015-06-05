@@ -7,4 +7,4 @@
         </div>
 </div>
 <!-- END of .row -->
-	
+{{ HTML::script('js/script.js'); }}

@@ -6,6 +6,7 @@ use Hash;
 use repositories\UserRepository;
 use Illuminate\Auth\AuthManager;
 use models\User;
+use Redirect, Session;
 
 class UserService   
 {
@@ -38,6 +39,12 @@ class UserService
     
     public function getUser() {
         return $this->auth->user();
+    }
+    
+    public function signout() {
+        $this->auth->logout();
+        Session::flush();
+        return Redirect::to('login');
     }
 
 }

@@ -41,6 +41,7 @@ class FormBuilderService
      */   
     public function addForm($formName, $typeId)
     {
+        $input = array('name' => $formName, 'type_id'=>$typeId);
         $form = $this->formGenerator;
         $form->setName($formName);
         $form->setTypeId($typeId);
@@ -49,7 +50,12 @@ class FormBuilderService
     }
     
     /**
-     * Update Form
+     * Update Form 
+     * 
+     * @param Integer $formId
+     * @param String $formName
+     * @param Integer $typeId
+     * @return null
      */
     public function updateForm($formId, $formName, $typeId)
     {

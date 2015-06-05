@@ -11,10 +11,10 @@ $(document).ready(function () {
         searchFields();
     });
     
-    //Move fields from Library to Form
-    $('#moveField').on('click', function (event) {
+    //Create Field
+    $('#create_field').on('click', function (event) {
         event.preventDefault();
-        alert();
+        createField();
     });
 });
 
@@ -111,8 +111,8 @@ function removeField(fieldId)
         url: "/moveField/"+fieldId,
         type: "get",
         success: function (data) {
-            $("#div-right-"+fieldId).remove();
             addFieldtoFieldLibrary(data);
+            $("#div-right-"+fieldId).remove();
         },
         error: function () {
             alert('Form Name already exist!');
@@ -130,4 +130,30 @@ function addFieldtoFieldLibrary(field)
                     <div class="clearfix"></div>\n\
                     </div>';
     $('#fieldLibrary').append(response);
+}
+
+function createField()
+{
+    var field_type, field_name, field_label, field_value;
+    field_type = $('#field_type').val();
+    field_name = $('#field_name').val();
+    field_label = $('#field_label').val();
+    field_value = $('#field_value').val();
+    $.ajax({
+        url: "/saveAttributes",
+        type: "post",
+        data: {
+            'field_type': field_type,
+            'field_name': field_name,
+            'field_label': field_label,
+            'field_value': field_value,
+        },
+        success: function (data) {
+            $('#create-field').modal('hide');
+            removeField(data);
+        },
+        error: function () {
+            alert('Field Name already exist!');
+        }
+    });
 }

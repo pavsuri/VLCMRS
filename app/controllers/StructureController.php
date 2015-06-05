@@ -32,12 +32,17 @@ class StructureController extends BaseController
         return $this->structureService->saveFormAttributes($formId, $fieldId, $parentId);
     }
     
+    /**
+     * Assign fields to Form
+     * 
+     * @return Boolean
+     */
     public function mapFieldsToForm()
     {
         $formId = Input::get('form_id_map');
         $fields = Input::get('allFields');
         $fields = array_keys($fields);
         $this->structureService->mapFieldsToForm($formId, $fields);
-        return View::make('attributes.index', array('fields' => $fieldsData, 'msg' => 'Saved Successfully'));
+        return View::make('forms.preview');
     }
 }

@@ -1,6 +1,6 @@
 <div class="left-section">
     <div class="cms-profile-data">
-        <a href="javascript:void(0)" class="cms-profile-pic"><img src="images/user.png" alt="user-pic"/>
+        <a href="javascript:void(0)" class="cms-profile-pic"><img src="/images/user.png" alt="user-pic"/>
             <p><span>Welcome</span><br><span class="cms-profile-name">{{{Session::get('userName')}}}</span></p>
         </a>
     </div>

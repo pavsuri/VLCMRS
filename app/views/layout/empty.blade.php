@@ -11,14 +11,14 @@
 					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 cms-title">
 						<div class="cms-toggle-menu-section">
 							<div class="cms-menu-icon">
-								<img src="images/menu.png" alt="menu"/>
+								<img src="/images/menu.png" alt="menu"/>
 								<span>Compliance Management System</span>
 							</div>
 							<div class="cms-right-top-icons">
 								<div class="notification">12</div>
-								<img src="images/notifications.png" alt="notifications"/>
+								<img src="/images/notifications.png" alt="notifications"/>
 								<a href="/signout">
-									<img src="images/logout.png" alt="logout"/>
+									<img src="/images/logout.png" alt="logout"/>
 								</a>
 							</div>
 							<div class="clearfix"></div>

@@ -39,7 +39,7 @@ Route::group(array('before' => 'auth'), function(){
     ]);
     
     //User Forms
-    Route::get('/formList/{{{formTypeId}}}', [
+    Route::get('/formList/{formTypeId}', [
         'uses' => 'FormBuilderController@formList'
     ]);
 
@@ -105,6 +105,11 @@ Route::group(array('before' => 'auth'), function(){
     Route::post('/mapFormAttributes', [
          'as' => 'forms.mapFieldstoForm',
         'uses' => 'StructureController@mapFieldsToForm'
+    ]);
+    
+    //Get Form Details
+     Route::get('/getFormDetails/{formId}', [
+        'uses' => 'FormBuilderController@getFormDetails'
     ]);
 
     Route::get('/', 'SignInController@index');

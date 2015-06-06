@@ -86,9 +86,6 @@ function moveField(fieldId)
         success: function (data) {
             $("#div-left-"+fieldId).remove();
             formFieldsTemplate(data);
-        },
-        error: function () {
-            alert('Form Name already exist!');
         }
     });
 }
@@ -113,9 +110,6 @@ function removeField(fieldId)
         success: function (data) {
             addFieldtoFieldLibrary(data);
             $("#div-right-"+fieldId).remove();
-        },
-        error: function () {
-            alert('Form Name already exist!');
         }
     });
 }
@@ -154,6 +148,30 @@ function createField()
         },
         error: function () {
             alert('Field Name already exist!');
+        }
+    });
+}
+
+function getForm(formId) 
+{
+     $.ajax({
+        url: "/preview/"+formId,
+        type: "get",
+        success: function (data) {
+            getFormName(formId);
+            $('#form_data').html(data);
+            $('#form-data').removeAttr('style');
+        }
+    });
+}
+
+function getFormName(formId)
+{
+    $.ajax({
+        url: "/getFormDetails/"+formId,
+        type: "get",
+        success: function (data) {
+            $('#form_name').html(data.name)
         }
     });
 }

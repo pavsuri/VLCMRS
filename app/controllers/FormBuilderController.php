@@ -165,6 +165,15 @@ class FormBuilderController extends \BaseController
      */
     public function formList($formTypeId)
     {
-        
+        $data = $this->formBuilderService->listFormsByTypeId($formTypeId);
+        return View::make('forms.allForms', array('forms' => $data));
+    }
+    
+    /**
+     * Get Form Name
+     */
+    public function getFormDetails($formId)
+    {
+        return $this->formBuilderService->getFormById($formId);;
     }
 }

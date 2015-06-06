@@ -1,40 +1,50 @@
-@if(isset($message))
-{{{$message}}}
-@endif
+@extends('layout.empty')
 
-<table border="1"> 
-    <tr>
-        <td>
-            S.No
-        </td>
-        <td>
-            Form Name
-        </td>
-        <td>
-            Type Id
-        </td>
-        <td>Add Fields
-        </td>
-        <td>
-           View
-        </td>
-    </tr>
-    <?php
-    $sno=1;
-    foreach ($forms as $form) {
-        ?>
-    <tr>
-        <td>{{{$sno}}} </td>
-        <td>{{{$form->name}}}</td>
-        <td>{{{$form->type_id}}}</td>
-        <td><a href="/createForm/{{{$form->id}}}">
-            Add Fields
-            </a></td>
-        <td>View</td>
-    </tr>
-    <?php } ?>
-</table>
+@section('title')Create Form @endsection
 
-<br>
-<a href="/addForm" >Add New Form</a><br><br>
-<a href="/setAttributes">Set Attributes</a>
+@section('content')
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 title-content">
+        <div class="cms-page-title">
+            <h1>{{{ucfirst($forms[0]->form_type)}}}</h1>
+        </div>					
+    </div>
+</div>
+<!-- END of .row -->
+<div class="right-section-content cms-user-form ">
+    <div class="select-form">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="form-group">
+                    <label for="select-form" class="col-xs-12 col-sm-3 col-md-3 col-lg-3 control-label">Select Form</label>
+                    <div class="col-xs-12 col-sm-8 col-md-7 col-lg-7">
+                        <select class="selectpicker"  id="formId" data-style="btn-inverse" onchange="getForm(this.value);"> 
+                            <option>Select Form</option>
+                            @foreach($forms as $form) {
+                            <option value="{{{$form->id}}}">{{{$form->name}}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="form-data" style="display:none;">
+    <div class="row" >  
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <p class="user-current-form" id="form_name"></p>
+        </div>
+    </div>
+    <div class="cms-preview-data">
+        <div class="row" id="form_data"> </div>
+    </div>
+    <!-- END of .cms-preview-data -->
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center btns">
+            <button type="button" class="btn btn-primary btm-btn">Back</button>
+            <button type="submit" class="btn btn-primary btm-btn">Submit</button>
+        </div>
+    </div>
+    </div>
+</div>
+@endsection

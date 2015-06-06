@@ -37,4 +37,22 @@ class FormRepository extends AbstractBaseRepository
         );
         return $results;
   }
+  
+  /**
+     * Get all forms by Form Type
+     * 
+     * @param Integer $formTypeId
+     * @return Array
+     */
+  public function listFormsByTypeId($formTypeId)
+  {
+      $results = $this->build(
+                        $this->model->join('form_types', 'forms.type_id', '=', 'form_types.id')
+                            ->orderBy('forms.name', 'asc')
+                            ->select ('forms.*', 'form_types.form_type')
+                            ->where('forms.type_id', '=', $formTypeId)
+                            ->get()
+        );
+        return $results;
+  }
 }

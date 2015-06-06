@@ -84,8 +84,24 @@ class FormBuilderService
         return $formData;
     }
     
+    /**
+     * Get Form count of all form types
+     * 
+     * @return Array
+     */
     public function getFormsByType()
     {
         return $formData = $this->formReposiroty->getFormsByType();
+    }
+    
+    /**
+     * Get all forms by Form Type
+     * 
+     * @param Integer $formTypeId
+     * @return Array
+     */
+    public function listFormsByTypeId($formTypeId)
+    {
+        return $formList = $this->formReposiroty->listFormsByTypeId($formTypeId);
     }
 }

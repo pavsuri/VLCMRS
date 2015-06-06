@@ -45,6 +45,7 @@ class StructureController extends BaseController
         $fields = array_keys($fields);
         $this->structureService->mapFieldsToForm($formId, $fields);
         $formData = $this->structureService->getFormAttributes($formId);
+        //echo "<pre>"; print_r($formData);exit;
         return View::make('forms.preview',array('formData'=>$formData));
     }
 }

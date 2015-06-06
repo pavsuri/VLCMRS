@@ -122,13 +122,14 @@
                 <div class="form-group">
                     <div class="form-field">
                         <label for="form-name" class="control-label">Form Name</label>
-                        <input type="text"  id="form_name" name="name"  value="{{{$data['formName']}}}" class="form-control"  >
+                        <input type="text"  id="form_name" name="name"  value="{{{$data['formName']}}}" class="form-control" required  >
+                        <div id="formName_err" style="color:red; font-size: 10px;"></div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="form-field">
                         <label for="form-type" class="control-label">Form Type</label>
-                        <select name="type_id" id="type_id" class="selectpicker"  data-style="btn-inverse">
+                        <select name="type_id" id="type_id" class="selectpicker"  data-style="btn-inverse" required>
                             <option value="" >Select Form Type</option>
                             @foreach($formTypes as $formType)
                             <option value="{{{$formType->id}}}" <?php
@@ -138,11 +139,12 @@
                             ?>>{{{$formType->form_type}}}</option>
                             @endforeach
                         </select>
+                        <div id="formType_err" style="color:red; font-size: 10px;"></div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="text-center">
-                        <button type="button" id="editForm" class="btn btn-primary btm-btn next">Next</button>
+                        <button type="submit" id="editForm" class="btn btn-primary btm-btn next">Next</button>
                     </div>
                 </div>
                 {{ Form::close() }}
@@ -172,24 +174,27 @@
                     <div class="input-field">
                         <label for="field-type" class="control-label">Field Type</label>
 
-                        <select name="field_type" id="field_type" class="selectpicker"  id="field-type" data-style="btn-inverse" >
-                            <option value="select">Select</option>
+                        <select name="field_type" id="field_type" class="selectpicker"  id="field-type" data-style="btn-inverse"  required>
+                            <option value="">Select</option>
                             @foreach($data['fieldTypes'] as $fieldType)
                             <option value="{{{$fieldType->id}}}">{{{ucfirst($fieldType->name)}}}</option>
                             @endforeach
                         </select>
+                        <div id="fieldType_err" style="color:red; font-size: 10px;"></div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="input-field">
                         <label for="field-name" class="control-label">Field Name</label>
-                        <input type="text" id="field_name" class="form-control" name='field_name'/>
+                        <input type="text" id="field_name" class="form-control" name='field_name' required/>
+                        <div id="fieldName_err" style="color:red; font-size: 10px;"></div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="input-field">
                         <label for="field-lable" class="control-label">Field Lable</label>
-                        <input type="text" id="field_label" class="form-control" name='field_label'/>
+                        <input type="text" id="field_label" class="form-control" name='field_label' required/>
+                        <div id="fieldLabel_err" style="color:red; font-size: 10px;"></div>
                     </div>
                 </div>
                 <div class="form-group">

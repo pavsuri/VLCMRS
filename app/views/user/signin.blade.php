@@ -36,12 +36,12 @@
                                                                             @endif
                                                                         </p>
                                                                             {{ HTML::image("images/username.png", "username") }}
-										<input type="text" placeholder="User Name" id="signin-email" name="email" autofocus tabindex="1"/>
+                                                                            <input type="email" placeholder="EmailId" id="signin-email" name="email" autofocus tabindex="1" required/>
 										<div class="clearfix"></div>
 									</div>
 									<div class="admin-credentials">
                                                                             {{ HTML::image("images/password.png", "password") }}
-										<input type="password" placeholder="********" id="signin-password" name="password" tabindex="2"/>
+                                                                            <input type="password" placeholder="********" id="signin-password" name="password" tabindex="2" required/>
 										<div class="clearfix"></div>
 									</div>
 									<a href="innerPage.html">Forgot Your Password?</a>

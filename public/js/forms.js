@@ -2,7 +2,17 @@ $(document).ready(function () {
     //Edit Form in Add fields page
     $('#editForm').on('click', function (event) {
         event.preventDefault();
-        updateForm();
+        var formName = $('#form_name').val();
+        var formType = $('#type_id').val();
+        if(formName == '') {
+            $('#formName_err').html('Please enter Form Name');
+            $('#formType_err').html('');
+        } else if(formType == ''){
+            $('#formName_err').html('');
+            $('#formType_err').html('Please select Form type');
+        } else {
+            updateForm();
+        }
     });
     
     //Search Fields from Library on Add fields page
@@ -14,7 +24,25 @@ $(document).ready(function () {
     //Create Field
     $('#create_field').on('click', function (event) {
         event.preventDefault();
-        createField();
+        var field_type, field_name, field_label, field_value;
+        field_type = $('#field_type').val();
+        field_name = $('#field_name').val();
+        field_label = $('#field_label').val();
+        if(field_type == '') {
+            $('#fieldType_err').html('Please Select Field Type');
+            $('#fieldName_err').html('');
+            $('#fieldLabel_err').html('');
+        } else if(field_name == ''){
+            $('#fieldLabel_err').html('');
+            $('#fieldType_err').html('');
+            $('#fieldName_err').html('Please enter Field Name');
+        } else if(field_label == ''){
+            $('#fieldName_err').html('');
+            $('#fieldType_err').html('');
+            $('#fieldLabel_err').html('Please enter Field Label');
+        } else {
+            createField();
+        }
     });
 });
 
@@ -36,7 +64,6 @@ function updateForm()
             $('#Form-Edit').modal('hide');
         },
         error: function () {
-
             alert('Form Name already exist!');
         }
     });

@@ -27,7 +27,7 @@ class SignInController extends \BaseController
         if ($this->user->signIn($email, $password)) {
             $user = $this->user->getUser();
             Session::put('userName', $user->name);
-            return Redirect::to('addForm');
+            return Redirect::to('dashboard');
         } else {
             Session::flash('failedMsg', 'Username/Password mismatch');
             return Redirect::to('login')->withInput();

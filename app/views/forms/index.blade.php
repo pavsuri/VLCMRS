@@ -46,13 +46,13 @@
                 <div class="form-group">
                     <div class="form-field">
                         <label for="form-name" class="control-label">Form Name</label>
-                        <input type="text"  id="form-name" name="name" class="form-control" placeholder="System Maintenance"  >
+                        <input type="text"  id="form-name" name="name" class="form-control" placeholder="System Maintenance"  required >
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="form-field">
                         <label for="form-type" class="control-label">Form Type</label>
-                        <select name="type_id" id="type_id" class="selectpicker"  data-style="btn-inverse">
+                        <select name="type_id" id="type_id" class="selectpicker"  data-style="btn-inverse" required>
                             <option value="" >Select Form Type</option>
                             @foreach($formTypes as $formType)
                             <option value="{{{$formType->id}}}" >{{{$formType->form_type}}}</option>

@@ -137,6 +137,9 @@ class FormBuilderController extends \BaseController
     
     /**
      * Form Preview
+     * 
+     * @param Integer $formId 
+     * @return Array Description
      */
     public function preview($formId) 
     {
@@ -155,6 +158,8 @@ class FormBuilderController extends \BaseController
     
     /**
      * List of Forms
+     * 
+     * @param Integer $formTypeId 
      */
     public function formList($formTypeId)
     {
@@ -164,6 +169,8 @@ class FormBuilderController extends \BaseController
     
     /**
      * Get Form Name
+     * 
+     * @param Integer $formId 
      */
     public function getFormDetails($formId)
     {

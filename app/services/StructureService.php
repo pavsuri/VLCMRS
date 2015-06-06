@@ -83,6 +83,7 @@ class StructureService
     /**
      * Generate Html.
      * 
+     * @param Object $formData 
      * @param Array $fieldsHierarchicalData
      * @return HTML Output
      */
@@ -93,7 +94,7 @@ class StructureService
         $formHtmlDesign = HtmlGenerator::htmlForm($formData->name, $formData->type_id);
         for($i=0; $i<count($field); $i++) {
             if (isset($field[$i]->children)) {
-                if (($field[$i]->fieldType == 'selectbox') || ($field[$i]->fieldType == 'checkbox') || ($field[$i]->fieldType == 'radio')) {
+                if (($field[$i]->fieldType == 'selectbox') || ($field[$i]->fieldType == 'checkbox') || ($field[$i]->fieldType == 'radiobutton')) {
                     $optionsData = $field[$i]->children;
                     $formHtmlDesign .= HtmlGenerator::htmlInput($field[$i]->fieldType, $field[$i]->fieldName, $field[$i]->fieldLabel, $field[$i]->fieldValue, $optionsData);
                 } else {
@@ -121,7 +122,7 @@ class StructureService
     { 
         for($i=0; $i<count($fields);$i++) {
             $attribute = $this->attributeBuilderRepository->findAttributeDetails($fields[$i]);
-            if (($attribute->fieldType == 'selectbox') || ($attribute->fieldType == 'checkbox') || ($attribute->fieldType == 'radio')) {
+            if (($attribute->fieldType == 'selectbox') || ($attribute->fieldType == 'checkbox') || ($attribute->fieldType == 'radiobutton')) {
                 $parentId = $attribute->fieldId;
                 $currentParentId = 0;
             } else if ($attribute->fieldType == 'option') {

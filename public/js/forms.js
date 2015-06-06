@@ -202,3 +202,20 @@ function getFormName(formId)
         }
     });
 }
+
+//Add Form Validation
+function addFormValidate()
+{
+    var name = $('#form-name').val();
+    var type = $('#type_id').val();
+    if(name == '') {
+        $('#form_name_err').html('Please enter Form Name');
+        return false;
+    } 
+    if(type == '') {
+        $('#form_name_err').html('');
+        $('#form_type_err').html('Please select Form Type');
+        return false;
+    } 
+    return true;
+}

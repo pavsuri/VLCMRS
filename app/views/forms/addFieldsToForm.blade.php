@@ -50,12 +50,15 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
             <div class="cms-search-field" >
                 <input type="text" name="search_attribute" id="search_attribute" placeholder="Search"/>
-                <select class="selectpicker" data-style="btn-inverse" name="search_field" id="search_field">
-                    <option value="">Search by</option>
+    
+                <div class="styled-select">
+                    <select class="form-control"  id="grade" name="search_field" id="search_field">
+                                 <option value="">Search by</option>
                     @foreach($data['fieldTypes'] as $fieldType)
                     <option value="{{{$fieldType->id}}}">{{{ucfirst($fieldType->name)}}}</option>
                     @endforeach
-                </select>
+                    </select>
+                 </div>
                 <a  id="searchFields">
                     <img src="images/search.png" alt="search"/>
                 </a>
@@ -152,8 +155,6 @@
         </div>
     </div>
 </div>
-
-
 
 <!-- Popup Create field -->
 <div class="modal fade createfield-popup" id="create-field" tabindex="-1" role="dialog" aria-labelledby="my-modalLabel" aria-hidden="true">

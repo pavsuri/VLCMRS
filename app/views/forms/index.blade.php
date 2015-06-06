@@ -41,24 +41,26 @@
     'route' => 'forms.saveform',
     'method' => 'post',
     'class' => 'form-horizontal',
-    'role' => 'form'
+    'role' => 'form',
+    'onsubmit' => 'return addFormValidate();'
   ]) }}
                 <div class="form-group">
                     <div class="form-field">
                         <label for="form-name" class="control-label">Form Name</label>
-                        <input type="text"  id="form-name" name="name" class="form-control" placeholder="System Maintenance"  required >
+                        <input type="text"  id="form-name" name="name" class="form-control" placeholder="System Maintenance"   >
                         <div id="form_name_err" style="color: red; font-size: 10px;"><?php if(Session::get('errMsg')!='') { echo Session::get('errMsg'); } ?></div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="form-field">
                         <label for="form-type" class="control-label">Form Type</label>
-                        <select name="type_id" id="type_id" class="selectpicker"  data-style="btn-inverse" required>
+                        <select name="type_id" id="type_id" class="selectpicker"  data-style="btn-inverse" >
                             <option value="" >Select Form Type</option>
                             @foreach($formTypes as $formType)
                             <option value="{{{$formType->id}}}" >{{{$formType->form_type}}}</option>
                             @endforeach
                         </select>
+                        <div id="form_type_err" style="color: red; font-size: 10px;"></div>
                     </div>
                 </div>
                 <div class="form-group">

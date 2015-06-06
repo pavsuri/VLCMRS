@@ -11,32 +11,21 @@ class HtmlGenerator
                 $output = self::divStructure($fieldLabel, $textbox);
                 break;
             case "textarea":
-                $textarea =  " <".$fieldType."  name='".$fieldName."'>".$fieldValue."</textarea>";
+                $textarea =  " <".$fieldType."  name='".$fieldName."' rows='1'  class='form-control' >".$fieldValue."</textarea>";
                 $output = self::divStructure($fieldLabel, $textarea);
                 break;
             case "selectbox":
-                $select =  "<select  name='".$fieldName."' value = '".$fieldValue."'  class='selectpicker' data-style='btn-inverse' >";
-                $select .= "<option value='' >Select Country</option>";
-                foreach($optionsData as $option) {
-                    $select .= "<option value='".$option->fieldValue."' >".$option->fieldName."</option>";
-                }
-                $select .= "</select>";
-                $output = self::divStructure($fieldLabel, $select);
+                $output = self::getSelectboxHtml($fieldLabel,$fieldName, $optionsData);
                 break;
             case "checkbox":
-                $checkbox = "";
-                foreach($optionsData as $option) {
-                    $checkbox .= "<input type='checkbox' name=".$fieldName." value=".$option->fieldValue.">".$option->fieldName;
-										
-                }
-                $output = self::getCheckboxHtml($fieldLabel, $checkbox);
+                $output = self::getCheckboxHtml($fieldLabel, $fieldName, $optionsData);
                 break;
-            case "radio":
+            case "radiobutton":
                 $radio = "";
                 foreach($optionsData as $option) {
                     $radio .= "<input type='radio' name=".$fieldName." value=".$option->fieldValue.">".$option->fieldName;
                 }
-                $output = self::divStructure($fieldLabel, $radio);
+                $output = self::getRadioButtonHtml($fieldLabel, $fieldName, $optionsData);
                 break;
             case "submit":
                 $output = "<input type='".$fieldType."' name='".$fieldName."' value='".$fieldValue."' />";
@@ -45,11 +34,17 @@ class HtmlGenerator
         return $output;
     }
     
+    /**
+     * Form Tag- HTML
+     */
     public static function htmlForm($formName, $typeId)
     {
-        echo  "<form name='".$formName."' >";
+        return  "<form name='".$formName."' >";
     }
     
+    /**
+     * TextBox-Html
+     */
     public static function divStructure($fieldLabel, $fieldHtml)
     {
         $structure = '<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
@@ -63,17 +58,64 @@ class HtmlGenerator
         return $structure;
     }
     
-    public static function getCheckboxHtml($fieldLabel, $fieldHtml)
+    /**
+     * Checkbox-Html
+     */
+    public static function getCheckboxHtml($fieldLabel, $fieldName, $optionsData)
     {
-        $structure = '<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-                        <div class="data">
-                            <span>' . $fieldLabel . '</span> 
-                                <div class="check-box">
-                                ' . $fieldHtml . '
-                                    <label for="oc"></label>
-                                </div>
-                          </div>
-                </div>';
+        $structure = '<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                        <div class="form-group">
+                                <div class="input-field">
+                                        <label class="control-label" for="">'.$fieldLabel.'</label>
+                                        <div class="data">';
+        foreach($optionsData as $option) {
+            $structure .= '<div class="chk">
+                            <label for="checkbox1">'.$option->fieldLabel.'</label>
+                            <input type="checkbox" name="'.$fieldName.'[]" value="'.$option->fieldValue.'" >
+                            <label for="checkbox1"></label>
+                        </div>';
+        }
+        $structure .= '</div></div></div></div>';
+        return $structure;
+    }
+    
+    /**
+     * SelectBox-HTML
+     */
+    public static function getSelectboxHtml($fieldLabel, $fieldName, $optionsData)
+    {
+        $structure = '<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                        <div class="form-group">
+                                <div class="input-field">
+                                        <label for="town-code" class="control-label">'.$fieldLabel.'</label>
+                                        <div class="styled-select">
+                                           <select class="form-control" name="'.$fieldName.'">
+                                                        <option>Select one</option>';
+        foreach($optionsData as $option) {
+            $structure .= "<option value='".$option->fieldValue."' >".$option->fieldName."</option>";
+        }
+        $structure .= '</select></div></div></div></div>';
+        return $structure;
+    }
+    /**
+     * RadioButton - HTML
+     */
+    public static function getRadioButtonHtml($fieldLabel, $fieldName, $optionsData)
+    {
+        $structure = '<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                        <div class="form-group">
+                                <div class="input-field">
+                                        <label class="control-label" for="">'.$fieldLabel.'</label>
+                                        <div class="data">';
+        foreach($optionsData as $option) {
+            $structure .= '<div class="chk">
+                            <label for="male">
+                                <input type="radio" value="'.$option->fieldValue.'" name="'.$fieldName.'"> 
+                                    <span>'.$option->fieldLabel.'</span>
+				</label>
+                            </div>';
+        }
+        $structure .= '</div></div></div></div>';
         return $structure;
     }
 }

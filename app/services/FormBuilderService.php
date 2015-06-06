@@ -104,4 +104,14 @@ class FormBuilderService
     {
         return $formList = $this->formReposiroty->listFormsByTypeId($formTypeId);
     }
+        
+    /**
+     * Check form Already exist or not
+     * 
+     * @param String $formName
+     */
+    public function formExist($formName)
+    {
+        return $this->formReposiroty->formExist($formName);
+    }
 }

@@ -91,18 +91,6 @@ class FormBuilderController extends \BaseController
     }
 
     /**
-     * Create form name page.
-     *
-     * @return Response
-     */
-    public function createForm($formId) 
-    {
-        $formData = $this->formBuilderService->getFormById($formId);
-        $fieldsData = $this->fieldTypesService->getAllFields();
-        return View::make('forms.addFieldsToForm', array('formData' => $formData, 'fields' => $fieldsData));
-    }
-
-    /**
      * Save new form to form table.
      *
      * @return Response
@@ -111,12 +99,17 @@ class FormBuilderController extends \BaseController
     {
         $name = Input::get('name');
         $typeId = Input::get('type_id');
-        $formId = $this->formBuilderService->addForm($name, $typeId);
-        $fieldsLibrary = $this->attributeBuilderService->getAttributesByField();
-        $formTypes = $this->formTypesService->getFormTypes();
-        $fieldTyps = $this->fieldTypesService->getAllFields();
-        $data = array('formName'=>$name, 'formType' => $typeId, 'formId' => $formId, 'fieldsLibrary' => $fieldsLibrary, 'fieldTypes' => $fieldTyps);
-        return View::make('forms.addFieldsToForm', array('data' => $data, 'formTypes' => $formTypes));
+        $formExist = $this->formBuilderService->formExist($name);
+        if ($formExist) {
+            return Redirect::to('/addForm')->with('errMsg','Form Name Already exist!');
+        } else { 
+            $formId = $this->formBuilderService->addForm($name, $typeId);
+            $fieldsLibrary = $this->attributeBuilderService->getAttributesByField();
+            $formTypes = $this->formTypesService->getFormTypes();
+            $fieldTyps = $this->fieldTypesService->getAllFields();
+            $data = array('formName'=>$name, 'formType' => $typeId, 'formId' => $formId, 'fieldsLibrary' => $fieldsLibrary, 'fieldTypes' => $fieldTyps);
+            return View::make('forms.addFieldsToForm', array('data' => $data, 'formTypes' => $formTypes));
+        }
     }
     
     /**

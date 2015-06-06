@@ -47,6 +47,7 @@
                     <div class="form-field">
                         <label for="form-name" class="control-label">Form Name</label>
                         <input type="text"  id="form-name" name="name" class="form-control" placeholder="System Maintenance"  required >
+                        <div id="form_name_err" style="color: red; font-size: 10px;"><?php if(Session::get('errMsg')!='') { echo Session::get('errMsg'); } ?></div>
                     </div>
                 </div>
                 <div class="form-group">

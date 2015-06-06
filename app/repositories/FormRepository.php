@@ -39,11 +39,11 @@ class FormRepository extends AbstractBaseRepository
   }
   
   /**
-     * Get all forms by Form Type
-     * 
-     * @param Integer $formTypeId
-     * @return Array
-     */
+    * Get all forms by Form Type
+    * 
+    * @param Integer $formTypeId
+    * @return Array
+    */
   public function listFormsByTypeId($formTypeId)
   {
       $results = $this->build(
@@ -55,4 +55,19 @@ class FormRepository extends AbstractBaseRepository
         );
         return $results;
   }
+  
+  /**
+    * Check form Already exist or not
+    * 
+    * @param String $formName
+    */
+    public function formExist($formName) 
+    {
+        $results = $this->build(
+                $this->model->where('forms.name', '=', $formName)
+                        ->first()
+        );
+        return $results;
+   }
+
 }

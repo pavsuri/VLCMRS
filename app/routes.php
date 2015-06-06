@@ -83,13 +83,6 @@ Route::group(array('before' => 'auth'), function(){
         'uses' => 'AttributeBuilderController@moveField'
     ]);
 
-
-    //Create Form with Fields
-    Route::get('/createForm/{formId}', [
-        'as' => 'forms.addFieldsToForm',
-        'uses' => 'FormBuilderController@createForm'
-    ]);
-
     //Get Attributes of single field
     Route::get('/getFieldAttributes/{fieldId}', [
         'uses' => 'AttributeBuilderController@getAttributesByField'

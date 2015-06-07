@@ -64,7 +64,7 @@ function updateForm()
             $('#Form-Edit').modal('hide');
         },
         error: function () {
-            alert('Form Name already exist!');
+            $('#formName_err').html('Form Name already exist!');
         }
     });
 }

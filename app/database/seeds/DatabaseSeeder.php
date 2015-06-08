@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 use models\User;
 use models\FieldTypes;
 use models\FormTypes;
-
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder {
 
@@ -29,12 +29,12 @@ class UsersSeeder extends Seeder
     public function run() {
         User::create([
             'email' => 'surendra.yallabandi@valuelabs.net',
-            'password' => 'demo',
+            'password' => Hash::make('demo'),
             'name' => 'Surendra',
         ]);
         User::create([
             'email' => 'sai.kethamreddy@valuelabs.com',
-            'password' => 'demo',
+            'password' => Hash::make('demo'),
             'name' => 'Kishore',
         ]);
     }
@@ -59,6 +59,9 @@ class FieldTypesSeeder extends Seeder
         ]);
         FieldTypes::create([
             'name' => 'checkbox',
+        ]);
+        FieldTypes::create([
+            'name' => 'image',
         ]);
         FieldTypes::create([
             'name' => 'submit',

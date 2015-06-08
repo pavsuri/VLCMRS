@@ -3,6 +3,8 @@ namespace models;
 
 class FormTypes extends \Eloquent
 {
+    public $timestamps = false; 
+    
     protected $table = 'form_types';
     
     protected $fillable = array('form_type');

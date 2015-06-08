@@ -3,6 +3,8 @@ namespace models;
 
 class FieldTypes extends \Eloquent
 {
+    public $timestamps = false; 
+    
     protected $table = 'field_types';
     
     protected $fillable = array('name');

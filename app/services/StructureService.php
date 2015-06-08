@@ -107,6 +107,9 @@ class StructureService
             } else {
                 $formHtmlDesign .= HtmlGenerator::htmlInput($field[$i]->fieldType, $field[$i]->fieldName, $field[$i]->fieldLabel, $field[$i]->fieldValue, $optionsData);
             }
+            if( (($i+1)%3 == 0)){
+                $formHtmlDesign .= '<div class="clearfix visible-lg-block"></div>';
+            }
         }
         $formHtmlDesign .= "</form>"; 
         return $formHtmlDesign;

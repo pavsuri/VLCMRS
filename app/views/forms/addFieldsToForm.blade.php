@@ -45,7 +45,8 @@
     'route' => 'forms.mapFieldstoForm',
     'method' => 'post',
     'id' => 'field-form-map',
-    'role' => 'form'
+    'role' => 'form',
+    'onsubmit' => 'return checkFormFields();'
   ]) }}
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
             <div class="cms-search-field" >
@@ -80,7 +81,7 @@
                 </a>
             </div>
         </div>
-        
+
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
             <div class="cms-sys-maintenance">
                 <div>
@@ -93,6 +94,7 @@
             <!-- END of .cms-sys-maintenance -->
             <!-- Form Fields -->
             <div class="cms-add-field-block" id="form-fields"></div>
+            <div id="formLib_err" style="color:red; font-size: 12px;"></div>
         </div> 
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center btns">
             <button type="button" class="btn btn-primary btm-btn">Back</button>

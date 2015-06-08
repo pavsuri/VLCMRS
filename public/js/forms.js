@@ -219,3 +219,16 @@ function addFormValidate()
     } 
     return true;
 }
+
+//Form Library Validation
+function checkFormFields()
+{
+    var fieldLIst = $('#form-fields').html();
+    if ((fieldLIst == '') || (fieldLIst == null)) {
+        $('#formLib_err').html('Please add atleast one field');
+        return false;
+    } else {
+        $('#formLib_err').html('');
+        return true;
+    }
+}

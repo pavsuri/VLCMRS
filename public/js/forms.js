@@ -44,6 +44,15 @@ $(document).ready(function () {
             createField();
         }
     });
+    
+    //Move back to create form from Map fields page
+    $('#delete_confirm').on('click', function (event) {
+        event.preventDefault();
+        var formId = $('#form_id_map').val();
+        $('#delete-form-data').modal('hide');
+        var formStatus = deleteForm(formId);
+        window.location.replace('/addForm');
+    });
 });
 
 function updateForm()
@@ -67,6 +76,19 @@ function updateForm()
             $('#formName_err').html('Form Name already exist!');
         }
     });
+}
+
+function deleteForm(formId)
+{
+    var status;
+    $.ajax({
+        url: "/deleteForm/"+formId,
+        type: "get",
+        success: function (data) {
+            status = data;
+        }
+    });
+    return status;
 }
 
 function searchFields() {
@@ -96,9 +118,9 @@ function fieldLibraryTemplate(fields)
 {
     var response = '';
     for (i=0; i<fields.length; i++) {
-        response += '<div class="cms-add-fields" id="div-left-'+fields[i].id+'">\n\
-                    <input type="text" value="'+fields[i].name+'" >\n\
-                    <a onclick="moveField('+fields[i].id+')" value=><img src="images/add.png" alt="add"/></a>\n\
+        response += '<div class="cms-add-fields" id="div-left-'+fields[i].fieldId+'">\n\
+                    <input type="text" value="'+fields[i].fieldId+'" readonly title="'+fields[i].fieldType+'">\n\
+                    <a onclick="moveField('+fields[i].fieldId+')" value=><img src="images/add.png" alt="add"/></a>\n\
                     <div class="clearfix"></div>\n\
                     </div>';
     }
@@ -111,7 +133,7 @@ function moveField(fieldId)
         url: "/moveField/"+fieldId,
         type: "get",
         success: function (data) {
-            $("#div-left-"+fieldId).remove();
+            //$("#div-left-"+fieldId).remove();
             formFieldsTemplate(data);
         }
     });
@@ -119,10 +141,11 @@ function moveField(fieldId)
 
 function formFieldsTemplate(field)
 {
+    field = field[0];
     var response= '';
-    response += '<div class="cms-add-fields" id="div-right-'+field.id+'">\n\
-                    <input type="text" value="'+field.name+'" name="allFields['+field.id+']">\n\
-                    <a onclick="removeField('+field.id+')" value=><img src="images/cross.png" alt="Remove"/></a>\n\
+    response += '<div class="cms-add-fields" id="div-right-'+field.fieldId+'">\n\
+                    <input type="text" value="'+field.fieldName+'" name="allFields['+field.fieldId+']" readonly title="'+field.fieldType+'">\n\
+                    <a onclick="removeField('+field.fieldId+')" value=><img src="images/cross.png" alt="Remove"/></a>\n\
                     <div class="clearfix"></div>\n\
                     </div>';
     $('#form-fields').append(response);
@@ -135,7 +158,7 @@ function removeField(fieldId)
         url: "/moveField/"+fieldId,
         type: "get",
         success: function (data) {
-            addFieldtoFieldLibrary(data);
+            //addFieldtoFieldLibrary(data);
             $("#div-right-"+fieldId).remove();
         }
     });
@@ -144,10 +167,11 @@ function removeField(fieldId)
 
 function addFieldtoFieldLibrary(field)
 {
+    field = field[0];
     var response= '';
-    response += '<div class="cms-add-fields" id="div-left-'+field.id+'">\n\
-                    <input type="text" value="'+field.name+'">\n\
-                    <a onclick="moveField('+field.id+')" value=><img src="images/add.png" alt="add"/></a>\n\
+    response += '<div class="cms-add-fields" id="div-left-'+field.fieldId+'">\n\
+                    <input type="text" value="'+field.fieldName+'" readonly title="'+field.fieldType+'">\n\
+                    <a onclick="moveField('+field.fieldId+')" value=><img src="images/add.png" alt="add"/></a>\n\
                     <div class="clearfix"></div>\n\
                     </div>';
     $('#fieldLibrary').append(response);
@@ -171,10 +195,24 @@ function createField()
         },
         success: function (data) {
             $('#create-field').modal('hide');
-            removeField(data);
+            addFieldToLibrary(data);
         },
         error: function () {
             alert('Field Name already exist!');
+        }
+    });
+}
+
+/**
+ * Add new field to Library
+ */
+function addFieldToLibrary(fieldId)
+{
+    $.ajax({
+        url: "/moveField/"+fieldId,
+        type: "get",
+        success: function (data) {
+            addFieldtoFieldLibrary(data);
         }
     });
 }
@@ -232,3 +270,22 @@ function checkFormFields()
         return true;
     }
 }
+
+//Create Fields Validation
+function createFieldsValidate()
+{
+    var field_type_err = ($('#field_type').val() == '')
+    var field_type_err_msg = (field_type_err) ? "Please select Field type" : "";
+    $('#field_type_err').html(field_type_err_msg);
+
+    var field_name_err = ($('#field_name').val() == '')
+    var field_name_err_msg = (field_name_err) ? "Please enter Field Name" : "";
+    $('#field_name_err').html(field_name_err_msg);
+    
+    var field_label_err = ($('#field_label').val() == '')
+    var field_label_err_msg = (field_label_err) ? "Please enter Field Label" : "";
+    $('#field_label_err').html(field_label_err_msg);
+    
+    return !field_type_err && !field_name_err && !field_label_err;
+}
+

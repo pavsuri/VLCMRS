@@ -114,4 +114,15 @@ class FormBuilderService
     {
         return $this->formReposiroty->formExist($formName);
     }
+    
+    /**
+     * Delete form
+     */
+    public function deleteForm($formId)
+    {
+        $form = $this->formGenerator;
+        $form->find($formId);
+        $form->destroy($formId);
+        return 'true';
+    }
 }

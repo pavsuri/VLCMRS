@@ -21,7 +21,7 @@
                 </a>
             </li>
             <li>
-                <a href="javascript:void(0)">
+                <a href="/createFields" <?php if(Route::current()->getName() == 'createFields') { echo 'class="active-link"'; } ?>>
                     <span class="menu-icon create-field">
                         <span class="menu-text">Create Fields</span>
                     </span>

@@ -176,4 +176,12 @@ class FormBuilderController extends \BaseController
     {
         return $this->formBuilderService->getFormById($formId);;
     }
+    
+    /**
+     * Delete Form
+     */
+    public function deleteForm($formId)
+    {
+        return $this->formBuilderService->deleteForm($formId);
+    }
 }

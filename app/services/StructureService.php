@@ -124,7 +124,8 @@ class StructureService
     public function mapFieldsToForm($formId, $fields)
     { 
         for($i=0; $i<count($fields);$i++) {
-            $attribute = $this->attributeBuilderRepository->findAttributeDetails($fields[$i]);
+            $attributeData = $this->attributeBuilderRepository->findAttributeDetails($fields[$i]);
+            $attribute = $attributeData[0];
             if (($attribute->fieldType == 'selectbox') || ($attribute->fieldType == 'checkbox') || ($attribute->fieldType == 'radiobutton')) {
                 $parentId = $attribute->fieldId;
                 $currentParentId = 0;

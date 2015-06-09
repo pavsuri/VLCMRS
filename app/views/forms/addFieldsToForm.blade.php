@@ -17,7 +17,7 @@
             <div class="cms-links">
                 <ul>
                     <li class="active">
-                        <a href="javascript:void(0)">
+                        <a data-toggle="modal" data-target="#delete-form-data">
                             <div class="round">1</div> Create Form
                         </a>
                     </li>
@@ -53,23 +53,23 @@
                 <input type="text" name="search_attribute" id="search_attribute" placeholder="Search"/>
     
                 <div class="styled-select">
-                    <select class="form-control"  id="grade" name="search_field" id="search_field">
-                                 <option value="">Search by</option>
-                    @foreach($data['fieldTypes'] as $fieldType)
-                    <option value="{{{$fieldType->id}}}">{{{ucfirst($fieldType->name)}}}</option>
-                    @endforeach
+                    <select class="form-control" name="search_field" id="search_field">
+                        <option value="">Search by</option>
+                        @foreach($data['fieldTypes'] as $fieldType)
+                        <option value="{{{$fieldType->id}}}">{{{ucfirst($fieldType->name)}}}</option>
+                        @endforeach
                     </select>
                  </div>
                 <a  id="searchFields">
-                    <img src="images/search.png" alt="search"/>
+                    <img src="/images/search.png" alt="search"/>
                 </a>
             </div>
             <div class="cms-add-field-block"  id="fieldLibrary">
                 @foreach($data['fieldsLibrary'] as $fieldAttribute)
                 <div class="cms-add-fields" id="div-left-{{{$fieldAttribute->id}}}">
-                    <input type="text" value="{{{$fieldAttribute->value}}}" name="{{{$fieldAttribute->name}}}" id="{{{$fieldAttribute->identifier}}}">
+                    <input type="text" readonly="readonly" value="{{{$fieldAttribute->name}}}" name="{{{$fieldAttribute->name}}}" id="{{{$fieldAttribute->identifier}}}" title="{{{$fieldAttribute->fieldType}}}">
                     <a  onclick="moveField({{{$fieldAttribute->id}}})">
-                        <img src="images/add.png" alt="add"/>
+                        <img src="/images/add.png" alt="add"/>
                     </a>
                     <div class="clearfix"></div>	
                 </div>
@@ -77,7 +77,7 @@
             </div>
             <div class="cms-create-new-field">
                 <a href="javascript:void(0)" data-toggle="modal" data-target="#create-field">
-                    <img src="images/plusicon.png" alt="plusicon"/> Create New Field
+                    <img src="/images/plusicon.png" alt="plusicon"/> Create New Field
                 </a>
             </div>
         </div>
@@ -85,9 +85,9 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
             <div class="cms-sys-maintenance">
                 <div>
-                    <!--<img src="images/smallcircle.png" alt="smallcircle" class="smallcircle"/>-->
+                    <!--<img src="/images/smallcircle.png" alt="smallcircle" class="smallcircle"/>-->
                     <p id="formName">{{{$data['formName']}}}</p>
-                    <a href="#Form-Edit" data-toggle="modal"><img src="images/edit.png" alt="edit"/></a>
+                    <a href="#Form-Edit" data-toggle="modal"><img src="/images/edit.png" alt="edit"/></a>
                 </div>
             </div>
             <input type="hidden" name="form_id_map" id="form_id_map" value="{{{$data['formId']}}}">
@@ -114,7 +114,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display:block;"><span aria-hidden="true"><img src="images/crossinpopup.png" alt="cross"/></span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display:block;"><span aria-hidden="true"><img src="/images/crossinpopup.png" alt="cross"/></span></button>
                 <h4 class="modal-title">Edit Form</h4>
             </div>
             <div class="modal-body">
@@ -149,7 +149,7 @@
                 </div>
                 <div class="form-group">
                     <div class="text-center">
-                        <button type="submit" id="editForm" class="btn btn-primary btm-btn next">Next</button>
+                        <button type="submit" id="editForm" class="btn btn-primary btm-btn next">Update</button>
                     </div>
                 </div>
                 {{ Form::close() }}
@@ -163,7 +163,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display:block;"><span aria-hidden="true"><img src="images/crossinpopup.png" alt="cross"/></span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display:block;"><span aria-hidden="true"><img src="/images/crossinpopup.png" alt="cross"/></span></button>
                 <h4 class="modal-title">Create Field</h4>
             </div>
             <div class="modal-body">
@@ -216,5 +216,38 @@
         </div>
     </div>
 </div>
+
+
+<!-- Delete Form Alert -->
+
+<!-- Popup Create field -->
+<div class="modal fade createfield-popup" id="delete-form-data" tabindex="-1" role="dialog" aria-labelledby="my-modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display:block;"><span aria-hidden="true"><img src="/images/crossinpopup.png" alt="cross"/></span></button>
+                <h4 class="modal-title">Delete Form</h4>
+            </div>
+            <div class="modal-body">
+                
+                <div class="form-group">
+                    <div class="input-field">
+                        <label for="field-type" class="control-label">It will delete the form data. Are you sure you want to delete the form data?</label>
+                    </div>
+                </div>
+               
+                <div class="form-group">
+                    <div class="text-center">
+                        <button type="submit" id="delete_confirm" class="btn btn-primary next">Yes</button>
+                    </div>
+                </div>
+              
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
+
 @endsection
 

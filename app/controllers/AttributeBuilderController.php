@@ -2,6 +2,7 @@
 
 use services\AttributeBuilderService;
 use services\FieldTypesService;
+use Illuminate\Support\Facades\Redirect;
 
 class AttributeBuilderController extends \BaseController 
 {
@@ -84,6 +85,28 @@ class AttributeBuilderController extends \BaseController
      */
     public function moveField($fieldId)
     {
-        return $this->attributeBuilderService->getField($fieldId);
+        $results = $this->attributeBuilderService->getField($fieldId);
+        return $results;
+    }
+    
+    /**
+     * Load create new fields page
+     * 
+     * @return HTML
+     */
+    public function createFields()
+    {
+        $fieldTyps = $this->fieldTypesService->getAllFields();
+        return View::make('forms.createFields', array('fieldTypes' => $fieldTyps));
+    }
+    
+    /**
+     * Save New Attributes from page
+     */
+    public function saveFieldsToLibrary()
+    {
+        $results = $this->saveAttributes();
+        Session::flash('message', 'Successfully save in our Fields Library');
+        return Redirect::to('createFields')->withInput();
     }
 }

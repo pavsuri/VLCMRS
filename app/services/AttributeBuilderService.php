@@ -80,6 +80,6 @@ class AttributeBuilderService
      */
     public function getField($fieldId)
     {
-        return $this->attributeGenerator->find($fieldId);
+        return $this->attributeBuilderRepository->findAttributeDetails($fieldId);
     }
 }

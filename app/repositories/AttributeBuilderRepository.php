@@ -34,11 +34,17 @@ class AttributeBuilderRepository extends AbstractBaseRepository
   {
       if ($fieldId == 'all') {
             return $this->build(
-                            $this->model->where('field_type_id', 'like', '%')->get()
+                            $this->model->join('field_types', 'field_attributes.field_type_id', '=', 'field_types.id')
+                                        ->where('field_type_id', 'like', '%')
+                                        ->select('field_types.name as fieldType', 'field_attributes.*')
+                                        ->get()
             );
         } else {
             return $this->build(
-                            $this->model->where('field_type_id', '=', $fieldId)->get()
+                            $this->model->join('field_types', 'field_attributes.field_type_id', '=', 'field_types.id')
+                                        ->where('field_type_id', '=', $fieldId)
+                                        ->select('field_types.name as fieldType', 'field_attributes.*')
+                                        ->get()
             );
         }
     
@@ -55,20 +61,31 @@ class AttributeBuilderRepository extends AbstractBaseRepository
   {
       if (($attributeKeyword != '') && ($fieldTypeId != '')) {
             $results = $this->build(
-                            $this->model->where('field_type_id', '=', $fieldTypeId)
-                                    ->Where('name', 'like', $attributeKeyword . '%')->get()
+                            $this->model->join('field_types', 'field_attributes.field_type_id', '=', 'field_types.id')
+                                        ->where('field_type_id', '=', $fieldTypeId)
+                                        ->Where('name', 'like', $attributeKeyword . '%')
+                                        ->select('field_types.name as fieldType', 'field_attributes.*')
+                                        ->get()
             );
         } else if (($attributeKeyword == '') && ($fieldTypeId != '')) {
             $results =  $this->build(
-                            $this->model->where('field_type_id', '=', $fieldTypeId)->get()
+                            $this->model->join('field_types', 'field_attributes.field_type_id', '=', 'field_types.id')
+                                        ->where('field_type_id', '=', $fieldTypeId)
+                                        ->select('field_types.name as fieldType', 'field_attributes.*')
+                                        ->get()
             );
         } else if (($attributeKeyword != '') && ($fieldTypeId == '')) {
             $results =  $this->build(
-                            $this->model->where('name', 'like', $attributeKeyword . '%')->get()
+                            $this->model->join('field_types', 'field_attributes.field_type_id', '=', 'field_types.id')
+                                        ->where('name', 'like', $attributeKeyword . '%') 
+                                        ->select('field_types.name as fieldType', 'field_attributes.*')
+                                        ->get()
             );
         } else {
             $results =  $this->build(
-                            $this->model->orderBy('name', 'asc')->get()
+                            $this->model->join('field_types', 'field_attributes.field_type_id', '=', 'field_types.id')
+                                        ->select('field_types.name as fieldType', 'field_attributes.*')
+                                        ->orderBy('name', 'asc')->get()
             );
         }
         return $results;
@@ -85,7 +102,7 @@ class AttributeBuilderRepository extends AbstractBaseRepository
                                     'field_attributes.value as fieldValue', 
                                     'field_attributes.label as fieldLabel'
                                     )
-                            ->first()
+                            ->get()
         );
   }
 }

@@ -66,6 +66,11 @@ Route::group(array('before' => 'auth'), function(){
         'uses' => 'FormBuilderController@updateForm'
     ]);
 
+    //Save Form
+    Route::any('/deleteForm/{formId}', [
+        'uses' => 'FormBuilderController@deleteForm'
+    ]);
+    
     //Save Attributes
     Route::post('/saveAttributes', [
         'as' => 'attributes.save',
@@ -103,6 +108,18 @@ Route::group(array('before' => 'auth'), function(){
     //Get Form Details
      Route::get('/getFormDetails/{formId}', [
         'uses' => 'FormBuilderController@getFormDetails'
+    ]);
+     
+    //Create Fields
+    Route::get('/createFields', [
+        'as' => 'attributes.createFields',
+        'uses' => 'AttributeBuilderController@createFields'
+    ]);
+    
+    //Save New Fields to Library
+     Route::post('/saveFieldsToLibrary', [
+         'as' => 'attributes.saveFieldsToLibrary',
+        'uses' => 'AttributeBuilderController@saveFieldsToLibrary'
     ]);
 
     Route::get('/', 'SignInController@index');

@@ -13,8 +13,11 @@
 <!-- END of .row -->
 <div class="right-section-content">
     <div class="row">
-        @foreach($forms as $formType)
-        <a href="/formList/{{{$formType->id}}}" >
+        @foreach($forms as $formType) 
+        <?php 
+        if($formType->total != ''){  $url ='/formList/'.$formType->id; }  else { $url = '#' ; }
+        ?>
+        <a href="{{{$url}}}" >
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
             <div class="cms-dash-block">
                 <div class="round-no">{{{$formType->total}}}</div>

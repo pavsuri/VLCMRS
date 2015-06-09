@@ -142,4 +142,14 @@ class StructureService
         }
         
     }
+    
+    /**
+     * Clear all the form fields
+     * 
+     * @param Integer $formid
+     */
+    public function clearAllFields($formId)
+    {
+        return $this->structure->where('form_id', '=', $formId)->delete();
+    }
 }

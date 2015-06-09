@@ -18,7 +18,6 @@
                 <ul>
                     <li class="active">
                         <a href="#" data-toggle="modal" data-target="#delete-form-data">
-                            
                             <div class="round">1</div> Create Form
                         </a>
                     </li>
@@ -52,7 +51,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
             <div class="cms-search-field" >
                 <input type="text" name="search_attribute" id="search_attribute" placeholder="Search"/>
-    
+
                 <div class="styled-select">
                     <select class="form-control" name="search_field" id="search_field">
                         <option value="">Search by</option>
@@ -60,7 +59,7 @@
                         <option value="{{{$fieldType->id}}}">{{{ucfirst($fieldType->name)}}}</option>
                         @endforeach
                     </select>
-                 </div>
+                </div>
                 <a  id="searchFields">
                     <img src="{{{url()}}}/images/search.png" alt="search"/>
                 </a>
@@ -94,11 +93,21 @@
             <input type="hidden" name="form_id_map" id="form_id_map" value="{{{$data['formId']}}}">
             <!-- END of .cms-sys-maintenance -->
             <!-- Form Fields -->
-            <div class="cms-add-field-block" id="form-fields"></div>
+            <div class="cms-add-field-block" id="form-fields"><?php
+                if (isset($data['mappedFields'])) {
+                    foreach ($data['mappedFields'] as $key => $value) {
+                        ?>
+                        <div class="cms-add-fields" id="div-right-{{{$key}}}">
+                            <input type="text"  value="{{{$value}}}" name="allFields[{{{$key}}}]" readonly >
+                            <a onclick="removeField({{{$key}}})" value=><img src="images/cross.png" alt="Remove"/></a>
+                            <div class="clearfix"></div>	
+                        </div>
+                    <?php }
+                } ?></div>
             <div id="formLib_err" style="color:red; font-size: 12px;"></div>
         </div> 
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center btns">
-            <button type="button" class="btn btn-primary btm-btn">Back</button>
+            <button type="button" class="btn btn-primary btm-btn" data-toggle="modal" data-target="#delete-form-data">Back</button>
             <input type="submit" class="btn btn-primary btm-btn" Value="Next">
         </div>
 
@@ -228,19 +237,19 @@
                 <h4 class="modal-title">Create Form</h4>
             </div>
             <div class="modal-body">
-                
+
                 <div class="form-group">
                     <div class="input-field">
                         <label for="field-type" class="control-label">It will delete the form data. Are you sure you want to delete the form data?</label>
                     </div>
                 </div>
-               
+
                 <div class="form-group">
                     <div class="text-center">
                         <button type="submit" id="delete_confirm" class="btn btn-primary next">Yes</button>
                     </div>
                 </div>
-              
+
             </div>
         </div>
     </div>

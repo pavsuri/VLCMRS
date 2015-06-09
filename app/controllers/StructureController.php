@@ -2,6 +2,7 @@
 
 use services\StructureService;
 use services\FormBuilderService;
+use Illuminate\Support\Facades\Session;
 
 class StructureController extends BaseController 
 {
@@ -42,10 +43,10 @@ class StructureController extends BaseController
     {
         $formId = Input::get('form_id_map');
         $fields = Input::get('allFields');
+        Session::put('formMappedFields', $fields);
         $fields = array_keys($fields);
         $this->structureService->mapFieldsToForm($formId, $fields);
         $formData = $this->structureService->getFormAttributes($formId);
-        //echo "<pre>"; print_r($formData);exit;
         return View::make('forms.preview',array('formData'=>$formData));
     }
 }

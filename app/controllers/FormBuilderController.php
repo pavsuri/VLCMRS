@@ -5,6 +5,7 @@ use services\FieldTypesService;
 use services\AttributeBuilderService;
 use services\StructureService;
 use services\FormTypesService;
+use Illuminate\Support\Facades\Session;
 
 class FormBuilderController extends \BaseController 
 {
@@ -104,6 +105,9 @@ class FormBuilderController extends \BaseController
             return Redirect::to('/addForm')->with('errMsg','Form Name Already exist!');
         } else { 
             $formId = $this->formBuilderService->addForm($name, $typeId);
+            Session::put('formId', $formId);
+            Session::put('formName', $name);
+            Session::put('typeId', $typeId);
             $fieldsLibrary = $this->attributeBuilderService->getAttributesByField();
             $formTypes = $this->formTypesService->getFormTypes();
             $fieldTyps = $this->fieldTypesService->getAllFields();
@@ -179,9 +183,31 @@ class FormBuilderController extends \BaseController
     
     /**
      * Delete Form
+     * 
+     * @param Integer $formId 
      */
     public function deleteForm($formId)
     {
+        //Destroy Form Fields Library while move to back page.
+        Session::forget('formMappedFields');
         return $this->formBuilderService->deleteForm($formId);
+    }
+    
+    /**
+     * Back to Mapping page
+     */
+    public function mapFields()
+    {
+        $formId = Session::get('formId');
+        //Delete all Form Fields.
+        $this->structureService->clearAllFields($formId);
+        $fieldsLibrary = $this->attributeBuilderService->getAttributesByField();
+        $formTypes = $this->formTypesService->getFormTypes();
+        $fieldTyps = $this->fieldTypesService->getAllFields();
+        $formName = Session::get('formName');
+        $typeId = Session::get('typeId');
+        $mappedFields = Session::get('formMappedFields');
+        $data = array('formName'=>$formName, 'formType' => $typeId, 'formId' => $formId, 'fieldsLibrary' => $fieldsLibrary, 'fieldTypes' => $fieldTyps, 'mappedFields' => $mappedFields);
+        return View::make('forms.addFieldsToForm', array('data' => $data, 'formTypes' => $formTypes));
     }
 }

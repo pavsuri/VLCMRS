@@ -117,9 +117,14 @@ Route::group(array('before' => 'auth'), function(){
     ]);
     
     //Save New Fields to Library
-     Route::post('/saveFieldsToLibrary', [
+    Route::post('/saveFieldsToLibrary', [
          'as' => 'attributes.saveFieldsToLibrary',
         'uses' => 'AttributeBuilderController@saveFieldsToLibrary'
+    ]);
+     
+    //Back to Mapping Page
+     Route::get('/mapFields', [
+        'uses' => 'FormBuilderController@mapFields'
     ]);
 
     Route::get('/', 'SignInController@index');

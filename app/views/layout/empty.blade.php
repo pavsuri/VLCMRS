@@ -3,7 +3,8 @@
 @include('layout._head')
 <body>
 	<div class="main-container">
-		<div class="cms-create-form main-row">
+           <?php if(Route::current()->getName() == 'dashboard') { $class="cms-admin-dashboard main-row"; } else {  $class="cms-create-form main-row"; }?>
+		<div class="{{{$class}}}">
 			@include('layout._sidebar')
 			<!-- END of .left-section -->
 			<div class="right-section">
@@ -11,14 +12,14 @@
 					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 cms-title">
 						<div class="cms-toggle-menu-section">
 							<div class="cms-menu-icon">
-								<img src="/images/menu.png" alt="menu"/>
+								<img src="{{{url()}}}/images/menu.png" alt="menu"/>
 								<span>Compliance Management System</span>
 							</div>
 							<div class="cms-right-top-icons">
 								<div class="notification">12</div>
-								<img src="/images/notifications.png" alt="notifications"/>
+								<img src="{{{url()}}}/images/notifications.png" alt="notifications"/>
 								<a href="/signout">
-									<img src="/images/logout.png" alt="logout"/>
+									<img src="{{{url()}}}/images/logout.png" alt="logout"/>
 								</a>
 							</div>
 							<div class="clearfix"></div>
@@ -39,5 +40,4 @@
 		<!-- END of .main-row -->
 	</div>
 	<!-- END of .main-container -->		
-{{ HTML::script('js/script.js'); }}
 </body>

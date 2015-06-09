@@ -1,6 +1,6 @@
 <div class="left-section">
     <div class="cms-profile-data">
-        <a href="javascript:void(0)" class="cms-profile-pic"><img src="/images/user.png" alt="user-pic"/>
+        <a href="javascript:void(0)" class="cms-profile-pic"><img src="{{{url()}}}/images/user.png" alt="user-pic"/>
             <p><span>Welcome</span><br><span class="cms-profile-name">{{{Session::get('userName')}}}</span></p>
         </a>
     </div>
@@ -21,7 +21,7 @@
                 </a>
             </li>
             <li>
-                <a href="/createFields" <?php if(Route::current()->getName() == 'createFields') { echo 'class="active-link"'; } ?>>
+                <a href="/createFields" <?php if(Route::current()->getName() == 'attributes.createFields') { echo 'class="active-link"'; } ?>>
                     <span class="menu-icon create-field">
                         <span class="menu-text">Create Fields</span>
                     </span>

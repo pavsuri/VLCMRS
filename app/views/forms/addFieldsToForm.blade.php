@@ -17,7 +17,8 @@
             <div class="cms-links">
                 <ul>
                     <li class="active">
-                        <a data-toggle="modal" data-target="#delete-form-data">
+                        <a href="#" data-toggle="modal" data-target="#delete-form-data">
+                            
                             <div class="round">1</div> Create Form
                         </a>
                     </li>
@@ -61,7 +62,7 @@
                     </select>
                  </div>
                 <a  id="searchFields">
-                    <img src="/images/search.png" alt="search"/>
+                    <img src="{{{url()}}}/images/search.png" alt="search"/>
                 </a>
             </div>
             <div class="cms-add-field-block"  id="fieldLibrary">
@@ -69,7 +70,7 @@
                 <div class="cms-add-fields" id="div-left-{{{$fieldAttribute->id}}}">
                     <input type="text" readonly="readonly" value="{{{$fieldAttribute->name}}}" name="{{{$fieldAttribute->name}}}" id="{{{$fieldAttribute->identifier}}}" title="{{{$fieldAttribute->fieldType}}}">
                     <a  onclick="moveField({{{$fieldAttribute->id}}})">
-                        <img src="/images/add.png" alt="add"/>
+                        <img src="{{{url()}}}/images/add.png" alt="add"/>
                     </a>
                     <div class="clearfix"></div>	
                 </div>
@@ -77,7 +78,7 @@
             </div>
             <div class="cms-create-new-field">
                 <a href="javascript:void(0)" data-toggle="modal" data-target="#create-field">
-                    <img src="/images/plusicon.png" alt="plusicon"/> Create New Field
+                    <img src="{{{url()}}}/images/plusicon.png" alt="plusicon"/> Create New Field
                 </a>
             </div>
         </div>
@@ -87,7 +88,7 @@
                 <div>
                     <!--<img src="/images/smallcircle.png" alt="smallcircle" class="smallcircle"/>-->
                     <p id="formName">{{{$data['formName']}}}</p>
-                    <a href="#Form-Edit" data-toggle="modal"><img src="/images/edit.png" alt="edit"/></a>
+                    <a href="#Form-Edit" data-toggle="modal"><img src="{{{url()}}}/images/edit.png" alt="edit"/></a>
                 </div>
             </div>
             <input type="hidden" name="form_id_map" id="form_id_map" value="{{{$data['formId']}}}">
@@ -114,7 +115,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display:block;"><span aria-hidden="true"><img src="/images/crossinpopup.png" alt="cross"/></span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display:block;"><span aria-hidden="true"><img src="{{{url()}}}/images/crossinpopup.png" alt="cross"/></span></button>
                 <h4 class="modal-title">Edit Form</h4>
             </div>
             <div class="modal-body">
@@ -163,7 +164,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display:block;"><span aria-hidden="true"><img src="/images/crossinpopup.png" alt="cross"/></span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display:block;"><span aria-hidden="true"><img src="{{{url()}}}/images/crossinpopup.png" alt="cross"/></span></button>
                 <h4 class="modal-title">Create Field</h4>
             </div>
             <div class="modal-body">
@@ -219,14 +220,12 @@
 
 
 <!-- Delete Form Alert -->
-
-<!-- Popup Create field -->
 <div class="modal fade createfield-popup" id="delete-form-data" tabindex="-1" role="dialog" aria-labelledby="my-modalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display:block;"><span aria-hidden="true"><img src="/images/crossinpopup.png" alt="cross"/></span></button>
-                <h4 class="modal-title">Delete Form</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display:block;"><span aria-hidden="true"><img src="{{{url()}}}/images/crossinpopup.png" alt="cross"/></span></button>
+                <h4 class="modal-title">Create Form</h4>
             </div>
             <div class="modal-body">
                 
@@ -248,6 +247,4 @@
 </div>
 @endsection
 
-
-@endsection
 

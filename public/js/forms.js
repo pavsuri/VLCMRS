@@ -50,7 +50,7 @@ $(document).ready(function () {
         event.preventDefault();
         var formId = $('#form_id_map').val();
         $('#delete-form-data').modal('hide');
-        var formStatus = deleteForm(formId);
+        deleteForm(formId);
         window.location.replace('/addForm');
     });
 });

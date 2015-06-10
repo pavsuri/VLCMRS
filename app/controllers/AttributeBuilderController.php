@@ -97,7 +97,8 @@ class AttributeBuilderController extends \BaseController
     public function createFields()
     {
         $fieldTyps = $this->fieldTypesService->getAllFields();
-        return View::make('forms.createFields', array('fieldTypes' => $fieldTyps));
+        $fieldAttributes = $this->attributeBuilderService->getAttributesByField();
+        return View::make('forms.fieldLibrary', array('fieldTypes' => $fieldTyps, 'fieldAttributes' => $fieldAttributes));
     }
     
     /**
@@ -108,5 +109,20 @@ class AttributeBuilderController extends \BaseController
         $results = $this->saveAttributes();
         Session::flash('message', 'Successfully save in our Fields Library');
         return Redirect::to('createFields')->withInput();
+    }
+    
+    /**
+     * Get all Attributes and update to repo.
+     * 
+     * @return type
+     */
+    public function updateField() 
+    {
+        $fieldId = Input::get('field_id');
+        $fieldType = Input::get('field_type');
+        $name = Input::get('field_name');
+        $label = Input::get('field_label');
+        $value = Input::get('field_value');
+        return $this->attributeBuilderService->updateAttributes($fieldId, $fieldType, $name, $label, $value);
     }
 }

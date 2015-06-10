@@ -76,7 +76,7 @@
                 @endforeach
             </div>
             <div class="cms-create-new-field">
-                <a href="javascript:void(0)" data-toggle="modal" data-target="#create-field">
+                <a href="javascript:void(0)" id="create-field-link" data-toggle="modal" data-target="#create-field">
                     <img src="{{{url()}}}/images/plusicon.png" alt="plusicon"/> Create New Field
                 </a>
             </div>
@@ -187,7 +187,7 @@
                     <div class="input-field">
                         <label for="field-type" class="control-label">Field Type</label>
 
-                        <select name="field_type" id="field_type" class="selectpicker"  id="field-type" data-style="btn-inverse"  required>
+                        <select name="field_type" id="field_type" class="selectpicker" data-style="btn-inverse"  required>
                             <option value="">Select</option>
                             @foreach($data['fieldTypes'] as $fieldType)
                             <option value="{{{$fieldType->id}}}">{{{ucfirst($fieldType->name)}}}</option>

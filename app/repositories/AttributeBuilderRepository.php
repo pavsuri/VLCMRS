@@ -63,7 +63,7 @@ class AttributeBuilderRepository extends AbstractBaseRepository
             $results = $this->build(
                             $this->model->join('field_types', 'field_attributes.field_type_id', '=', 'field_types.id')
                                         ->where('field_type_id', '=', $fieldTypeId)
-                                        ->Where('name', 'like', $attributeKeyword . '%')
+                                        ->Where('field_attributes.name', 'like', $attributeKeyword . '%')
                                         ->select('field_types.name as fieldType', 'field_attributes.*')
                                         ->get()
             );
@@ -77,7 +77,7 @@ class AttributeBuilderRepository extends AbstractBaseRepository
         } else if (($attributeKeyword != '') && ($fieldTypeId == '')) {
             $results =  $this->build(
                             $this->model->join('field_types', 'field_attributes.field_type_id', '=', 'field_types.id')
-                                        ->where('name', 'like', $attributeKeyword . '%') 
+                                        ->where('field_attributes.name', 'like', $attributeKeyword . '%') 
                                         ->select('field_types.name as fieldType', 'field_attributes.*')
                                         ->get()
             );
@@ -97,6 +97,7 @@ class AttributeBuilderRepository extends AbstractBaseRepository
                         $this->model->join('field_types', 'field_attributes.field_type_id', '=', 'field_types.id')
                             ->where('field_attributes.id', '=', $fieldId)
                             ->select('field_types.name as fieldType',
+                                    'field_types.id',
                                     'field_attributes.id as fieldId',
                                     'field_attributes.name as fieldName', 
                                     'field_attributes.value as fieldValue', 

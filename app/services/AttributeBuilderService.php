@@ -37,8 +37,6 @@ class AttributeBuilderService
      * @param String $name
      * @param String $label
      * @param String $value
-     * @param Array $optionLabels
-     * @param Array $optionValues
      */
     public function saveAttributes($fieldType, $name, $label, $value)
     {
@@ -81,5 +79,26 @@ class AttributeBuilderService
     public function getField($fieldId)
     {
         return $this->attributeBuilderRepository->findAttributeDetails($fieldId);
+    }
+    
+    /**
+     * Update Attribute on Library
+     * 
+     * @param Integer $fieldId
+     * @param Integer $fieldType
+     * @param String $name
+     * @param String $label
+     * @param String $value
+     */
+    public function updateAttributes($fieldId, $fieldType, $name, $label, $value)
+    {
+        $field = $this->attributeGenerator;
+        $field = $field->find($fieldId);
+        $field->setName($name);
+        $field->setFieldTypeId($fieldType);
+        $field->setLabel($label);
+        $field->setValue($value);
+        $field->update();
+        return $field->id;
     }
 }

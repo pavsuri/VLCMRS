@@ -64,7 +64,7 @@ class FieldTypesSeeder extends Seeder
             'name' => 'image',
         ]);
         FieldTypes::create([
-            'name' => 'submit',
+            'name' => 'option',
         ]);
     }
 }

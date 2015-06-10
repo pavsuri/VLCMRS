@@ -127,5 +127,11 @@ Route::group(array('before' => 'auth'), function(){
         'uses' => 'FormBuilderController@mapFields'
     ]);
 
+     //Update Fields
+    Route::post('/updateField', [
+         'as' => 'attributes.update',
+        'uses' => 'AttributeBuilderController@updateField'
+    ]);
+     
     Route::get('/', 'SignInController@index');
 });

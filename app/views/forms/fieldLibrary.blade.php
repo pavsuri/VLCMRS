@@ -32,34 +32,34 @@
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form" id="lib-records">        
             <table class="table" style="width:80%;  text-align: center"  id="lib-table">
-    <thead>
-        <tr>
-        <th style="text-align: center"> Name</th>
-        <th style="text-align: center"> Label</th>
-        <th style="text-align: center"> Type</th>
-        <th style="text-align: center">Edit</th>
-      </tr>
-    </thead>
-    <tbody>
-         <?php 
-            foreach ($fieldAttributes as $attribute ) {
-         ?>
-        <tr id="field-{{{$attribute->id}}}">
-        <td>{{{$attribute->name}}}</td>
-        <td>{{{$attribute->label}}}</td>
-        <td>{{{$attribute->fieldType}}}</td>
-        <td><a onclick="editField({{{$attribute->id}}});" data-toggle="modal" data-target="#edit-field-page"> Edit</a></td>
-      </tr>
-      <?php  } ?>
-    </tbody>
-  </table>
-           
+                <thead>
+                    <tr>
+                        <th style="text-align: center"> Name</th>
+                        <th style="text-align: center"> Label</th>
+                        <th style="text-align: center"> Type</th>
+                        <th style="text-align: center">Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach ($fieldAttributes as $attribute) {
+                        ?>
+                        <tr id="field-{{{$attribute->id}}}">
+                            <td>{{{$attribute->name}}}</td>
+                            <td>{{{$attribute->label}}}</td>
+                            <td>{{{$attribute->fieldType}}}</td>
+                            <td><a onclick="editField({{{$attribute->id}}});" data-toggle="modal" data-target="#edit-field-page"> Edit</a></td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+
         </div>
         <div class="cms-create-new-field">
-                <a href="javascript:void(0)" id="create-field-link" data-toggle="modal" data-target="#create-field-page">
-                    <img src="{{{url()}}}/images/plusicon.png" alt="plusicon"/> Create New Field
-                </a>
-            </div> 
+            <a href="javascript:void(0)" id="create-field-link" data-toggle="modal" data-target="#create-field-page">
+                <img src="{{{url()}}}/images/plusicon.png" alt="plusicon"/> Create New Field
+            </a>
+        </div> 
     </div>
     <!-- END of .row -->
 </div>
@@ -82,18 +82,20 @@
     'role' => 'form',
     'name' => 'create_attributes'
   ]) }}  
-                <div class="form-group">
-                    <div class="input-field">
-                        <label for="field-type" class="control-label">Field Type</label>
 
-                        <select name="field_type" id="field_type" class="selectpicker"  data-style="btn-inverse"  required>
-                            <option selected>Select</option>
+
+                <div class="cms-search-field" >
+                    <label for="field-type" class="control-label">Field Type</label><br>
+                    <div class="styled-select">
+                        <select name="field_type" id="field_type" class="form-control"   data-style="btn-inverse"  required>
+                            <option value="">Field Type</option>
                             @foreach($fieldTypes as $fieldType)
                             <option value="{{{$fieldType->id}}}">{{{ucfirst($fieldType->name)}}}</option>
                             @endforeach
                         </select>
-                        <div id="fieldType_err" style="color:red; font-size: 10px;"></div>
-                    </div>
+
+                    </div><div class="clearfix"></div>
+                    <div id="fieldType_err" style="color:red; font-size: 10px;"></div>
                 </div>
                 <div class="form-group">
                     <div class="input-field">
@@ -144,22 +146,22 @@
     'name' => 'update_attributes',
     'onsubmit' => 'return updateFieldsValidate();'
   ]) }}  
-  <input type="hidden" id="editFieldId" name="editFieldId" >
+                <input type="hidden" id="editFieldId" name="editFieldId" >
 
-            <div class="cms-search-field" >
-                <label for="field-type" class="control-label">Field Type</label><br>
-                <div class="styled-select">
-                    <select class="form-control" name="edit_field_type" id="edit_field_type">
-                        <option value="">Field Type</option>
-                        @foreach($fieldTypes as $fieldType)
-                        <option value="{{{$fieldType->id}}}">{{{ucfirst($fieldType->name)}}}</option>
-                        @endforeach
-                    </select>
-                    
-                </div><div class="clearfix"></div>
-                <div id="edit_fieldType_err" style="color:red; font-size: 10px;"></div>
-            </div>
-            <div class="clearfix"></div>
+                <div class="cms-search-field" >
+                    <label for="field-type" class="control-label">Field Type</label><br>
+                    <div class="styled-select">
+                        <select class="form-control" name="edit_field_type" id="edit_field_type">
+                            <option value="">Field Type</option>
+                            @foreach($fieldTypes as $fieldType)
+                            <option value="{{{$fieldType->id}}}">{{{ucfirst($fieldType->name)}}}</option>
+                            @endforeach
+                        </select>
+
+                    </div><div class="clearfix"></div>
+                    <div id="edit_fieldType_err" style="color:red; font-size: 10px;"></div>
+                </div>
+                <div class="clearfix"></div>
                 <div class="form-group">
                     <div class="input-field">
                         <label for="field-name" class="control-label">Field Name</label>

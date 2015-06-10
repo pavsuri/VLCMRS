@@ -103,7 +103,8 @@
                             <div class="clearfix"></div>	
                         </div>
                     <?php }
-                } ?></div>
+                }
+                ?></div>
             <div id="formLib_err" style="color:red; font-size: 12px;"></div>
         </div> 
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center btns">
@@ -183,18 +184,19 @@
     'role' => 'form',
     'name' => 'create_attributes'
   ]) }}  
-                <div class="form-group">
-                    <div class="input-field">
-                        <label for="field-type" class="control-label">Field Type</label>
 
-                        <select name="field_type" id="field_type" class="selectpicker" data-style="btn-inverse"  required>
-                            <option value="">Select</option>
+                <div class="cms-search-field" >
+                    <label for="field-type" class="control-label">Field Type</label><br>
+                    <div class="styled-select">
+                        <select name="field_type" id="field_type" class="form-control"   data-style="btn-inverse"  required>
+                            <option value="">Field Type</option>
                             @foreach($data['fieldTypes'] as $fieldType)
                             <option value="{{{$fieldType->id}}}">{{{ucfirst($fieldType->name)}}}</option>
                             @endforeach
                         </select>
-                        <div id="fieldType_err" style="color:red; font-size: 10px;"></div>
-                    </div>
+
+                    </div><div class="clearfix"></div>
+                    <div id="fieldType_err" style="color:red; font-size: 10px;"></div>
                 </div>
                 <div class="form-group">
                     <div class="input-field">

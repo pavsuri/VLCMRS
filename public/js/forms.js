@@ -62,7 +62,7 @@ $(document).ready(function () {
     //Clear Create Field form
     $('#create-field-link').on('click', function (event) {
         event.preventDefault();
-        $("#field_type").val([]);
+        $("#field_type").val('');
         $('#field_name').val('');
         $('#field_label').val('');
         $('#field_value').val('');

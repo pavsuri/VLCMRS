@@ -133,5 +133,12 @@ Route::group(array('before' => 'auth'), function(){
         'uses' => 'AttributeBuilderController@updateField'
     ]);
      
+    
+    //mapFields
+    Route::get('/viewForms', [
+        'as' => 'viewForms',
+        'uses' => 'FormBuilderController@viewForms'
+    ]);
+    
     Route::get('/', 'SignInController@index');
 });

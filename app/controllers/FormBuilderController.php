@@ -210,4 +210,13 @@ class FormBuilderController extends \BaseController
         $data = array('formName'=>$formName, 'formType' => $typeId, 'formId' => $formId, 'fieldsLibrary' => $fieldsLibrary, 'fieldTypes' => $fieldTyps, 'mappedFields' => $mappedFields);
         return View::make('forms.addFieldsToForm', array('data' => $data, 'formTypes' => $formTypes));
     }
+    
+    /**
+     * View Forms
+     */
+    public function viewForms()
+    {
+        $data = $this->formTypesService->getFormTypes();
+        return View::make('forms.viewForms', array('formTypes' => $data));
+    }
 }

@@ -17,6 +17,10 @@ class CreateFormsTable extends Migration {
 			$table->increments('id')->length(10)->unsigned();
                         $table->string('name')->unique();
                         $table->integer('type_id');
+                        $table->integer('originated_from');
+                        $table->integer('version');
+                        $table->string('status');
+                        $table->integer('active');
 			$table->timestamps();
                         
 		});

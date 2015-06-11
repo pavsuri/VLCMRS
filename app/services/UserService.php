@@ -28,12 +28,13 @@ class UserService
         return $results;
     }
     
-    public function addUser($email,$password, $name)
+    public function addUser($email,$password, $name, $roleId)
     {
         $password = Hash::make($password);
         $this->user->setEmail($email);
         $this->user->setName($name);
         $this->user->setPassword($password);
+        $this->user->SetRoleId($roleId);
         $this->user->save();
     }
     

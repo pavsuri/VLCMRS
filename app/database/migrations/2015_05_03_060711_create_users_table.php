@@ -18,7 +18,8 @@ class CreateUsersTable extends Migration {
 			$table->string('email')->unique();
 			$table->string('password');
 			$table->string('name');
-			$table->boolean('is_active')->default(false);
+                        $table->integer('role_id');
+			$table->boolean('is_active')->default(true);
 			$table->timestamps();
 		});
 	}

@@ -64,11 +64,5 @@ class Structure extends \Eloquent
     public function formgenerator()
     {
         return $this->belongs_to('FormGenerator');
-    }
-    
-    public function fieldgroups()
-    {
-        return $this->has_many('FieldGroups');
-    }
-    
+    }    
 }

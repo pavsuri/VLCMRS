@@ -41,7 +41,8 @@ class SignInController extends \BaseController
         $email = Input::get('email');
         $password = Input::get('password');
         $name = Input::get('name');
-        $this->user->addUser($email, $password, $name);       
+        $roleId = Input::get('roleId'); //1-Admin, 2-User
+        $this->user->addUser($email, $password, $name, $roleId);       
     }
     
     public function signout()

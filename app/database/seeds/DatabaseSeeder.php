@@ -31,11 +31,19 @@ class UsersSeeder extends Seeder
             'email' => 'surendra.yallabandi@valuelabs.net',
             'password' => Hash::make('demo'),
             'name' => 'Surendra',
+            'role_id' => 1
         ]);
         User::create([
             'email' => 'sai.kethamreddy@valuelabs.com',
             'password' => Hash::make('demo'),
-            'name' => 'Kishore',
+            'name' => 'Sai kishore',
+            'role_id' => 2
+        ]);
+        User::create([
+            'email' => 'sai.kethamreddy@valuelabs.net',
+            'password' => Hash::make('demo'),
+            'name' => 'Sai Kethamreddy',
+            'role_id' => 2
         ]);
     }
 }

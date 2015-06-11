@@ -74,6 +74,11 @@ class User extends \Eloquent implements UserInterface, RemindableInterface {
         $this->setParams('name', $name);
     }
     
+    public function setRoleId($roleId)
+    {
+        $this->setParams('role_id', $roleId);
+    }
+    
     public function getName()
     {
         $this->getParams('name');
@@ -84,6 +89,11 @@ class User extends \Eloquent implements UserInterface, RemindableInterface {
         $this->getParams('email');
     }
     
+    public function getRoleId()
+    {
+        $this->getParams('role_id');
+    }
+    
     private function setParams($attributeKey, $attributeValue)
     {
         $this->attributes[$attributeKey] = $attributeValue; 
@@ -92,6 +102,15 @@ class User extends \Eloquent implements UserInterface, RemindableInterface {
     private function getParams($attributeKey)
     {
         $this->attributes[$attributeKey]; 
+    }
+    
+    /**
+     * Relations..
+     */
+    
+    public function userforms()
+    {
+        return $this->has_many('UserForms');
     }
     
     //Remove remember_token

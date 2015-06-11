@@ -39,4 +39,8 @@ class FormTypes extends \Eloquent
         return $this->has_many('FormGenerator'); // this matches the Eloquent model
     }
     
+    public function userforms() {
+        return $this->has_many('UserForms'); // this matches the Eloquent model
+    }
+    
 }

@@ -100,7 +100,7 @@ class FormBuilderService
      * @param Integer $formTypeId
      * @return Array
      */
-    public function listFormsByTypeId($formTypeId)
+    public function listFormsByTypeId($formTypeId = '')
     {
         return $formList = $this->formReposiroty->listFormsByTypeId($formTypeId);
     }

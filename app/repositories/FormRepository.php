@@ -46,13 +46,23 @@ class FormRepository extends AbstractBaseRepository
     */
   public function listFormsByTypeId($formTypeId)
   {
-      $results = $this->build(
+      if ($formTypeId !='') {
+          $results = $this->build(
                         $this->model->join('form_types', 'forms.type_id', '=', 'form_types.id')
                             ->orderBy('forms.name', 'asc')
                             ->select ('forms.*', 'form_types.form_type')
                             ->where('forms.type_id', '=', $formTypeId)
                             ->get()
         );
+      } else {
+          $results = $this->build(
+                        $this->model->join('form_types', 'forms.type_id', '=', 'form_types.id')
+                            ->orderBy('forms.name', 'asc')
+                            ->select ('forms.*', 'form_types.form_type')
+                            ->get()
+        );
+      }
+      
         return $results;
   }
   

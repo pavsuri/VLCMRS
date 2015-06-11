@@ -252,6 +252,7 @@ function getForm(formId)
             getFormName(formId);
             $('#form_data').html(data);
             $('#form-data').removeAttr('style');
+            $('#formEditId').val(formId);
         }
     });
 }

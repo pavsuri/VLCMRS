@@ -28,7 +28,7 @@
                 </a>
             </li>
             <li>
-                <a href="javascript:void(0)" <?php if(Route::current()->getName() == 'forms.saveform') { echo 'class="active-link"'; } ?> >
+                <a href="/viewForms" <?php if((Route::current()->getName() == 'viewForms') || (Route::current()->getName() ==  'editFormFields'))  { echo 'class="active-link"'; } ?> >
                     <span class="menu-icon map-field">
                         <span class="menu-text">Map Fields</span>
                     </span>

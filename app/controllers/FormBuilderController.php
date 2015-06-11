@@ -59,7 +59,7 @@ class FormBuilderController extends \BaseController
                                 FieldTypesService $fieldTypesService, 
                                 AttributeBuilderService $attributeBuilderService, 
                                 StructureService $structureService,
-                                services\FormTypesService $formTypesService
+                                FormTypesService $formTypesService
                                 ) 
     {
         $this->formBuilderService = $formBuilderService;
@@ -178,7 +178,7 @@ class FormBuilderController extends \BaseController
      */
     public function getFormDetails($formId)
     {
-        return $this->formBuilderService->getFormById($formId);;
+        return $this->formBuilderService->getFormById($formId);
     }
     
     /**
@@ -209,5 +209,14 @@ class FormBuilderController extends \BaseController
         $mappedFields = Session::get('formMappedFields');
         $data = array('formName'=>$formName, 'formType' => $typeId, 'formId' => $formId, 'fieldsLibrary' => $fieldsLibrary, 'fieldTypes' => $fieldTyps, 'mappedFields' => $mappedFields);
         return View::make('forms.addFieldsToForm', array('data' => $data, 'formTypes' => $formTypes));
+    }
+    
+    /**
+     * View Forms
+     */
+    public function viewForms()
+    {
+        $formsData = $this->formBuilderService->listFormsByTypeId();
+        return View::make('forms.viewForms', array('formsData' => $formsData));
     }
 }

@@ -36,11 +36,11 @@ class FormTypes extends \Eloquent
      * Relations
      */
     public function formgenerators() {
-        return $this->has_many('FormGenerator'); // this matches the Eloquent model
+        return $this->has_many('FormGenerator');
     }
     
     public function userforms() {
-        return $this->has_many('UserForms'); // this matches the Eloquent model
+        return $this->has_many('UserForms');
     }
     
 }

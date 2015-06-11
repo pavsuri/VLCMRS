@@ -30,10 +30,12 @@ class FormRepository extends AbstractBaseRepository
   {
         $results = $this->build(
                         $this->model->rightjoin('form_types', 'forms.type_id', '=', 'form_types.id')
-                            ->orderBy('forms.name', 'asc')
-                            ->select ('form_types.*', new \Illuminate\Database\Query\Expression('count(forms.id) as total'))
-                            ->groupBy('forms.type_id')
-                            ->get()
+                                ->where('status', '=', 'active')
+                                ->where('active', '=', 1)
+                                ->orderBy('forms.name', 'asc')
+                                ->select ('form_types.*', new \Illuminate\Database\Query\Expression('count(forms.id) as total'))
+                                ->groupBy('forms.type_id')
+                                ->get()
         );
         return $results;
   }
@@ -52,11 +54,15 @@ class FormRepository extends AbstractBaseRepository
                             ->orderBy('forms.name', 'asc')
                             ->select ('forms.*', 'form_types.form_type')
                             ->where('forms.type_id', '=', $formTypeId)
+                            ->where('status', '=', 'active')
+                            ->where('active', '=', 1)
                             ->get()
         );
       } else {
           $results = $this->build(
                         $this->model->join('form_types', 'forms.type_id', '=', 'form_types.id')
+                            ->where('status', '=', 'active')
+                            ->where('active', '=', 1)
                             ->orderBy('forms.name', 'asc')
                             ->select ('forms.*', 'form_types.form_type')
                             ->get()
@@ -71,10 +77,12 @@ class FormRepository extends AbstractBaseRepository
     * 
     * @param String $formName
     */
-    public function formExist($formName) 
+    public function formExist($formName, $formId) 
     {
         $results = $this->build(
                 $this->model->where('forms.name', '=', $formName)
+                        ->where ('forms.id' , '!=', $formId)
+                        ->where ('status', '=', 'active')
                         ->first()
         );
         return $results;

@@ -78,31 +78,7 @@ class StructureController extends BaseController
     }
     
     /**
-     * Assign fields to Form
-     * 
-     * @return Boolean
-     */
-    public function mapFieldsToForm()
-    {
-        $formId = Input::get('form_id_map');
-        $fields = Input::get('allFields');
-        $formLocation = Input::get('edit_form_id');
-        Session::put('formMappedFields', $fields);
-        $fields = array_keys($fields);
-        //Delete all the form attributes
-        $this->structureService->clearAllFields($formId);
-        $this->structureService->mapFieldsToForm($formId, $fields);
-        $formAttributesData = $this->structureService->getFormAttributes($formId);
-        $formName = $this->formBuilderService->getFormById($formId);
-        if ($formLocation == 1) {//Update form fields
-            return View::make('forms.updateFormPreview',array('formData'=>$formAttributesData, 'formProfile' =>$formName));
-        } else {//While create new form
-             return View::make('forms.preview',array('formData'=>$formAttributesData));
-        }
-    }
-    
-    /**
-     * Edit Form Fields
+     * Save Form Fields while mapping updated
      */
     public function editFormFields()
     {
@@ -126,5 +102,73 @@ class StructureController extends BaseController
                     'mappedFields' => $formFields,
                     'formsData' => $formList);
         return View::make('forms.editMapping', array('data' => $data, 'formTypes' => $formTypes));
+    }
+    
+    /**
+     * Assign fields to Form while Form mapping updating
+     * 
+     * @return Boolean
+     */
+    public function mapFieldsToForm()
+    {
+        $formId = Input::get('form_id_map');
+        $fields = Input::get('allFields');
+        $formLocation = Input::get('edit_form_id');
+        Session::put('formMappedFields', $fields);
+        $fields = array_keys($fields);
+        if ($formLocation == 1) {
+            /**
+             * Update Form Fields
+             * Maintain Versioning. Create New form with Same name and change old form to inactive.
+             * Change version number or existed form
+             * Add Fields to New form and make this as Active.
+             */
+            $existedFormData = $this->updateExistedFormData($formId);
+            $newFormId = $this->createNewForm($existedFormData);
+            $this->structureService->mapFieldsToForm($newFormId, $fields);
+            $formAttributesData = $this->structureService->getFormAttributes($newFormId);
+            $formName = $this->formBuilderService->getFormById($newFormId);
+            return View::make('forms.updateFormPreview',array('formData'=>$formAttributesData, 'formProfile' =>$formName));
+        } else {//While create new form
+            //Delete all the form attributes
+            $this->structureService->clearAllFields($formId);
+            $this->structureService->mapFieldsToForm($formId, $fields);
+            $formAttributesData = $this->structureService->getFormAttributes($formId);
+            $formName = $this->formBuilderService->getFormById($formId);
+            return View::make('forms.preview',array('formData'=>$formAttributesData));
+        }
+    }
+    
+    /**
+     * Update Existed form data
+     * 
+     * @param Integer $formId
+     * @return Object
+     */
+    private function updateExistedFormData($formId)
+    {
+        $existedFormData = $this->formBuilderService->getFormById($formId);
+        $version = $existedFormData->version;
+        $status = 'versioned';
+        $originatedFrom = $existedFormData->originated_from;
+        $active = 0;
+        $this->formBuilderService->updateForm($formId, $existedFormData->name, $existedFormData->type_id, $version, $status, $active, $originatedFrom);
+        return $existedFormData;
+    }
+    
+    /**
+     * Create new form for versioning.
+     * 
+     * @param Object $existedFormData
+     * return Integer 
+     */
+    private function createNewForm($existedFormData)
+    {
+        $originatedFrom = $existedFormData->id;
+        $version = $existedFormData->version + 1;
+        $status = 'active';
+        $active = 1;
+        $formId = $this->formBuilderService->addForm($existedFormData->name, $existedFormData->type_id, $version, $status, $active, $originatedFrom);
+        return $formId;
     }
 }

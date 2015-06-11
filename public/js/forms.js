@@ -108,6 +108,25 @@ function deleteForm(formId)
     return status;
 }
 
+function formExistStatus(formName, formId)
+{
+    $.ajax({
+        url: "/formExistStatus/"+formName+"/"+formId,
+        type: "get",
+        success: function (data) {
+            if(data == 1) {
+                $('#form_name').val('');
+                $('#form-name').val('');
+                $('#formName_err').html('Form Name already exist.');
+                $('#form_name_err').html('Form Name already exist.');
+            } else {
+                $('#formName_err').html('');
+                $('#form_name_err').html('');
+            }
+        }
+    });
+}
+
 function searchFields() {
     var attributeKeyword = $('#search_attribute').val();
     var fieldTypeId = $('#search_field').val();
@@ -243,6 +262,7 @@ function addFieldToLibrary(fieldId)
     });
 }
 
+//Get complete Form with Attributes and HTML
 function getForm(formId) 
 {
      $.ajax({

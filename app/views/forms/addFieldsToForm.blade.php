@@ -138,7 +138,7 @@
                 <div class="form-group">
                     <div class="form-field">
                         <label for="form-name" class="control-label">Form Name</label>
-                        <input type="text"  id="form_name" name="name"  value="{{{$data['formName']}}}" class="form-control" required  >
+                        <input type="text"  id="form_name" name="name"  value="{{{$data['formName']}}}" class="form-control" required    onblur="formExistStatus(this.value, {{{$data['formId']}}});">
                         <div id="formName_err" style="color:red; font-size: 10px;"></div>
                     </div>
                 </div>

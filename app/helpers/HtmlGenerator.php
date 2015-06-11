@@ -7,11 +7,11 @@ class HtmlGenerator
     {
         switch ($fieldType) {
             case "textbox":
-                $textbox = "<input type='".$fieldType."' name='".$fieldName."' value='".$fieldValue."' class='form-control'/>";
+                $textbox = "<input type='".$fieldType."' name='".$fieldName."' placeholder='".$fieldValue."' class='form-control' readonly/>";
                 $output = self::divStructure($fieldLabel, $textbox);
                 break;
             case "textarea":
-                $textarea =  " <".$fieldType."  name='".$fieldName."' rows='1'  class='form-control' >".$fieldValue."</textarea>";
+                $textarea =  " <".$fieldType."  name='".$fieldName."' rows='1'  class='form-control' readonly></textarea>";
                 $output = self::divStructure($fieldLabel, $textarea);
                 break;
             case "selectbox":
@@ -30,9 +30,6 @@ class HtmlGenerator
                     $radio .= "<input type='radio' name=".$fieldName." value=".$option->fieldValue.">".$option->fieldName;
                 }
                 $output = self::getRadioButtonHtml($fieldLabel, $fieldName, $optionsData);
-                break;
-            case "submit":
-                $output = "<input type='".$fieldType."' name='".$fieldName."' value='".$fieldValue."' />";
                 break;
         }
         return $output;

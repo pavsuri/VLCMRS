@@ -10,7 +10,7 @@ class FormGenerator extends \Eloquent
     private $name;
     private $type_id;
     
-    protected $fillable = array('name', 'type_id');
+    protected $fillable = array('name', 'type_id', 'originated_from', 'version', 'status', 'active' );
     
     public function setName($name)
     {
@@ -22,6 +22,26 @@ class FormGenerator extends \Eloquent
         $this->setParams('type_id', $type_id);
     }
     
+    public function setOriginatedFrom($originatedFrom)
+    {
+        $this->setParams('originated_from', $originatedFrom);
+    }
+    
+    public function setVersion($version)
+    {
+        $this->setParams('version', $version);
+    }
+    
+    public function setStatus($status)
+    {
+        $this->setParams('status', $status);
+    }
+    
+    public function setActive($active)
+    {
+        $this->setParams('active', $active);
+    }
+    
     public function getName()
     {
         $this->getParams('name');
@@ -30,6 +50,26 @@ class FormGenerator extends \Eloquent
     public function getTypeId()
     {
         $this->getParams('type_id');
+    }
+    
+    public function getOriginatedFrom()
+    {
+        $this->getParams('originated_from');
+    }
+    
+    public function getVersion()
+    {
+        $this->getParams('version');
+    }
+
+    public function getStatus()
+    {
+        $this->getParams('status');
+    }
+    
+    public function getActive()
+    {
+        $this->getParams('active');
     }
     
     private function setParams($attributeKey, $attributeValue)

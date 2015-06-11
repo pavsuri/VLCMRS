@@ -60,6 +60,10 @@ Route::group(array('before' => 'auth'), function(){
         'uses' => 'FormBuilderController@getForm'
     ]);
     
+    //Check Form Exist or Not
+     Route::get('/formExistStatus/{formName}/{formId}', [
+        'uses' => 'FormBuilderController@formExistStatus'
+    ]);
     //Save Form
     Route::any('/updateForm', [
         'as' => 'forms.updateform',
@@ -144,6 +148,7 @@ Route::group(array('before' => 'auth'), function(){
         'as' => 'editFormFields',
         'uses' => 'StructureController@editFormFields'
     ]);
+    
     
     Route::get('/', 'SignInController@index');
 });

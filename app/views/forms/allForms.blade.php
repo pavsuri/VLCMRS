@@ -39,12 +39,12 @@
         <div class="row" id="form_data"> </div>
     </div>
     <!-- END of .cms-preview-data -->
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center btns">
             <button type="button" class="btn btn-primary btm-btn">Back</button>
             <button type="submit" class="btn btn-primary btm-btn">Submit</button>
         </div>
-    </div>
+    </div> -->
     </div>
 </div>
 @endsection

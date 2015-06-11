@@ -34,7 +34,9 @@ class FormBuilderService
      */
     public function getAllForms()
     {
-        $allForms = $this->formGenerator->get();
+        $allForms = $this->formGenerator->where('status', '=', 'active')
+                                        ->where('active', '=', 1)
+                                        ->get();
         return $allForms;
     }
 
@@ -46,12 +48,16 @@ class FormBuilderService
      * @param Integer $typeId
      * @response boolean
      */   
-    public function addForm($formName, $typeId)
+    public function addForm($formName, $typeId, $version, $status, $active, $originatedFrom = 0)
     {
         $input = array('name' => $formName, 'type_id'=>$typeId);
         $form = $this->formGenerator;
         $form->setName($formName);
         $form->setTypeId($typeId);
+        $form->setOriginatedFrom($originatedFrom);
+        $form->setVersion($version);
+        $form->setStatus($status);
+        $form->setActive($active);
         $form->save();
         return $form->id;
     }
@@ -64,12 +70,16 @@ class FormBuilderService
      * @param Integer $typeId
      * @return null
      */
-    public function updateForm($formId, $formName, $typeId)
+    public function updateForm($formId, $formName, $typeId, $version, $status, $active, $originatedFrom = 0)
     {
         $form = $this->formGenerator;
         $form = $form->find($formId);
         $form->setName($formName);
         $form->setTypeId($typeId);
+        $form->setOriginatedFrom($originatedFrom);
+        $form->setVersion($version);
+        $form->setStatus($status);
+        $form->setActive($active);
         $form->update();
     }
     /**
@@ -110,9 +120,9 @@ class FormBuilderService
      * 
      * @param String $formName
      */
-    public function formExist($formName)
+    public function formExist($formName,$formId)
     {
-        return $this->formReposiroty->formExist($formName);
+        return $this->formReposiroty->formExist($formName, $formId);
     }
     
     /**

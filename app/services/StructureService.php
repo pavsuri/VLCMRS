@@ -152,4 +152,14 @@ class StructureService
     {
         return $this->structure->where('form_id', '=', $formId)->delete();
     }
+    
+    /**
+     * Get Form Fields Data.
+     * 
+     * @param Integer $formId
+     */
+    public function getFormFields($formId)
+    {
+        return $this->structureRepository->getFormFields($formId);
+    }
 }

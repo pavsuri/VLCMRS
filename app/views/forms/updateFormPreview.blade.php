@@ -14,14 +14,7 @@
 <div class="right-section-content">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="cms-links">
-                <ul>
-                    <li class="active"> <a href="#" data-toggle="modal" data-target="#delete-form-data"><div class="round">1</div> Create Form</a></li>
-                    <li class="second active"><a href="/mapFields"><div class="round">2</div> Add Fields</a></li>
-                    <li class="third active"><a href="javascript:void(0)"><div class="round">3</div> Preview</a></li>
-                    <div class="clearfix"></div>
-                </ul>
-            </div>
+            <div class="cms-links"><h2>{{{$formProfile->name}}}</h2></div>
             <!-- END of .cms-links -->
         </div>
     </div>

@@ -42,4 +42,18 @@ class StructureRepository extends AbstractBaseRepository
                             ->get()
         );
   }
+  
+  /**
+   * Get Form Fields Dat
+   */
+  public function getFormFields($formId)
+  {
+      return $this->build(
+                        $this->model->join('field_attributes', 'structure.field_id', '=', 'field_attributes.id')
+                            ->where('form_id', '=', $formId)
+                            ->select('field_attributes.id', 'field_attributes.name')
+                            ->orderBy('structure.id', 'asc')
+                            ->get()
+        );
+  }
 }

@@ -8,7 +8,7 @@
 <title>Compliance Management System</title>
 
 <link href="{{ URL::asset('css/bootstrap.min.css') }}" rel="stylesheet"/>
-<link rel="stylesheet" href="{{ URL::asset('css/jquery-ui.css') }}">
+<!-- <link rel="stylesheet" href="{{ URL::asset('css/jquery-ui.css') }}"> -->
 <link rel="stylesheet" href="{{ URL::asset('css/bootstrap-select.min.css') }}">
 <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">
 {{ HTML::script('js/jquery.min.js'); }}

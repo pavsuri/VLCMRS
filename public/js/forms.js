@@ -381,13 +381,28 @@ function fieldLibraryHtml(fields)
 function addFieldToLibraryHtml(fields)
 {
     var response = ''; 
+    var existedFields = $('#lib-records').html().length;
+    if(existedFields == 0 ) {
+        response += '<table class="table" style="width:80%;  text-align: center" id="lib-table"><thead>\n\
+                        <tr><th style="text-align: center"> Name</th>\n\
+                            <th style="text-align: center"> Label</th>\n\
+                            <th style="text-align: center"> Type</th>\n\
+                            <th style="text-align: center">Edit</th>\n\
+                        </tr></thead><tbody>';
+    }
     for (i=0; i<fields.length; i++) {
         response += '<tr id="field-'+fields[i].fieldId+'"><td>'+fields[i].fieldName+'</td>\n\
                                 <td >'+fields[i].fieldLabel+'</td>\n\
                                 <td >'+fields[i].fieldType+'</td>\n\
                                 <td ><a onclick="editField('+fields[i].fieldId+');" data-toggle="modal" data-target="#edit-field-page"> Edit</a></td></tr>';
     }
-    $('#lib-table').append(response);
+    if(existedFields == 0 ) { 
+        response += '</tbody></table>'; 
+        $('#lib-records').append(response);
+    } else {
+        $('#lib-table').append(response);
+    }
+
 }
 
 //Open Modal with existed Field Values

@@ -1,22 +1,21 @@
 <?php
 namespace helpers;
 
-class HtmlGenerator
+class UserFormHtmlGenerator
 {
     public static function  htmlInput($field, $optionsData)
     {
         $fieldType = $field->fieldType;
-        $fieldName = $field->fieldName;
+        $fieldName = $field->fieldName.'-'.$field->uuid;
         $fieldLabel = $field->fieldLabel;
         $fieldValue = $field->fieldValue;
-        $uuid = $field->uuid;
         switch ($fieldType) {
             case "textbox":
-                $textbox = "<input type='".$fieldType."' name='".$fieldName."' placeholder='".$fieldValue."' class='form-control' readonly/>";
+                $textbox = "<input type='".$fieldType."' name='".$fieldName."' placeholder='".$fieldValue."' class='form-control' />";
                 $output = self::divStructure($fieldLabel, $textbox);
                 break;
             case "textarea":
-                $textarea =  " <".$fieldType."  name='".$fieldName."' rows='1'  class='form-control' readonly></textarea>";
+                $textarea =  " <".$fieldType."  name='".$fieldName."' rows='1'  class='form-control' ></textarea>";
                 $output = self::divStructure($fieldLabel, $textarea);
                 break;
             case "selectbox":
@@ -38,14 +37,6 @@ class HtmlGenerator
                 break;
         }
         return $output;
-    }
-    
-    /**
-     * Form Tag- HTML
-     */
-    public static function htmlForm($formName, $typeId)
-    {
-        return  "<form name='".$formName."' >";
     }
     
     /**
@@ -95,7 +86,7 @@ class HtmlGenerator
                                 <div class="input-field">
                                         <label for="town-code" class="control-label">'.$fieldLabel.'</label>
                                         <div class="styled-select">
-                                           <select class="form-control" name="'.$fieldName.'" readonly>
+                                           <select class="form-control" name="'.$fieldName.'" >
                                                         <option>Select one</option>';
         foreach($optionsData as $option) {
             $structure .= "<option value='".$option->fieldValue."' >".$option->fieldName."</option>";
@@ -116,7 +107,7 @@ class HtmlGenerator
         foreach($optionsData as $option) {
             $structure .= '<div class="chk">
                             <label for="male">
-                                <input type="radio" value="'.$option->fieldValue.'" name="'.$fieldName.'"> 
+                                <input type="radio" value="'.$option->fieldValue.'" name="'.$fieldName.'"  id="'.$uuid.'"> 
                                     <span>'.$option->fieldLabel.'</span>
 				</label>
                             </div>';

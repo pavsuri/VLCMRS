@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Application & Route Filters
@@ -46,6 +46,12 @@ Route::filter('auth', function()
 			return Redirect::guest('login');
 		}
 	}
+});
+
+Route::filter('role', function() {
+    if (Auth::user()['role'] == 2) {
+        return Redirect::to('/user/dashboard');
+    }
 });
 
 

@@ -1,5 +1,5 @@
 <?php
-namespace User;
+namespace Controllers\User;
 
 use services\UserService;
 use Input, Redirect, Session, View;
@@ -27,7 +27,11 @@ class SignInController extends \BaseController
         if ($this->user->signIn($email, $password)) {
             $user = $this->user->getUser();
             Session::put('userName', $user->name);
-            return Redirect::to('dashboard');
+            if ($user->role_id == 2){
+                return Redirect::to('user/dashboard');
+            } else {
+                return Redirect::to('dashboard');
+            }
         } else {
             Session::flash('failedMsg', 'Username/Password mismatch');
             return Redirect::to('login')->withInput();

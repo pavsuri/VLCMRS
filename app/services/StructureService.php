@@ -96,16 +96,16 @@ class StructureService
             if (isset($field[$i]->children)) {
                 if (($field[$i]->fieldType == 'selectbox') || ($field[$i]->fieldType == 'checkbox') || ($field[$i]->fieldType == 'radiobutton')) {
                     $optionsData = $field[$i]->children;
-                    $formHtmlDesign .= HtmlGenerator::htmlInput($field[$i]->fieldType, $field[$i]->fieldName, $field[$i]->fieldLabel, $field[$i]->fieldValue, $optionsData);
+                    $formHtmlDesign .= HtmlGenerator::htmlInput($field[$i], $optionsData);
                 } else {
-                    $formHtmlDesign .= HtmlGenerator::htmlInput($field[$i]->fieldType, $field[$i]->fieldName, $field[$i]->fieldLabel, $field[$i]->fieldValue, $optionsData);
+                    $formHtmlDesign .= HtmlGenerator::htmlInput($field[$i], $optionsData);
                     $containerData = $field[$i]->children;
                     if (isset($containerData)) { 
                        $this->hemlGenerator($containerData);
                     }
                 }
             } else {
-                $formHtmlDesign .= HtmlGenerator::htmlInput($field[$i]->fieldType, $field[$i]->fieldName, $field[$i]->fieldLabel, $field[$i]->fieldValue, $optionsData);
+                $formHtmlDesign .= HtmlGenerator::htmlInput($field[$i], $optionsData);
             }
             if( (($i+1)%3 == 0)){
                 $formHtmlDesign .= '<div class="clearfix visible-lg-block"></div>';

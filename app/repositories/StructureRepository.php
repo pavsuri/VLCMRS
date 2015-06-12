@@ -35,7 +35,8 @@ class StructureRepository extends AbstractBaseRepository
                                     'field_types.name as fieldType',
                                     'field_attributes.name as fieldName', 
                                     'field_attributes.value as fieldValue', 
-                                    'field_attributes.label as fieldLabel'
+                                    'field_attributes.label as fieldLabel',
+                                    'field_attributes.identifier as uuid'
                                     )
                             ->orderBy('structure.parent_id', 'asc')
                             ->orderBy('structure.id', 'asc')

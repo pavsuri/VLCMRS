@@ -1,0 +1,84 @@
+<?php
+namespace Controllers\User;
+
+use Illuminate\Support\Facades\Session;
+use \services\User\UserFormsService;
+use Illuminate\Support\Facades\Auth;
+use services\FormBuilderService;
+use Illuminate\Http\Request;
+
+class UserFormsController extends \BaseController
+{
+    /*
+     * Structure Service
+     * 
+     * $structureService  Services\StructureService
+     */
+    private  $userFormsService;
+    
+    /**
+     * Form builder Service 
+     * 
+     * $formBuilderService services\FormBuilderService
+     */
+    private $formBuilderService;
+    
+    /**
+     * Http Request $request;
+     */
+    private $request;
+    
+    /**
+     * Constructor
+     * 
+     * @param FormBuilderService $formBuilderService
+     */
+    public function __construct(UserFormsService $userFormsService, FormBuilderService $formBuilderService, Request $request)
+    {
+        $this->userFormsService = $userFormsService;
+        $this->formBuilderService = $formBuilderService;
+        $this->request = $request;
+    }
+    
+    /**
+     * User DashBoard.
+     * 
+     * @return type
+     */
+    public function dashboard()
+    {
+        $data = $this->formBuilderService->getFormsByType();
+        return \View::make('user.dashboard', array('formTypes' => $data));
+    }
+    
+    /**
+     * Get List of forms by Type
+     * 
+     * @param Integer $formTypeId
+     * @return type
+     */
+    public function getFormsByTypeId($formTypeId)
+    {
+        $forms = $this->formBuilderService->listFormsByTypeId($formTypeId);
+        return $forms;
+    }
+    
+    /**
+     * Get Html Template
+     * 
+     * @param Integer $formId
+     * @return type
+     */
+    public function getFormHtml($formId)
+    {
+        $htmlForm = $this->userFormsService->getFormAttributes($formId);
+        return $htmlForm;
+    }
+    
+    public function saveFormValues()
+    {
+        $inputData = $this->request->all();
+        echo "<pre>"; print_r($inputData);
+    }
+     
+}

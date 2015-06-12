@@ -2,35 +2,61 @@
 /**
  * User
  */
-Route::group(['namespace' => 'User'], function()
+Route::group(['namespace' => 'Controllers\User'], function()
 {
-  Route::get('/', [
-    'uses' => 'SignInController@index'
-  ]);
-  
-  Route::get('/login', [
-    'as' => 'login',
-    'uses' => 'SignInController@index'
-  ]);
-  
-  Route::post('/signin', [
-    'as' => 'signin.perform',
-    'uses' => 'SignInController@perform'
-  ]);
+    Route::get('/', [
+        'uses' => 'SignInController@index'
+    ]);
 
-  Route::post('/adduser', [
-    'uses' => 'SignInController@addUser'
-  ]);
+    Route::get('/login', [
+        'as' => 'login',
+        'uses' => 'SignInController@index'
+    ]);
 
-  Route::get('/signout', [
-    'uses' => 'SignInController@signout'
-  ]);
+    Route::post('/signin', [
+        'as' => 'signin.perform',
+        'uses' => 'SignInController@perform'
+    ]);
+
+    Route::post('/adduser', [
+        'uses' => 'SignInController@addUser'
+    ]);
+
+    Route::get('/signout', [
+        'uses' => 'SignInController@signout'
+    ]);
+
+    //User DashBoard
+    Route::get('/user/dashboard', [
+        'as' => 'user.dashboard',
+        'uses' => 'UserFormsController@dashboard'
+    ]);
+    
+    //Get Forms by Form type
+    Route::get('/getFormsByType/{formTypeId}', [
+        'uses' => 'UserFormsController@getFormsByTypeId'
+    ]);
+    
+    //Get Form Attributes HTML Edit mode
+    Route::get('/getFormHtmlEdit/{formId}', [
+        'uses' => 'UserFormsController@getFormHtml'
+    ]);
+    
+    //Save Form Values
+    Route::post('/saveFormValues', [
+        'as' => 'userforms.saveFormvalues',
+        'uses' => 'UserFormsController@saveFormValues'
+    ]);
+    
 });
 
-
 //Add Auth check and redirect to ligin if not loggedin
-Route::group(array('before' => 'auth'), function(){
-//All the routes in this Group..
+Route::group(array('before' => 'auth', 'before' => 'role'), function(){
+    
+/**
+ * All the routes in this Group..
+ * ADMIN Routes
+ */
 
     //DashBoard
     Route::get('/dashboard', [
@@ -148,7 +174,6 @@ Route::group(array('before' => 'auth'), function(){
         'as' => 'editFormFields',
         'uses' => 'StructureController@editFormFields'
     ]);
-    
     
     Route::get('/', 'SignInController@index');
 });

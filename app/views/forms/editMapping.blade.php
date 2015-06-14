@@ -52,7 +52,7 @@
                         @endforeach
                     </select>
                 </div>
-                <a  id="searchFields">
+                <a  id="searchFields" style="cursor:pointer;">
                     <img src="{{{url()}}}/images/search.png" alt="search"/>
                 </a>
             </div>

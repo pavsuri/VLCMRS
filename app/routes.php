@@ -86,6 +86,12 @@ Route::group(array('before' => 'auth', 'before' => 'role'), function(){
         'uses' => 'FormBuilderController@getForm'
     ]);
     
+    //Form Save Confirmation
+    Route::get('/confirmation', [
+        'as' => 'forms.confirmation',
+        'uses' => 'FormBuilderController@confirmation'
+    ]);
+    
     //Check Form Exist or Not
      Route::get('/formExistStatus/{formName}/{formId}', [
         'uses' => 'FormBuilderController@formExistStatus'

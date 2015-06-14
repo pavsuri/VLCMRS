@@ -4,7 +4,7 @@ namespace repositories;
 
 use models\FormGenerator;
 use \Illuminate\Database\Query\Expression;
-
+use Illuminate\Support\Facades\DB;
 class FormRepository extends AbstractBaseRepository
 {
     
@@ -30,11 +30,9 @@ class FormRepository extends AbstractBaseRepository
   {
         $results = $this->build(
                         $this->model->rightjoin('form_types', 'forms.type_id', '=', 'form_types.id')
-                                ->where('status', '=', 'active')
-                                ->where('active', '=', 1)
                                 ->orderBy('forms.name', 'asc')
                                 ->select ('form_types.*', new \Illuminate\Database\Query\Expression('count(forms.id) as total'))
-                                ->groupBy('forms.type_id')
+                                ->groupBy('form_types.id')
                                 ->get()
         );
         return $results;

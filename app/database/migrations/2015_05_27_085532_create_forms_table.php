@@ -17,9 +17,9 @@ class CreateFormsTable extends Migration {
 			$table->increments('id')->length(10)->unsigned();
                         $table->string('name');
                         $table->integer('type_id');
-                        $table->integer('originated_from');
+                        $table->integer('originated_from')->nullable();
                         $table->integer('version');
-                        $table->string('status');
+                        $table->enum('status', ['active', 'versioned', 'deleted']);
                         $table->integer('active');
 			$table->timestamps();
                         

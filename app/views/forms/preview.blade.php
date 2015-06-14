@@ -29,12 +29,12 @@
         <div class="row"><?php echo $formData; ?></div>
     </div>
     <!-- END of .cms-preview-data -->
-   <!--<div class="row">
+  <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center btns">
             <a href="/mapFields"><button type="button" class="btn btn-primary btm-btn">Back</button></a>
-            <button type="submit" class="btn btn-primary btm-btn">Submit</button>
+            <a href="/confirmation"> <button type="submit" class="btn btn-primary btm-btn">Submit</button></a>
         </div>
-    </div> -->
+    </div>
 </div>
 
 <!-- Delete Form Alert -->

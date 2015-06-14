@@ -36,15 +36,17 @@
         </div>
     </div>
     <div class="cms-preview-data">
-        <div class="row" id="form_data"> </div>
+        <div class="row" id="form_data"></div>
     </div>
     <!-- END of .cms-preview-data -->
-    <!-- <div class="row">
+    <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center btns">
-            <button type="button" class="btn btn-primary btm-btn">Back</button>
-            <button type="submit" class="btn btn-primary btm-btn">Submit</button>
+            <form action="/editFormFields" method="post">
+                <input type="hidden" value="" name="formEditId" id="formEditId" >
+            <button type="submit" class="btn btn-primary btm-btn">Edit Form</button>
+            </form>
         </div>
-    </div> -->
+    </div>
     </div>
 </div>
 @endsection

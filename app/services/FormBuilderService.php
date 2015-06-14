@@ -48,7 +48,7 @@ class FormBuilderService
      * @param Integer $typeId
      * @response boolean
      */   
-    public function addForm($formName, $typeId, $version, $status, $active, $originatedFrom = 0)
+    public function addForm($formName, $typeId, $version, $status, $active, $originatedFrom = NULL)
     {
         $input = array('name' => $formName, 'type_id'=>$typeId);
         $form = $this->formGenerator;
@@ -70,7 +70,7 @@ class FormBuilderService
      * @param Integer $typeId
      * @return null
      */
-    public function updateForm($formId, $formName, $typeId, $version, $status, $active, $originatedFrom = 0)
+    public function updateForm($formId, $formName, $typeId, $version, $status, $active, $originatedFrom = NULL)
     {
         $form = $this->formGenerator;
         $form = $form->find($formId);
@@ -101,7 +101,8 @@ class FormBuilderService
      */
     public function getFormsByType()
     {
-        return $formData = $this->formReposiroty->getFormsByType();
+         $formData = $this->formReposiroty->getFormsByType();
+         return $formData;
     }
     
     /**

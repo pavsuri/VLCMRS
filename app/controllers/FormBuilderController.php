@@ -120,6 +120,14 @@ class FormBuilderController extends \BaseController
     }
     
     /**
+     * Form Confirmation
+     */
+    public function confirmation()
+    {
+        return View::make('forms.confirmation');
+    }
+    
+    /**
      * Edit Form
      */
     public function updateForm()

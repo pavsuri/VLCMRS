@@ -86,6 +86,9 @@ class UserFormsController extends \BaseController
         return $htmlForm;
     }
     
+    /**
+     * Save Form values
+     */
     public function saveFormValues()
     {
         $inputData = $this->request->all();
@@ -93,7 +96,24 @@ class UserFormsController extends \BaseController
         $formTypeId = $inputData['formTypeSubmitId'];
         $userId = Auth::user()->id; 
         $userFormId = $this->userFormsService->saveForm($userId, $formTypeId, $formId, $inputData);
-        $formValues = $this->formValuesService->saveFormValues($userFormId, $inputData);
+        $this->formValuesService->saveFormValues($userFormId, $inputData);
+        $formInfo = $this->formBuilderService->getFormById($formId);
+        $formValues = $this->userFormsService->getUserFormById($userId, $formId);
+        $data = $this->formBuilderService->getFormsByType();
+        return \View::make('user.formData', array('formInfo' => $formInfo ,'formTypes' => $data, 'formValues' => $formValues)); 
+    }
+    
+    /**
+     * Get Form data by Form Id
+     * @param Integer $formId
+     */
+    public function viewForm($formId)
+    {
+        $userId = Auth::user()->id;
+        $formInfo = $this->formBuilderService->getFormById($formId);
+        $formValues = $this->userFormsService->getUserFormById($userId, $formId);
+        $data = $this->formBuilderService->getFormsByType();
+        return \View::make('user.formData', array('formInfo' => $formInfo ,'formTypes' => $data, 'formValues' => $formValues)); 
     }
      
 }

@@ -123,4 +123,55 @@ class UserFormsService
         $userForm->save();
         return $userForm->id;
     }
+    
+    /**
+     * Get form Structure and Values.
+     * 
+     * @param Integer $userId
+     * @param Integer $formId
+     * @return type
+     */
+    public function getUserFormById($userId, $formId)
+    {
+        $formStructure = $this->getFormStructure($formId);
+        $userFormInfo = $this->userFormRepository->getUserFormById($userId, $formId);
+        $formData = $this->buildFormStructure($formStructure, $userFormInfo);
+        return $formData;
+    }
+    
+    /**
+     * Get Form Structure which includes Attributes.
+     * 
+     * @param $formId $formId
+     * @return Object
+     */
+    private function getFormStructure($formId)
+    {
+        $fieldsData = $this->structureRepository->getFormStructure($formId);
+        return $fieldsData;
+    }
+    
+    /**
+     * Assign null values if empty values to fields.
+     * 
+     * @param type $formStructure
+     * @param type $userFormInfo
+     * @return type
+     */
+    private function buildFormStructure($formStructure, $userFormInfo)
+    {
+        foreach ($formStructure as &$a1val) {
+            $value = 0;
+            foreach ($userFormInfo as $a2val) {
+                if(isset($a1val->uuid)) {
+                    if ($a1val->uuid == $a2val->uuid) {
+                        $value = $a2val->value;
+                        break;
+                    }
+                }
+            }
+            $a1val->value = $value;
+        }
+        return $formStructure;
+    }
 }

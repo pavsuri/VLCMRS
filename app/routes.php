@@ -48,6 +48,12 @@ Route::group(['namespace' => 'Controllers\User'], function()
         'uses' => 'UserFormsController@saveFormValues'
     ]);
     
+    //Display Form Values
+    Route::get('/viewForm/{formId}', [
+        'as' => 'userforms.viewForm',
+        'uses' => 'UserFormsController@viewForm'
+    ]);
+    
 });
 
 //Add Auth check and redirect to ligin if not loggedin

@@ -30,6 +30,11 @@ class RepositoriesServiceProvider extends ServiceProvider {
     $this->app->bind(
       'repositories\User\UserFormRepository'
     );
+    
+    // FormValues Repository
+    $this->app->bind(
+      'repositories\User\FormValuesRepository'
+    );
   }
 
 }

@@ -26,6 +26,7 @@ function getFormsByTypeId(formTypeId)
                 response += "<option value="+forms[i].id+">"+forms[i].name+"</option>";
             }
             response += '</select>';
+            response += '<input type="hidden" id="formTypeId" value='+formTypeId+' >';
             $('#formListDiv').html(response);
         }
     });
@@ -39,6 +40,8 @@ function getUserForm(formId)
         url: "/getFormHtmlEdit/"+formId,
         type: "get",
         success: function (data) {
+            $('#formSubmitId').val(formId);
+            $('#formTypeSubmitId').val($('#formTypeId').val());
             $('#form_data').html(data);
             $('#addBtnDiv').css("display","none");
             $('#submitBtnDiv').removeAttr('style');

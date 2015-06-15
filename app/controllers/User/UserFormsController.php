@@ -6,6 +6,7 @@ use \services\User\UserFormsService;
 use Illuminate\Support\Facades\Auth;
 use services\FormBuilderService;
 use Illuminate\Http\Request;
+use \services\User\FormValuesService;
 
 class UserFormsController extends \BaseController
 {
@@ -24,20 +25,30 @@ class UserFormsController extends \BaseController
     private $formBuilderService;
     
     /**
+     * FormValuesService $formValuesService
+     */
+    private $formValuesService;
+    
+    /**
      * Http Request $request;
      */
     private $request;
+    
+    /**
+     * FormValuesService $formValuesService
+     */
     
     /**
      * Constructor
      * 
      * @param FormBuilderService $formBuilderService
      */
-    public function __construct(UserFormsService $userFormsService, FormBuilderService $formBuilderService, Request $request)
+    public function __construct(UserFormsService $userFormsService, FormBuilderService $formBuilderService, Request $request, FormValuesService $formValuesService)
     {
         $this->userFormsService = $userFormsService;
         $this->formBuilderService = $formBuilderService;
         $this->request = $request;
+        $this->formValuesService = $formValuesService;
     }
     
     /**
@@ -78,7 +89,11 @@ class UserFormsController extends \BaseController
     public function saveFormValues()
     {
         $inputData = $this->request->all();
-        echo "<pre>"; print_r($inputData);
+        $formId = $inputData['formSubmitId'];
+        $formTypeId = $inputData['formTypeSubmitId'];
+        $userId = Auth::user()->id; 
+        $userFormId = $this->userFormsService->saveForm($userId, $formTypeId, $formId, $inputData);
+        $formValues = $this->formValuesService->saveFormValues($userFormId, $inputData);
     }
      
 }

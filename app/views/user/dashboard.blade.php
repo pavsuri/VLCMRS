@@ -29,7 +29,6 @@
                                         <label for="select-form" class="col-xs-12 col-sm-3 col-md-3 col-lg-3 control-label">Select Form</label>
                                         <div class="styled-select" id="formListDiv">
                                             <select name="form_names" id="form_names" class="form-control"   data-style="btn-inverse" ></select>
-
                                         </div>
                                     </div>
                                 </div>
@@ -55,6 +54,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center btns">
                                 <!-- <button type="button" class="btn btn-primary btm-btn">Previw</button> -->
                                 <input type="hidden" value="" name="formSubmitId" id="formSubmitId" >
+                                <input type="hidden" value="" name="formTypeSubmitId" id="formTypeSubmitId" >
                                 <button type="submit" class="btn btn-primary btm-btn" id="submit_form_values">Submit</button>
 
                             </div>

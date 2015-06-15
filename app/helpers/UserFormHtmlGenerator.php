@@ -26,14 +26,10 @@ class UserFormHtmlGenerator
                 $output = self::divStructure($fieldLabel, $image);
                 break;
             case "checkbox":
-                $output = self::getCheckboxHtml($fieldLabel, $fieldName, $optionsData);
+                $output = self::getCheckboxHtml($fieldLabel, $fieldName, $optionsData, $field->uuid);
                 break;
             case "radiobutton":
-                $radio = "";
-                foreach($optionsData as $option) {
-                    $radio .= "<input type='radio' name=".$fieldName." value=".$option->fieldValue.">".$option->fieldName;
-                }
-                $output = self::getRadioButtonHtml($fieldLabel, $fieldName, $optionsData);
+                $output = self::getRadioButtonHtml($fieldLabel, $fieldName, $optionsData, $field->uuid);
                 break;
         }
         return $output;
@@ -58,7 +54,7 @@ class UserFormHtmlGenerator
     /**
      * Checkbox-Html
      */
-    public static function getCheckboxHtml($fieldLabel, $fieldName, $optionsData)
+    public static function getCheckboxHtml($fieldLabel, $fieldName, $optionsData, $uuid)
     {
         $structure = '<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
                         <div class="form-group">
@@ -68,10 +64,9 @@ class UserFormHtmlGenerator
         foreach($optionsData as $option) {
             $structure .= '<div class="chk">
                             <label for="checkbox1">'.$option->fieldLabel.'</label>
-                            <input type="checkbox" name="'.$fieldName.'[]" value="'.$option->fieldValue.'" >
-                            <label for="checkbox1"></label>
+                            <input type="checkbox" name="'.$fieldName.'[]" value="'.$option->fieldValue.'"   id="'.$uuid.'">
                         </div>';
-        }
+        }//<label for="checkbox1"></label>
         $structure .= '</div></div></div></div>';
         return $structure;
     }
@@ -97,7 +92,7 @@ class UserFormHtmlGenerator
     /**
      * RadioButton - HTML
      */
-    public static function getRadioButtonHtml($fieldLabel, $fieldName, $optionsData)
+    public static function getRadioButtonHtml($fieldLabel, $fieldName, $optionsData, $uuid )
     {
         $structure = '<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
                         <div class="form-group">

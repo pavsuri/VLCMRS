@@ -95,7 +95,7 @@ class HtmlGenerator
                                 <div class="input-field">
                                         <label for="town-code" class="control-label">'.$fieldLabel.'</label>
                                         <div class="styled-select">
-                                           <select class="form-control" name="'.$fieldName.'" readonly>
+                                           <select class="form-control" name="'.$fieldName.'" disabled>
                                                         <option>Select one</option>';
         foreach($optionsData as $option) {
             $structure .= "<option value='".$option->fieldValue."' >".$option->fieldName."</option>";

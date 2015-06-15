@@ -105,5 +105,22 @@ class UserFormsService
         $formHtmlDesign .= "</form>"; 
         return $formHtmlDesign;
     }
-
+    
+    /**
+     * Save Form data.
+     * 
+     * @param Integer $userId
+     * @param Integer $formTypeId
+     * @param Integer $formId
+     * @return Integer
+     */
+    public function saveForm($userId, $formTypeId, $formId)
+    {
+        $userForm = $this->userForms;
+        $userForm->setFormId($formId);
+        $userForm->setFormTypetId($formTypeId);
+        $userForm->setUserId($userId);
+        $userForm->save();
+        return $userForm->id;
+    }
 }

@@ -17,7 +17,7 @@ class CreateFormValuesTable extends Migration {
 			$table->increments('id')->length(10)->unsigned();
                         $table->integer('user_form_id')->length(10)->unsigned();
                         $table->integer('uuid');
-                        $table->integer('value');                        
+                        $table->string('value');                        
 		});
                 
                 Schema::table('form_values', function($table) {

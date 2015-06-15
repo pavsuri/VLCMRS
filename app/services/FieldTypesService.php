@@ -18,6 +18,14 @@ class FieldTypesService
     }
     
     /**
+     * Get Field Type
+     */
+    public function getById($typeId)
+    {
+        return $this->fieldTypes->find($typeId);
+    }
+    
+    /**
      * Get List of fields.
      * 
      * @return Array

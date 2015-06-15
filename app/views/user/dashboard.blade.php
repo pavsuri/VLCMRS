@@ -45,6 +45,7 @@
                         'method' => 'post',
                         'id' => 'field-form-map',
                         'role' => 'form',
+                        'enctype'=>'multipart/form-data'
                         //'onsubmit' => 'return checkFormFields();'
                       ]) }}
                         <div class="cms-preview-data">

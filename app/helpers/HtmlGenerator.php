@@ -23,7 +23,7 @@ class HtmlGenerator
                 $output = self::getSelectboxHtml($fieldLabel,$fieldName, $optionsData);
                 break;
             case "image":
-                $image =  "<input  type='file'  name='".$fieldName."'>";
+                $image =  "<input  type='file'  name='".$fieldName."' readonly>";
                 $output = self::divStructure($fieldLabel, $image);
                 break;
             case "checkbox":

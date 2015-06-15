@@ -87,7 +87,7 @@ class UserFormsController extends \BaseController
     }
     
     /**
-     * Save Form values
+     * Save User Form Info and values
      */
     public function saveFormValues()
     {
@@ -95,7 +95,9 @@ class UserFormsController extends \BaseController
         $formId = $inputData['formSubmitId'];
         $formTypeId = $inputData['formTypeSubmitId'];
         $userId = Auth::user()->id; 
-        $userFormId = $this->userFormsService->saveForm($userId, $formTypeId, $formId, $inputData);
+        $userFormId = $this->userFormsService->saveForm($userId, $formTypeId, $formId);
+        //Check any files exist in Input data.
+        $inputData = $this->checkFile($inputData);
         $this->formValuesService->saveFormValues($userFormId, $inputData);
         $formInfo = $this->formBuilderService->getFormById($formId);
         $formValues = $this->userFormsService->getUserFormById($userId, $formId);
@@ -115,5 +117,31 @@ class UserFormsController extends \BaseController
         $data = $this->formBuilderService->getFormsByType();
         return \View::make('user.formData', array('formInfo' => $formInfo ,'formTypes' => $data, 'formValues' => $formValues)); 
     }
-     
+    
+    /**
+     * Check file exist or not in Input Data.
+     * If file exists upload file to Uplopads directory.
+     * 
+     * @param type $inputData
+     * @return string
+     */
+    private function checkFile($inputData)
+    {
+        foreach ($inputData as $key => $value) {
+            $keyArr = explode('-', $key);
+            if (count($keyArr) == 3) {
+                if ($this->request->hasFile($key)) {
+                    $destinationPath = 'uploads/';
+                    $filename = $this->request->file($key)->getClientOriginalName();
+                    $this->request->file($key)->move($destinationPath, $filename);
+                } else {
+                    $filename = '';
+                }
+                unset($inputData[$key]);
+                $newKey = $keyArr[0].'-'.$keyArr[1];
+                $inputData[$newKey] = $filename;
+            }
+        }
+        return $inputData;
+    }
 }

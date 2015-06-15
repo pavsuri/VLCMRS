@@ -22,7 +22,7 @@ class UserFormHtmlGenerator
                 $output = self::getSelectboxHtml($fieldLabel,$fieldName, $optionsData);
                 break;
             case "image":
-                $image =  "<input  type='file'  name='".$fieldName."'>";
+                $image =  "<input  type='file'  name='".$fieldName."-file'>";
                 $output = self::divStructure($fieldLabel, $image);
                 break;
             case "checkbox":

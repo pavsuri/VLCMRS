@@ -53,7 +53,15 @@
                                 <div class="form-group">
                                     <div class="input-field">
                                         <label for="name" class="control-label">{{{$value->fieldLabel}}} :</label>
-                                      <?php  if($value->value != '0' ){ echo $value->value; }?>
+                                      <?php  
+                                      if ($value->value != '0') {
+                                            if ($value->fieldType != 'image') {
+                                                echo $value->value;
+                                            } else {
+                                                echo "<img src=/uploads/".$value->value." width='200px' style='200px' >";
+                                            }
+                                        }
+                                        ?>
                                     </div>
                                 </div>
                             </div>                          

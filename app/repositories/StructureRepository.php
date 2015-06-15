@@ -69,6 +69,7 @@ class StructureRepository extends AbstractBaseRepository
                             ->where('form_id', '=', $formId)
                             ->where('parent_id', '=', 0)
                             ->select('field_attributes.label as fieldLabel',
+                                    'field_types.name as fieldType',
                                     'field_attributes.identifier as uuid'
                                     )
                             ->orderBy('structure.parent_id', 'asc')

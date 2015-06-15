@@ -52,12 +52,15 @@ class FormValuesService
      * @param Array $finalData
      * @return type
      */
-    private function structureData($formData)
+    private function structureData($formValues)
     {
+        //remove unwanted input data
+        unset($formValues['formSubmitId']);
+        unset($formValues['formTypeSubmitId']);
+        unset($formValues['_token']);
         $finalData = array();
         $checkValues = '';
         //Remove Token, formId, formtype id.
-        $formValues = array_slice($formData, 1, -2);
         foreach ($formValues as $key => $value) {
             $keyArr = explode('-', $key);
             $finalData['fieldType'][] = $keyArr[0];

@@ -35,13 +35,12 @@ class UserFormsController extends \BaseController
     private $request;
     
     /**
-     * FormValuesService $formValuesService
-     */
-    
-    /**
-     * Constructor
+     * Constructor.
      * 
+     * @param UserFormsService $userFormsService
      * @param FormBuilderService $formBuilderService
+     * @param Request $request
+     * @param FormValuesService $formValuesService
      */
     public function __construct(UserFormsService $userFormsService, FormBuilderService $formBuilderService, Request $request, FormValuesService $formValuesService)
     {
@@ -130,12 +129,12 @@ class UserFormsController extends \BaseController
             $active = 1;
             $userFormId = $this->userFormsService->saveForm($userId, $formTypeId, $formId, $originatedFrom, $version, $status, $active);
         }
-        
         return $userFormId;
     }
     
     /**
      * Get Form data by Form Id
+     * 
      * @param Integer $formId
      */
     public function viewForm($formId)
@@ -151,7 +150,7 @@ class UserFormsController extends \BaseController
      * Check file exist or not in Input Data.
      * If file exists upload file to Uplopads directory.
      * 
-     * @param type $inputData
+     * @param Array $inputData
      * @return string
      */
     private function checkFile($inputData)
@@ -172,5 +171,28 @@ class UserFormsController extends \BaseController
             }
         }
         return $inputData;
+    }
+    
+    /**
+     * Check uSer form Exist or not
+     * 
+     * @param Integer $formId
+     */
+    public function checkUserForm($formId)
+    {
+        $userId = Auth::user()->id;
+        $result = $this->userFormsService->checkUserForm($userId, $formId);
+        return json_encode($result);
+    }
+    
+    /**
+     * Get User Form Values 
+     * @param type $formId
+     */
+    public function getUserFormValues($formId)
+    {
+        $userId = Auth::user()->id;
+        $formData = $this->userFormsService->getUserFormById($userId, $formId);
+        return $formData;
     }
 }

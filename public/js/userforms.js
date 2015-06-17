@@ -19,7 +19,7 @@ function getFormsByTypeId(formTypeId)
         url: "/getFormsByType/"+formTypeId,
         type: "get",
         success: function (forms) {
-            response = '<select name="form_names" id="form_names" class="form-control" onchange="getForm(this.value);"  data-style="btn-inverse" >\n\
+            response = '<select name="form_names" id="form_names" class="form-control" onchange="getFormHtml(this.value);"  data-style="btn-inverse" >\n\
                         <option value="">Select Form</option>';
             for(i=0; i<forms.length; i++)
             { 
@@ -45,6 +45,36 @@ function getUserForm(formId)
             $('#form_data').html(data);
             $('#addBtnDiv').css("display","none");
             $('#submitBtnDiv').removeAttr('style');
+        }
+    });
+}
+
+
+//Get complete Form with Attributes and HTML
+function getFormHtml(formId) 
+{
+    $.ajax({
+        url: "/checkUserForm/"+formId,
+        type: "get",
+        success: function (data) {
+            if (data == 'null' || data == '') {
+                getForm(formId);
+            } else {
+                getForm(formId);
+                getUserFormValues(formId);
+            }
+        }
+    });
+}
+
+//Get Existed User Form
+function getUserFormValues(formId)
+{
+    $.ajax({
+        url: "/getUserFormValues/"+formId,
+        type: "get",
+        success: function (data) {
+            alert(data);
         }
     });
 }

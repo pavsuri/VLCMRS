@@ -161,45 +161,68 @@ class UserFormsService
      */
     public function getUserFormById($userId, $formId)
     {
-        $formStructure = $this->getFormStructure($formId);
         $userFormInfo = $this->userFormRepository->getUserFormById($userId, $formId);
-        $formData = $this->buildFormStructure($formStructure, $userFormInfo);
-        return $formData;
+        $fieldsData = $this->structureRepository->getFormAttributes($formId);
+        $fieldsHierarchicalData = $this->buildHtmlTree($fieldsData);
+        $htmlOutput = $this->hemlGenerator($userFormInfo, $fieldsHierarchicalData);
+        return $htmlOutput;
     }
     
     /**
-     * Get Form Structure which includes Attributes.
+     * Generate Heirarchical structure.
      * 
-     * @param $formId $formId
-     * @return Object
+     * @param array $elements
+     * @param Integer $parentId
+     * @return array
      */
-    private function getFormStructure($formId)
+    private function buildHtmlTree(array $elements, $parentId = 0) 
     {
-        $fieldsData = $this->structureRepository->getFormStructure($formId);
-        return $fieldsData;
+        $branch = array();  
+        foreach ($elements as $element) {
+            if ($element->parent_id == $parentId) {
+                $children = $this->buildTree($elements, $element->field_id);
+                if ($children) {
+                    $element->children = $children;
+                }
+                $branch[] = $element;
+            }
+        }
+        return $branch;
     }
     
     /**
-     * Assign null values if empty values to fields.
+     * Generate Html.
      * 
-     * @param type $formStructure
-     * @param type $userFormInfo
-     * @return type
+     * @param Object $formData 
+     * @param Array $fieldsHierarchicalData
+     * @return HTML Output
      */
-    private function buildFormStructure($formStructure, $userFormInfo)
-    {
-        foreach ($formStructure as &$a1val) {
-            $value = 0;
-            foreach ($userFormInfo as $a2val) {
-                if(isset($a1val->uuid)) {
-                    if ($a1val->uuid == $a2val->uuid) {
-                        $value = $a2val->value;
-                        break;
+    private function hemlGenerator($userFormInfo, $fieldsHierarchicalData)
+    { 
+        $field = $fieldsHierarchicalData;
+        $optionsData =  array();
+        $formHtmlDesign = HtmlGenerator::htmlForm($formData->name, $formData->type_id);
+        for($i=0; $i<count($field); $i++) {
+            if (isset($field[$i]->children)) {
+                if (($field[$i]->fieldType == 'selectbox') || ($field[$i]->fieldType == 'checkbox') || ($field[$i]->fieldType == 'radiobutton')) {
+                    $optionsData = $field[$i]->children;
+                    $formHtmlDesign .= HtmlGenerator::htmlInput($field[$i], $optionsData);
+                } else {
+                    $formHtmlDesign .= HtmlGenerator::htmlInput($field[$i], $optionsData);
+                    $containerData = $field[$i]->children;
+                    if (isset($containerData)) { 
+                       $this->hemlGenerator($containerData);
                     }
                 }
+            } else {
+                $optionsData = array();
+                $formHtmlDesign .= HtmlGenerator::htmlInput($field[$i], $optionsData);
             }
-            $a1val->value = $value;
+            if( (($i+1)%3 == 0)){
+                $formHtmlDesign .= '<div class="clearfix visible-lg-block"></div>';
+            }
         }
-        return $formStructure;
+        $formHtmlDesign .= "</form>"; 
+        return $formHtmlDesign;
     }
 }

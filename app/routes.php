@@ -54,6 +54,15 @@ Route::group(['namespace' => 'Controllers\User'], function()
         'uses' => 'UserFormsController@viewForm'
     ]);
     
+    //Check User form exist or not for specific user
+    Route::get('/checkUserForm/{formId}', [
+        'uses' => 'UserFormsController@checkUserForm'
+    ]);
+    
+    //Get User Form Values
+    Route::get('/getUserFormValues/{formId}', [
+        'uses' => 'UserFormsController@getUserFormValues'
+    ]);
 });
 
 //Add Auth check and redirect to ligin if not loggedin

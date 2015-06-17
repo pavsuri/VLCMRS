@@ -72,6 +72,9 @@ $(document).ready(function () {
     });
 });
 
+var moveFieldType = 'textbox'; // This is for moveField parent id comparison.
+var fieldListArr = [0];
+var count = 0;
 function updateForm()
 {
     var formName = $('#form_name').val();
@@ -139,15 +142,16 @@ function searchFields() {
         },
         success: function (data) {
             if (data.length >0) {
+                $('#search_err').html('');
                 fieldLibraryTemplate(data);
             } else {
                 $('#fieldLibrary').html('');
-                alert('No records found');
+                $('#search_err').html('No records found');
             }
         },
         error: function () {
             $('#fieldLibrary').html('');
-            alert('No records found');
+            $('#search_err').html('No records found');
         }
     });
 }
@@ -158,15 +162,37 @@ function fieldLibraryTemplate(fields)
     for (i=0; i<fields.length; i++) {
         response += '<div class="cms-add-fields" id="div-left-'+fields[i].id+'">\n\
                     <input type="text" value="'+fields[i].name+'" readonly title="'+fields[i].fieldType+'">\n\
-                    <a onclick="moveField('+fields[i].id+')" value=><img src="images/add.png" alt="add"/></a>\n\
+                    <a onclick="moveField('+fields[i].id+', '+fields[i].fieldType+')" value=><img src="images/add.png" alt="add"/></a>\n\
                     <div class="clearfix"></div>\n\
                     </div>';
     }
     $('#fieldLibrary').html(response);
 }
 
-function moveField(fieldId)
+function moveField(fieldId, fieldType)
 {
+    var oldMoveFieldType = moveFieldType;
+    if (fieldType == 'option') {
+        if(oldMoveFieldType == 'selectbox' || oldMoveFieldType == 'checkbox' || oldMoveFieldType == 'radiobutton' || oldMoveFieldType == 'option'){
+            $('#fieldLib_err').html('');
+        } else {
+            $('#fieldLib_err').html('Please move Select Box or Checkbox or Radio Button before moving options.');
+            return false;
+        }
+    } else {
+        if ($.inArray(fieldId, fieldListArr) > -1) {
+            console.log(fieldListArr);
+            console.log(fieldId);
+            $('#fieldLib_err').html("You can't add same field name twice to form");
+            return false;
+        } else {
+            $('#fieldLib_err').html('');
+            count = count+1;
+            fieldListArr[count] = fieldId;
+        }
+    }
+    $('#fieldLib_err').html('');
+    moveFieldType = fieldType;
     $.ajax({
         url: "/moveField/"+fieldId,
         type: "get",
@@ -209,7 +235,7 @@ function addFieldtoFieldLibrary(field)
     var response= '';
     response += '<div class="cms-add-fields" id="div-left-'+field.fieldId+'">\n\
                     <input type="text" value="'+field.fieldName+'" readonly title="'+field.fieldType+'">\n\
-                    <a onclick="moveField('+field.fieldId+')" value=><img src="images/add.png" alt="add"/></a>\n\
+                    <a onclick="moveField('+field.fieldId+', '+field.fieldType+')" value=><img src="images/add.png" alt="add"/></a>\n\
                     <div class="clearfix"></div>\n\
                     </div>';
     $('#fieldLibrary').append(response);

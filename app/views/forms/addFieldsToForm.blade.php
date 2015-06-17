@@ -63,18 +63,20 @@
                 <a  id="searchFields" style="cursor:pointer;">
                     <img src="{{{url()}}}/images/search.png" alt="search"/>
                 </a>
+                <div style="font-size:11px; color: red;" id="search_err"></div>
             </div>
             <div class="cms-add-field-block"  id="fieldLibrary">
                 @foreach($data['fieldsLibrary'] as $fieldAttribute)
                 <div class="cms-add-fields" id="div-left-{{{$fieldAttribute->id}}}">
                     <input type="text" readonly="readonly" value="{{{$fieldAttribute->name}}}" name="{{{$fieldAttribute->name}}}" id="{{{$fieldAttribute->identifier}}}" title="{{{$fieldAttribute->fieldType}}}">
-                    <a  onclick="moveField({{{$fieldAttribute->id}}})">
+                     <a  onclick="moveField({{{$fieldAttribute->id}}},'{{{$fieldAttribute->fieldType}}}')">
                         <img src="{{{url()}}}/images/add.png" alt="add"/>
                     </a>
                     <div class="clearfix"></div>	
                 </div>
                 @endforeach
             </div>
+            <div id="fieldLib_err" style="font-size:11px; color: red;" ></div>
             <div class="cms-create-new-field">
                 <a href="javascript:void(0)" id="create-field-link" data-toggle="modal" data-target="#create-field">
                     <img src="{{{url()}}}/images/plusicon.png" alt="plusicon"/> Create New Field

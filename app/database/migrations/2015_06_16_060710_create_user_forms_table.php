@@ -19,6 +19,10 @@ class CreateUserFormsTable extends Migration
 			$table->integer('form_type_id')->length(10)->unsigned();
 			$table->integer('form_id')->length(10)->unsigned();
 			$table->integer('user_id')->length(10)->unsigned();
+                        $table->integer('originated_from')->nullable();
+                        $table->integer('version');
+                        $table->enum('status', ['active', 'versioned', 'deleted']);
+                        $table->integer('active');
 			$table->timestamps();
 		});
                 

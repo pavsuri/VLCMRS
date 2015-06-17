@@ -94,8 +94,8 @@ class UserFormsController extends \BaseController
         $inputData = $this->request->all();
         $formId = $inputData['formSubmitId'];
         $formTypeId = $inputData['formTypeSubmitId'];
-        $userId = Auth::user()->id; 
-        $userFormId = $this->userFormsService->saveForm($userId, $formTypeId, $formId);
+        $userId = Auth::user()->id;
+        $userFormId = $this->saveForm($userId, $formTypeId, $formId);
         //Check any files exist in Input data.
         $inputData = $this->checkFile($inputData);
         $this->formValuesService->saveFormValues($userFormId, $inputData);
@@ -103,6 +103,35 @@ class UserFormsController extends \BaseController
         $formValues = $this->userFormsService->getUserFormById($userId, $formId);
         $data = $this->formBuilderService->getFormsByType();
         return \View::make('user.formData', array('formInfo' => $formInfo ,'formTypes' => $data, 'formValues' => $formValues)); 
+    }
+    
+    /**
+     * Save User form Details.
+     * 
+     * @param Integer $userId
+     * @param Integer $formTypeId
+     * @param Integer $formId
+     * @return Integer
+     */
+    private function saveForm($userId, $formTypeId, $formId)
+    {
+        $userFormExist = $this->userFormsService->checkUserForm($userId, $formId);
+        if(count($userFormExist)>0) {
+            $originatedFrom = $userFormExist->id;
+            $version = $userFormExist->version+1;
+            $status = 'versioned';
+            $active = 0;
+            $this->userFormsService->makeVersioned($userFormExist->id, $status, $active);
+            $userFormId = $this->userFormsService->saveForm($userId, $formTypeId, $formId, $originatedFrom, $version, 'active', 1);
+        } else {
+            $originatedFrom = NULL;
+            $version = 1;
+            $status = 'active';
+            $active = 1;
+            $userFormId = $this->userFormsService->saveForm($userId, $formTypeId, $formId, $originatedFrom, $version, $status, $active);
+        }
+        
+        return $userFormId;
     }
     
     /**

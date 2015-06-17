@@ -117,7 +117,6 @@ class StructureController extends BaseController
         Session::put('formMappedFields', $fields);
         $fields = array_keys($fields);
         if ($formLocation == 1) {
-            echo "in"; exit;
             /**
              * Update Form Fields
              * Maintain Versioning. Create New form with Same name and change old form to inactive.

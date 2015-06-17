@@ -115,14 +115,41 @@ class UserFormsService
      * @param Integer $formId
      * @return Integer
      */
-    public function saveForm($userId, $formTypeId, $formId)
+    public function saveForm($userId, $formTypeId, $formId, $originatedFrom, $version, $status, $active)
     {
         $userForm = $this->userForms;
         $userForm->setFormId($formId);
         $userForm->setFormTypetId($formTypeId);
         $userForm->setUserId($userId);
+        $userForm->setOriginatedFrom($originatedFrom);
+        $userForm->setVersion($version);
+        $userForm->setStatus($status);
+        $userForm->setActive($active);
         $userForm->save();
         return $userForm->id;
+    }
+    
+    /**
+     * Check form has been submitted by same user or not
+     * @param Integer $userId
+     * @param Integer $formId
+     * @return Object
+     */
+    public function checkUserForm($userId, $formId)
+    {
+        return $this->userFormRepository->checkUserForm($userId, $formId);
+    }
+    
+    /**
+     * User form Make versioned
+     */
+    public function makeVersioned($userFormid, $status, $active)
+    {
+        $userForm = $this->userForms;
+        $userForm = $userForm->find($userFormid);
+        $userForm->setStatus($status);
+        $userForm->setActive($active);
+        $userForm->update();
     }
     
     /**

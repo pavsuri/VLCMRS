@@ -66,8 +66,7 @@ class FormRepository extends AbstractBaseRepository
                             ->get()
         );
       }
-      
-        return $results;
+      return $results;
   }
   
   /**
@@ -81,6 +80,7 @@ class FormRepository extends AbstractBaseRepository
                 $this->model->where('forms.name', '=', $formName)
                         ->where ('forms.id' , '!=', $formId)
                         ->where ('status', '=', 'active')
+                        ->where('active', '=', 1)
                         ->first()
         );
         return $results;

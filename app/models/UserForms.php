@@ -26,6 +26,26 @@ class UserForms extends \Eloquent
         $this->setParams('user_id', $userId);
     }
     
+    public function setOriginatedFrom($originatedFrom)
+    {
+        $this->setParams('originated_from', $originatedFrom);
+    }
+    
+    public function setStatus($status)
+    {
+        $this->setParams('status', $status);
+    }
+    
+    public function setVersion($version)
+    {
+        $this->setParams('version', $version);
+    }
+    
+    public function setActive($active)
+    {
+        $this->setParams('active', $active);
+    }
+    
     public function getFormId()
     {
         $this->getParams('form_id');
@@ -39,6 +59,27 @@ class UserForms extends \Eloquent
     public function getUserId()
     {
         $this->getParams('user_id');
+    }
+    
+    public function getOriginatedFrom()
+    {
+        $this->getParams('originated_from');
+    }
+    
+    public function getStatus()
+    {
+        $this->getParams('status');
+    }
+    
+    public function getVersion()
+    {
+        $this->getParams('version');
+    }
+    
+    
+    public function getActive()
+    {
+        $this->getParams('active');
     }
     
     private function setParams($attributeKey, $attributeValue)

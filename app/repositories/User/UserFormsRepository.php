@@ -62,4 +62,22 @@ class UserFormsRepository extends \repositories\AbstractBaseRepository
         );
         return $results;
     }
+    
+    /**
+     * Check form has been submitted by same user or not
+     * @param Integer $userId
+     * @param Integer $formId
+     * @return Boolean
+     */
+    public function checkUserForm($userId, $formId)
+    {
+        $results = $this->build(
+                        $this->model->where('user_forms.user_id', '=', $userId)
+                                ->where('user_forms.form_id', '=', $formId)
+                                ->where('status', '=', 'active')
+                                ->where('active', '=', 1)
+                                ->first()
+        );
+        return $results;
+    }
 }

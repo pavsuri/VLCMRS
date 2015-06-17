@@ -166,7 +166,7 @@ function fieldLibraryTemplate(fields)
     for (i=0; i<fields.length; i++) {
         response += '<div class="cms-add-fields" id="div-left-'+fields[i].id+'">\n\
                     <input type="text" value="'+fields[i].name+'" readonly title="'+fields[i].fieldType+'">\n\
-                    <a onclick="moveField('+fields[i].id+', '+fields[i].fieldType+')" value=><img src="images/add.png" alt="add"/></a>\n\
+                    <a onclick="moveField('+fields[i].id+', "'+fields[i].fieldType+'")" value=><img src="images/add.png" alt="add"/></a>\n\
                     <div class="clearfix"></div>\n\
                     </div>';
     }

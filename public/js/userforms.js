@@ -4,9 +4,7 @@ $(document).ready(function () {
         event.preventDefault();
         var formId = $('#formEditId').val();
         getUserForm(formId) 
-    });
-    
-   
+    });  
 });
 
 //Get Forms by Form Type Id
@@ -60,7 +58,7 @@ function getFormHtml(formId)
             if (data == 'null' || data == '') {
                 getForm(formId);
             } else {
-                getForm(formId);
+                //getForm(formId);
                 getUserFormValues(formId);
             }
         }
@@ -74,7 +72,7 @@ function getUserFormValues(formId)
         url: "/getUserFormValues/"+formId,
         type: "get",
         success: function (data) {
-            alert(data);
+            $('#form_data').html(data);
         }
     });
 }

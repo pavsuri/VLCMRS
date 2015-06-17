@@ -4,7 +4,7 @@ namespace services\User;
 use models\UserForms;
 use repositories\User\UserFormsRepository;
 use repositories\StructureRepository;
-use Illuminate\Support\Facades\DB;
+use helpers\UserFormValuesHtmlGenerator;
 use helpers\UserFormHtmlGenerator;
 
 
@@ -162,9 +162,13 @@ class UserFormsService
     public function getUserFormById($userId, $formId)
     {
         $userFormInfo = $this->userFormRepository->getUserFormById($userId, $formId);
+        $formValues = array();
+        foreach($userFormInfo as $formValue) {
+            $formValues[$formValue->uuid] = $formValue->value;
+        }
         $fieldsData = $this->structureRepository->getFormAttributes($formId);
         $fieldsHierarchicalData = $this->buildHtmlTree($fieldsData);
-        $htmlOutput = $this->hemlGenerator($userFormInfo, $fieldsHierarchicalData);
+        $htmlOutput = $this->hemlGenerator($formValues, $fieldsHierarchicalData);
         return $htmlOutput;
     }
     
@@ -193,7 +197,7 @@ class UserFormsService
     /**
      * Generate Html.
      * 
-     * @param Object $formData 
+     * @param Object $userFormInfo 
      * @param Array $fieldsHierarchicalData
      * @return HTML Output
      */
@@ -201,14 +205,14 @@ class UserFormsService
     { 
         $field = $fieldsHierarchicalData;
         $optionsData =  array();
-        $formHtmlDesign = HtmlGenerator::htmlForm($formData->name, $formData->type_id);
+        $formHtmlDesign = "";
         for($i=0; $i<count($field); $i++) {
             if (isset($field[$i]->children)) {
                 if (($field[$i]->fieldType == 'selectbox') || ($field[$i]->fieldType == 'checkbox') || ($field[$i]->fieldType == 'radiobutton')) {
                     $optionsData = $field[$i]->children;
-                    $formHtmlDesign .= HtmlGenerator::htmlInput($field[$i], $optionsData);
+                    $formHtmlDesign .= UserFormValuesHtmlGenerator::htmlInput($field[$i], $optionsData, $userFormInfo);
                 } else {
-                    $formHtmlDesign .= HtmlGenerator::htmlInput($field[$i], $optionsData);
+                    $formHtmlDesign .= UserFormValuesHtmlGenerator::htmlInput($field[$i], $optionsData, $userFormInfo);
                     $containerData = $field[$i]->children;
                     if (isset($containerData)) { 
                        $this->hemlGenerator($containerData);
@@ -216,13 +220,12 @@ class UserFormsService
                 }
             } else {
                 $optionsData = array();
-                $formHtmlDesign .= HtmlGenerator::htmlInput($field[$i], $optionsData);
+                $formHtmlDesign .= UserFormValuesHtmlGenerator::htmlInput($field[$i], $optionsData, $userFormInfo);
             }
             if( (($i+1)%3 == 0)){
                 $formHtmlDesign .= '<div class="clearfix visible-lg-block"></div>';
             }
-        }
-        $formHtmlDesign .= "</form>"; 
+        } 
         return $formHtmlDesign;
     }
 }

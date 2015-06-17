@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use services\FormBuilderService;
 use Illuminate\Http\Request;
 use \services\User\FormValuesService;
+use \Illuminate\Support\Facades\Redirect;
 
 class UserFormsController extends \BaseController
 {
@@ -69,6 +70,7 @@ class UserFormsController extends \BaseController
      */
     public function getFormsByTypeId($formTypeId)
     {
+        Session::put('formTypeId', $formTypeId);
         $forms = $this->formBuilderService->listFormsByTypeId($formTypeId);
         return $forms;
     }
@@ -92,16 +94,14 @@ class UserFormsController extends \BaseController
     {
         $inputData = $this->request->all();
         $formId = $inputData['formSubmitId'];
-        $formTypeId = $inputData['formTypeSubmitId'];
+        $formTypeId = Session::get('formTypeId');
         $userId = Auth::user()->id;
         $userFormId = $this->saveForm($userId, $formTypeId, $formId);
         //Check any files exist in Input data.
         $inputData = $this->checkFile($inputData);
         $this->formValuesService->saveFormValues($userFormId, $inputData);
-        $formInfo = $this->formBuilderService->getFormById($formId);
-        $formValues = $this->userFormsService->getUserFormById($userId, $formId);
-        $data = $this->formBuilderService->getFormsByType();
-        return \View::make('user.formData', array('formInfo' => $formInfo ,'formTypes' => $data, 'formValues' => $formValues)); 
+        Session::put('formId', $formId);
+        return Redirect::to('viewForm');
     }
     
     /**
@@ -137,13 +137,15 @@ class UserFormsController extends \BaseController
      * 
      * @param Integer $formId
      */
-    public function viewForm($formId)
+    public function viewForm()
     {
+        $formId = Session::get('formId');
         $userId = Auth::user()->id;
         $formInfo = $this->formBuilderService->getFormById($formId);
         $formValues = $this->userFormsService->getUserFormById($userId, $formId);
         $data = $this->formBuilderService->getFormsByType();
-        return \View::make('user.formData', array('formInfo' => $formInfo ,'formTypes' => $data, 'formValues' => $formValues)); 
+        Session::forget('formId');
+        return \View::make('user.dashboard', array('formId'=> $formId, 'formInfo' => $formInfo ,'formTypes' => $data, 'formValues' => $formValues)); 
     }
     
     /**

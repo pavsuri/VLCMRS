@@ -49,7 +49,7 @@ Route::group(['namespace' => 'Controllers\User'], function()
     ]);
     
     //Display Form Values
-    Route::get('/viewForm/{formId}', [
+    Route::get('/viewForm', [
         'as' => 'userforms.viewForm',
         'uses' => 'UserFormsController@viewForm'
     ]);

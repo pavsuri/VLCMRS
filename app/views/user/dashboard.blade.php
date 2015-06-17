@@ -19,7 +19,7 @@
             </ul>
             <input type="formTypeId" name="form_type_id" id="form_type_id" >
             <div class="tab-content">
-                <div role="tabpanel" class="tab-pane" id="surveylink">surveylink</div>
+                <!-- <div role="tabpanel" class="tab-pane" id="surveylink">surveylink</div> -->
                 <div role="tabpanel" class="tab-pane active" id="maintenancelink">
                     <div class="right-section-content">
                         <div class="select-form">
@@ -37,7 +37,7 @@
 
                         <div class="row" >
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <p class="user-current-form" id="form_name" ></p>
+                                <p class="user-current-form" id="form_name" ><?php if (isset($formInfo->name)) { echo  $formInfo->name; }?></p>
                             </div>
                         </div>
                         {{ Form::open([
@@ -48,14 +48,15 @@
                         'enctype'=>'multipart/form-data'
                         //'onsubmit' => 'return checkFormFields();'
                       ]) }}
-                        <div class="cms-preview-data">
-                            <div class="row" id="form_data"> </div>
-                        </div>
-                        <div class="row" id="submitBtnDiv" style="display:none;">
+                        
+                            <div class="cms-preview-data">
+                                <div class="row" id="form_data"><?php if(isset($formValues)) { echo $formValues; } ?></div>
+                            </div>
+                      <div class="row" id="submitBtnDiv" style="display:none;">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center btns">
                                 <!-- <button type="button" class="btn btn-primary btm-btn">Previw</button> -->
-                                <input type="hidden" value="" name="formSubmitId" id="formSubmitId" >
-                                <input type="hidden" value="" name="formTypeSubmitId" id="formTypeSubmitId" >
+                                <input type="hidden" value="<?php if (isset($formInfo->id)) { echo  $formInfo->id; }?>" name="formSubmitId" id="formSubmitId" >
+                                <input type="hidden" value="<?php if (isset($formInfo->type_id)) { echo  $formInfo->type_id ; }?>" name="formTypeSubmitId" id="formTypeSubmitId" >
                                 <button type="submit" class="btn btn-primary btm-btn" id="submit_form_values">Submit</button>
 
                             </div>
@@ -65,7 +66,7 @@
                         <div class="row" id="addBtnDiv">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center btns">
                                 <!-- <button type="button" class="btn btn-primary btm-btn">Previw</button> -->
-                                <input type="hidden" value="" name="formEditId" id="formEditId" >
+                                <input type="hidden" value="<?php if (isset($formInfo->id)) { echo  $formInfo->id; }?>" name="formEditId" id="formEditId" >
                                 <button type="submit" class="btn btn-primary btm-btn" id="add_values_btn">Add Values</button>
 
                             </div>

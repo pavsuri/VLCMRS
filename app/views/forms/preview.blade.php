@@ -29,10 +29,11 @@
         <div class="row"><?php echo $formData; ?></div>
     </div>
     <!-- END of .cms-preview-data -->
-  <div class="row">
+    <div class="row" id="preview_buttons">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center btns">
             <a href="/mapFields"><button type="button" class="btn btn-primary btm-btn">Back</button></a>
             <a href="/confirmation"> <button type="submit" class="btn btn-primary btm-btn">Submit</button></a>
+            <!--<a href="#" data-toggle="modal" data-target="#form-submit-confirmation"> <button type="submit" class="btn btn-primary btm-btn">Submit</button></a> -->
         </div>
     </div>
 </div>
@@ -59,6 +60,31 @@
                     </div>
                 </div>
               
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Form submit confirmation -->
+<div class="modal fade createfield-popup" id="form-submit-confirmation" tabindex="-1" role="dialog" aria-labelledby="my-modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                
+                <h4 class="modal-title">Confirmation</h4>
+            </div>
+            <div class="modal-body">
+                
+                <div class="form-group" style="margin-top: 30%; margin-bottom: 30%; margin-left: 15%">
+                    <div class="input-field">
+                        <label for="field-type" class="control-label" style="font-size: 17px;">Form created Successfully.</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="text-center">
+                        <button type=""  id="submit-confirmation"   class="btn btn-primary next">Ok</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -70,11 +70,15 @@ $(document).ready(function () {
         $('#fieldType_err').html('');
         $('#fieldLabel_err').html('');
     });
+    
+    //Close Preview page confirmation pop up and hide submit buttons
+    $('#submit-confirmation').on('click', function (event) {
+        $('#preview_buttons').hide();
+        $('#form-submit-confirmation').modal('hide');
+    });
 });
 
-var moveFieldType = 'textbox'; // This is for moveField parent id comparison.
-var fieldListArr = [0];
-var count = 0;
+
 function updateForm()
 {
     var formName = $('#form_name').val();
@@ -169,6 +173,10 @@ function fieldLibraryTemplate(fields)
     $('#fieldLibrary').html(response);
 }
 
+// This is for moveField parent id comparison.
+var moveFieldType = ''; 
+var fieldListArr = [0];
+var count = 0;
 function moveField(fieldId, fieldType)
 {
     var oldMoveFieldType = moveFieldType;
@@ -180,17 +188,18 @@ function moveField(fieldId, fieldType)
             return false;
         }
     } else {
-        if ($.inArray(fieldId, fieldListArr) > -1) {
-            console.log(fieldListArr);
-            console.log(fieldId);
-            $('#fieldLib_err').html("You can't add same field name twice to form");
-            return false;
-        } else {
-            $('#fieldLib_err').html('');
-            count = count+1;
-            fieldListArr[count] = fieldId;
-        }
+        $('#fieldLib_err').html('');
     }
+    //Check this field already mapped or not.
+    if ($.inArray(fieldId, fieldListArr) > -1) {
+        $('#fieldLib_err').html("You can't add same field name twice to form");
+        return false;
+    } else {
+        $('#fieldLib_err').html('');
+        count = count + 1;
+        fieldListArr[count] = fieldId;
+    }
+    console.log(fieldListArr);
     $('#fieldLib_err').html('');
     moveFieldType = fieldType;
     $.ajax({
@@ -215,9 +224,14 @@ function formFieldsTemplate(field)
     $('#form-fields').append(response);
 }
 
-
 function removeField(fieldId)
 {
+    //remove element from Global arry
+    if ($.inArray(fieldId, fieldListArr) > -1) {
+        fieldListArr = jQuery.grep(fieldListArr, function (value) {
+            return value != fieldId;
+        });
+    }
     $.ajax({
         url: "/moveField/"+fieldId,
         type: "get",

@@ -55,7 +55,8 @@ class StructureService
         $formData = $this->formBuilderService->getFormById($formId);
         $fieldsData = $this->structureRepository->getFormAttributes($formId);
         $fieldsHierarchicalData = $this->buildTree($fieldsData);
-        return $this->hemlGenerator($formData, $fieldsHierarchicalData);
+        $htmlOutput = $this->hemlGenerator($formData, $fieldsHierarchicalData);
+        return $htmlOutput;
     }
     
     /**
@@ -105,6 +106,7 @@ class StructureService
                     }
                 }
             } else {
+                $optionsData = array();
                 $formHtmlDesign .= HtmlGenerator::htmlInput($field[$i], $optionsData);
             }
             if( (($i+1)%3 == 0)){

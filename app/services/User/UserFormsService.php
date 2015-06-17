@@ -96,6 +96,7 @@ class UserFormsService
                     }
                 }
             } else {
+                $optionsData = array();
                 $formHtmlDesign .= UserFormHtmlGenerator::htmlInput($field[$i], $optionsData);
             }
             if( (($i+1)%3 == 0)){

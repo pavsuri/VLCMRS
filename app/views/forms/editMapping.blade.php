@@ -3,6 +3,10 @@
 @section('title')Create Form @endsection
 
 @section('content')
+<script>
+    var fieldListArr = [0];
+    var count = 0;
+</script>
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 title-content">
         <div class="cms-page-title">
@@ -91,6 +95,7 @@
                 if (isset($data['mappedFields'])) {
                     foreach ($data['mappedFields'] as $key => $value) {
                         ?>
+                <script>pageLoad({{{$key}}});</script>
                         <div class="cms-add-fields" id="div-right-{{{$key}}}">
                             <input type="text"  value="{{{$value}}}" name="allFields[{{{$key}}}]" readonly >
                             <a onclick="removeField({{{$key}}})" value=><img src="images/cross.png" alt="Remove"/></a>
@@ -248,6 +253,16 @@
         </div>
     </div>
 </div>
+<script>
+</script>
 @endsection
 
+<script>
+function pageLoad(fieldId, fieldType)
+{
+    fieldListArr[count] = fieldId;
+    count = count+1;
+}
+
+</script>
 

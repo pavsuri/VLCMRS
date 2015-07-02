@@ -31,5 +31,23 @@ class ServicesServiceProvider extends ServiceProvider
       $this->app->bind(
         'services\StructureService'
       );
+      
+      $this->app->bind(
+        'services\User\UserFormsService'
+      );
+      
+      $this->app->bind(
+        'services\User\FormValuesService'
+      );
+      
+      $this->app->bind(
+        'services\FormListService'
+      );
+      
+      $this->app->bind(
+        'services\AssignedFormsService'
+      );
+      
+      
     }
 }

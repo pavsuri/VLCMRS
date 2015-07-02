@@ -35,6 +35,8 @@ class FormRepository extends AbstractBaseRepository
                                 ->orderBy('forms.name', 'asc')
                                 ->select ('form_types.*', new \Illuminate\Database\Query\Expression('count(forms.id) as total'))
                                 ->groupBy('forms.type_id')
+                                ->where('forms.status','=','active')    
+                                ->groupBy('form_types.id')
                                 ->get()
         );
         return $results;

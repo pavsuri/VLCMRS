@@ -25,6 +25,21 @@ class RepositoriesServiceProvider extends ServiceProvider {
     $this->app->bind(
       'repositories\FieldGroupsRepository'
     );
+    
+    // UserForms Repository
+    $this->app->bind(
+      'repositories\User\UserFormRepository'
+    );
+    
+    // FormValues Repository
+    $this->app->bind(
+      'repositories\User\FormValuesRepository'
+    );
+    
+    // FormValues Repository
+    $this->app->bind(
+      'repositories\AssignedFormsRepository'
+    );
   }
 
 }

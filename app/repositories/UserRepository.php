@@ -45,5 +45,15 @@ class UserRepository extends AbstractBaseRepository
                         $this->load('roles')->find($id)
         );
     }
+    
+    public function getUsers() 
+    {
+        $results = $this->build(
+                        $this->model->select ('id','name')
+                                    ->where('is_active', 1)
+                                    ->get()
+        );
+        return $results;        
+    }
 
 }

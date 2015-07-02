@@ -19,7 +19,7 @@
                     <label for="select-form" class="col-xs-12 col-sm-3 col-md-3 col-lg-3 control-label">Select Field</label>
                     <div class="col-xs-12 col-sm-8 col-md-7 col-lg-7">
                         <select class="selectpicker"  id="fieldId" data-style="btn-inverse" onchange="getAttributesByField(this.value);"> 
-                            <option>Select Field</option>
+                            <option value="">Select Field</option>
                             @foreach($fieldTypes as $field) {
                             <option value="{{{$field->id}}}">{{{$field->name}}}</option>
                             @endforeach

@@ -101,7 +101,11 @@ class FormBuilderService
      */
     public function getFormsByType()
     {
+
         return $formData = $this->formReposiroty->getFormsByType();
+         $formData = $this->formReposiroty->getFormsByType();         
+        return $formData;
+
     }
     
     /**
@@ -111,7 +115,7 @@ class FormBuilderService
      * @return Array
      */
     public function listFormsByTypeId($formTypeId = '')
-    {
+    {   
         return $formList = $this->formReposiroty->listFormsByTypeId($formTypeId);
     }
         

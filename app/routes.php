@@ -151,4 +151,21 @@ Route::group(array('before' => 'auth'), function(){
     
     
     Route::get('/', 'SignInController@index');
+    
+    //users list
+    Route::get('/userForms', [        
+        'uses' => 'FormBuilderController@userForms'
+    ]);
+    
+    //Asigning forms to perticular user
+    Route::get('/categoryTree/{userId}', [        
+        'uses' => 'FormController@categoryTree'
+    ]);  
+    
+    //Assigning Forms
+    Route::post('/categoryTreeSave', [
+        'as' => 'categoryTreeSave',
+        'uses' => 'AssignedFormsController@categoryTreeSave'
+    ]);
+    
 });

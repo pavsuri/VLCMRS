@@ -116,7 +116,7 @@ class StructureController extends BaseController
         $formLocation = Input::get('edit_form_id');
         Session::put('formMappedFields', $fields);
         $fields = array_keys($fields);
-        if ($formLocation == 1) {
+        if ($formLocation == 1) {echo "1";
             /**
              * Update Form Fields
              * Maintain Versioning. Create New form with Same name and change old form to inactive.
@@ -129,7 +129,7 @@ class StructureController extends BaseController
             $formAttributesData = $this->structureService->getFormAttributes($newFormId);
             $formName = $this->formBuilderService->getFormById($newFormId);
             return View::make('forms.updateFormPreview',array('formData'=>$formAttributesData, 'formProfile' =>$formName));
-        } else {//While create new form
+        } else {echo "2"; //While create new form
             //Delete all the form attributes
             $this->structureService->clearAllFields($formId);
             $this->structureService->mapFieldsToForm($formId, $fields);

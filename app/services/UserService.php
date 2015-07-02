@@ -48,4 +48,9 @@ class UserService
         return Redirect::to('/');
     }
 
+    public function getusers()
+    {
+         $formData = $this->repo->getusers();         
+         return $formData;
+    }    
 }

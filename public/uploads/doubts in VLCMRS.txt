@@ -1,0 +1,36 @@
+services, resposatries, routers, models, views, controllers, config, db
+
+AttributeBuilderController, AttributeBuilderService, AttributeBuilderRepository, AttributeGenerator(model)
+
+
+For virtual host settings : 
+step1: httpd file change these settings
+
+DocumentRoot "D:/xampp/htdocs/"
+<Directory "D:/xampp/htdocs/">
+
+step2: C:\Windows\System32\drivers\etc\hosts 
+# localhost name resolution is handled within DNS itself.   **********************127.0.0.1 is nothing but localhost***********
+
+	127.0.0.1       local.coliban (uncomment this and run in browser as this ex: http://local.coliban) ------------change
+	127.0.0.1       local.rp1 (uncomment this and run in browser as this ex: http://local.coliban)
+#	::1             localhost
+
+step3: D:\xampp\apache\conf\extra\vhostfile
+<VirtualHost *:80> (create new one once again)
+    ServerAdmin webmaster@dummy-host2.example.com
+    DocumentRoot "D:/xampp/htdocs/coliban"  ----------------change
+    ServerName local.coliban  -------------------change
+    ErrorLog "logs/dummy-host2.example.com-error.log"
+    CustomLog "logs/dummy-host2.example.com-access.log" common
+</VirtualHost>
+
+<VirtualHost *:80> (create new one once again)
+    ServerAdmin webmaster@dummy-host2.example.com
+    DocumentRoot "D:/xampp/htdocs/rp1"
+    ServerName local.rp1
+    ErrorLog "logs/dummy-host2.example.com-error.log"
+    CustomLog "logs/dummy-host2.example.com-access.log" common
+</VirtualHost>
+
+

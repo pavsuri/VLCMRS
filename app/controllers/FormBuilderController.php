@@ -5,6 +5,7 @@ use services\FieldTypesService;
 use services\AttributeBuilderService;
 use services\StructureService;
 use services\FormTypesService;
+use services\UserService;
 use Illuminate\Support\Facades\Session;
 
 class FormBuilderController extends \BaseController 
@@ -44,6 +45,9 @@ class FormBuilderController extends \BaseController
      */
     private $formTypesService;
     
+    
+    private $userService;
+    
     /**
      * Constructor 
      * 
@@ -59,7 +63,8 @@ class FormBuilderController extends \BaseController
                                 FieldTypesService $fieldTypesService, 
                                 AttributeBuilderService $attributeBuilderService, 
                                 StructureService $structureService,
-                                FormTypesService $formTypesService
+                                FormTypesService $formTypesService,
+                                UserService $userService
                                 ) 
     {
         $this->formBuilderService = $formBuilderService;
@@ -67,6 +72,7 @@ class FormBuilderController extends \BaseController
         $this->attributeBuilderService = $attributeBuilderService;
         $this->structureService = $structureService;
         $this->formTypesService = $formTypesService;
+        $this->userService = $userService;
     }
 
     /**
@@ -114,7 +120,7 @@ class FormBuilderController extends \BaseController
         $fieldsLibrary = $this->attributeBuilderService->getAttributesByField();
         $formTypes = $this->formTypesService->getFormTypes();
         $fieldTyps = $this->fieldTypesService->getAllFields();
-        $data = array('formName'=>$name, 'formType' => $typeId, 'formId' => $formId, 'fieldsLibrary' => $fieldsLibrary, 'fieldTypes' => $fieldTyps);
+        $data = array('formName'=>$name, 'formType' => $typeId, 'formId' => $formId, 'fieldsLibrary' => $fieldsLibrary, 'fieldTypes' => $fieldTyps);                
         return View::make('forms.addFieldsToForm', array('data' => $data, 'formTypes' => $formTypes));
         //}
     }
@@ -165,6 +171,7 @@ class FormBuilderController extends \BaseController
     public function dashboard()
     {
         $formTypesCount = $this->formBuilderService->getFormsByType();
+        //echo "<pre>";print_r($formTypesCount); exit;
         return View::make('dashboard', array('forms' => $formTypesCount));
     }
     
@@ -223,7 +230,7 @@ class FormBuilderController extends \BaseController
      * View Forms
      */
     public function viewForms()
-    {
+    {   
         $formsData = $this->formBuilderService->listFormsByTypeId();
         return View::make('forms.viewForms', array('formsData' => $formsData));
     }
@@ -240,4 +247,13 @@ class FormBuilderController extends \BaseController
             return 0;
         }
     }
+    
+    
+    public function userForms()
+    {
+       $users = $this->userService->getUsers();             
+        //echo "<pre>";print_r($users); exit;
+       return View::make('forms.userForms', array('users' => $users));
+    }
+    
 }

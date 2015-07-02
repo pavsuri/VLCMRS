@@ -159,6 +159,8 @@ function fieldLibraryTemplate(fields)
         response += '<div class="cms-add-fields" id="div-left-'+fields[i].id+'">\n\
                     <input type="text" value="'+fields[i].name+'" readonly title="'+fields[i].fieldType+'">\n\
                     <a onclick="moveField('+fields[i].id+')" value=><img src="images/add.png" alt="add"/></a>\n\
+                    <input type="text" value="'+fields[i].name+'" title="'+fields[i].fieldType+'">\n\
+                    <a onclick="moveField('+fields[i].id+', "'+fields[i].fieldType+'")" value=><img src="images/add.png" alt="add"/></a>\n\
                     <div class="clearfix"></div>\n\
                     </div>';
     }
@@ -182,7 +184,7 @@ function formFieldsTemplate(field)
     field = field[0];
     var response= '';
     response += '<div class="cms-add-fields" id="div-right-'+field.fieldId+'">\n\
-                    <input type="text" value="'+field.fieldName+'" name="allFields['+field.fieldId+']" readonly title="'+field.fieldType+'">\n\
+                    <input type="text" value="'+field.fieldName+'" name="allFields['+field.fieldId+']" title="'+field.fieldType+'">\n\
                     <a onclick="removeField('+field.fieldId+')" value=><img src="images/cross.png" alt="Remove"/></a>\n\
                     <div class="clearfix"></div>\n\
                     </div>';
@@ -210,6 +212,8 @@ function addFieldtoFieldLibrary(field)
     response += '<div class="cms-add-fields" id="div-left-'+field.fieldId+'">\n\
                     <input type="text" value="'+field.fieldName+'" readonly title="'+field.fieldType+'">\n\
                     <a onclick="moveField('+field.fieldId+')" value=><img src="images/add.png" alt="add"/></a>\n\
+                    <input type="text" value="'+field.fieldName+'" title="'+field.fieldType+'">\n\
+                    <a onclick="moveField('+field.fieldId+', \''+field.fieldType+'\')" value=><img src="images/add.png" alt="add"/></a>\n\
                     <div class="clearfix"></div>\n\
                     </div>';
     $('#fieldLibrary').append(response);
@@ -268,11 +272,12 @@ function getForm(formId)
      $.ajax({
         url: "/preview/"+formId,
         type: "get",
-        success: function (data) {
+        success: function (data) {//alert(data);
             getFormName(formId);
             $('#form_data').html(data);
             $('#form-data').removeAttr('style');
             $('#formEditId').val(formId);
+            $('#formSubmitId').val(formId);
         }
     });
 }
@@ -338,7 +343,7 @@ function createFieldsValidate()
 
 //Get Attributes by Field type
 function getAttributesByField(typeId)
-{
+{//alert(typeId);
     $.ajax({
         url: "/searchFieldLibrary",
         type: "post",
@@ -453,3 +458,15 @@ function updateField()
         }
     });
 }
+
+function getUserFormsList(userId)
+{
+    $.ajax({
+        url: "/categoryTree/"+userId,
+        type: "get",
+        success: function (data) {//alert(data);
+            $('#category_tree').html(data);           
+        }
+    });
+}
+

@@ -41,6 +41,15 @@
                     </span>
                 </a>
             </li>
+            
+            <li>
+                <a href="/userForms">
+                    <span class="menu-icon create-field">
+                        <span class="menu-text">User Forms</span>
+                    </span>
+                </a>
+            </li>
+            
         </ul>
     </div>
 </div>
